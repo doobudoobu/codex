@@ -212,8 +212,11 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
 
 /* ─── Collection header ─── */
 .collection-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 26px; flex-wrap: wrap; gap: 16px; }
-.collection-header-left { display: flex; flex-direction: column; gap: 10px; }
-.filters-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.collection-header-left { display: flex; flex-direction: column; gap: 10px; max-width: calc(100vw - 180px); }
+.filters-row { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding-bottom: 2px; flex-wrap: nowrap; scrollbar-width: none; }
+.filters-row::-webkit-scrollbar { display: none; }
+/* Type and status rows can wrap since they're short; genre row scrolls */
+.filters-row.wrap { flex-wrap: wrap; overflow-x: visible; }
 .filter-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; margin-right: 2px; white-space: nowrap; }
 .filter-chip { padding: 5px 14px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; text-transform: uppercase; white-space: nowrap; height: auto; }
 .filter-chip:hover { border-color: var(--text-dim); color: var(--text-mid); }
@@ -284,9 +287,15 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
 .card-genres { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
 .card-status { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
 .card-progress { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--mint); letter-spacing: 0.1em; margin-top: 3px; }
-.card-franchise { margin-top: 5px; }
 .card-seasons { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blush); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.85; }
-.card-airing { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--periwink); letter-spacing: 0.08em; margin-top: 4px; line-height: 1.4; }
+
+/* Franchise tag sits BELOW the card, outside the hover overlay */
+.card-franchise-caption {
+  padding: 5px 10px 6px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  position: relative; z-index: 10;
+}
 
 .card-overlay { position: absolute; inset: 0; background: rgba(26,23,32,0.88); opacity: 0; transition: opacity 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; backdrop-filter: blur(4px); }
 .overlay-btn { width: 100%; padding: 8px; font-size: 11px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
@@ -515,7 +524,7 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
 
   <div class="collection-header">
     <div class="collection-header-left">
-      <div class="filters-row">
+      <div class="filters-row wrap">
         <span class="filter-label">✦ Type:</span>
         <span class="filter-chip active" data-type="all"   onclick="setTypeFilter('all')">All</span>
         <span class="filter-chip" data-type="anime"        onclick="setTypeFilter('anime')">Anime</span>
@@ -524,7 +533,7 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
         <span class="filter-chip" data-type="movie"        onclick="setTypeFilter('movie')">Movies</span>
         <span class="filter-chip" data-type="game"         onclick="setTypeFilter('game')">Games</span>
       </div>
-      <div class="filters-row">
+      <div class="filters-row wrap">
         <span class="filter-label">★ Status:</span>
         <span class="filter-chip active" data-status="all"       onclick="setStatusFilter('all')">All</span>
         <span class="filter-chip" data-status="watching"         onclick="setStatusFilter('watching')">In Progress</span>
@@ -533,9 +542,9 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
         <span class="filter-chip" data-status="dropped"          onclick="setStatusFilter('dropped')">Dropped</span>
       </div>
       <div class="filters-row" id="genre-filter-row" style="display:none">
-        <span class="filter-label">◈ Genre:</span>
-        <span class="filter-chip genre-filter active" data-genre="all" onclick="setGenreFilter('all')">All</span>
-        <span id="genre-filter-chips"></span>
+        <span class="filter-label" style="flex-shrink:0">◈ Genre:</span>
+        <span class="filter-chip genre-filter active" data-genre="all" onclick="setGenreFilter('all')" style="flex-shrink:0">All</span>
+        <span id="genre-filter-chips" style="display:contents"></span>
       </div>
       <div id="franchise-filter-bar" style="display:none">
         <div class="franchise-filter-bar">
@@ -574,7 +583,6 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
         <div id="modal-stars"    class="modal-stars"></div>
         <div id="modal-status"   class="modal-status-tag"></div>
         <div id="modal-progress" class="modal-progress"   style="display:none"></div>
-        <div id="modal-airing"   class="modal-airing"     style="display:none"></div>
         <div id="modal-franchise"class="modal-franchise"  style="display:none"></div>
         <div id="modal-genres"   class="modal-genres"></div>
         <p   id="modal-desc"     class="modal-desc"></p>
@@ -753,19 +761,6 @@ function coverImg(src, cssClass, alt='') {
   return `<img src="${src}" class="${cssClass}" alt="${alt}" loading="lazy">`;
 }
 
-// Format airing countdown
-function airingText(nextAiring) {
-  if (!nextAiring) return null;
-  const now     = Math.floor(Date.now() / 1000);
-  const secsLeft = nextAiring.timeUntilAiring;
-  const ep       = nextAiring.episode;
-  if (secsLeft < 0) return null;
-  const days  = Math.floor(secsLeft / 86400);
-  const hours = Math.floor((secsLeft % 86400) / 3600);
-  let timeStr = days > 0 ? `${days}d ${hours}h` : `${hours}h`;
-  return `Ep ${ep} in ${timeStr}`;
-}
-
 // ─── Genre & Filter bars ──────────────────────────────────
 function getAllGenres() {
   const s = new Set();
@@ -776,16 +771,20 @@ function getAllGenres() {
 function updateGenreFilterBar() {
   const genres = getAllGenres();
   const row    = document.getElementById('genre-filter-row');
-  const chips  = document.getElementById('genre-filter-chips');
   if (!genres.length) { row.style.display = 'none'; return; }
   row.style.display = 'flex';
-  chips.innerHTML = '';
+
+  // Remove old genre chips (keep the label and All chip)
+  row.querySelectorAll('.genre-filter:not([data-genre="all"])').forEach(el => el.remove());
+
   genres.forEach(g => {
     const el = document.createElement('span');
     el.className = 'filter-chip genre-filter' + (currentGenreFilter === g ? ' active' : '');
-    el.dataset.genre = g; el.textContent = g;
+    el.dataset.genre = g;
+    el.textContent = g;
+    el.style.flexShrink = '0';
     el.onclick = () => setGenreFilter(g);
-    chips.appendChild(el);
+    row.appendChild(el);
   });
 }
 
@@ -923,7 +922,6 @@ async function searchAniList(q, type) {
       media(search: $s, type: $t) {
         id title { romaji english } coverImage { large }
         description(asHtml: false) startDate { year } genres episodes
-        status nextAiringEpisode { episode timeUntilAiring }
       }
     }
   }`;
@@ -934,16 +932,14 @@ async function searchAniList(q, type) {
   });
   const data = await res.json();
   return data.data.Page.media.map(m => ({
-    id:           String(m.id),
-    title:        m.title.english || m.title.romaji,
-    cover:        m.coverImage.large,
-    description:  (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
-    year:         m.startDate?.year || '',
-    type:         'anime',
-    genres:       (m.genres||[]).slice(0,7),
-    extra:        m.episodes ? `${m.episodes} eps` : '',
-    airingStatus: m.status,
-    nextAiring:   m.nextAiringEpisode || null
+    id:          String(m.id),
+    title:       m.title.english || m.title.romaji,
+    cover:       m.coverImage.large,
+    description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
+    year:        m.startDate?.year || '',
+    type:        'anime',
+    genres:      (m.genres||[]).slice(0,7),
+    extra:       m.episodes ? `${m.episodes} eps` : ''
   }));
 }
 
@@ -968,16 +964,14 @@ async function searchMangaAL(q) {
     const origin  = m.countryOfOrigin || 'JP';
     const subtype = origin === 'KR' ? 'Manhwa' : origin === 'CN' ? 'Manhua' : 'Manga';
     return {
-      id:           String(m.id),
-      title:        m.title.english || m.title.romaji,
-      cover:        m.coverImage.large,
-      description:  (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
-      year:         m.startDate?.year || '',
-      type:         'manga',
-      genres:       (m.genres||[]).slice(0,7),
-      extra:        subtype,
-      airingStatus: m.status,
-      nextAiring:   null
+      id:          String(m.id),
+      title:       m.title.english || m.title.romaji,
+      cover:       m.coverImage.large,
+      description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
+      year:        m.startDate?.year || '',
+      type:        'manga',
+      genres:      (m.genres||[]).slice(0,7),
+      extra:       subtype
     };
   });
 }
@@ -999,8 +993,7 @@ async function searchTMDB(q, mediaType) {
     year:        (r.first_air_date||r.release_date||'').slice(0,4),
     type:        mediaType,
     genres:      (r.genre_ids||[]).map(id=>genreMap[id]).filter(Boolean).slice(0,6),
-    extra:       '',
-    airingStatus: null, nextAiring: null
+    extra:       ''
   }));
 }
 
@@ -1030,8 +1023,7 @@ async function searchRAWG(q) {
     year:        g.released ? g.released.slice(0,4) : '',
     type:        'game',
     genres:      (g.genres||[]).map(x=>x.name).slice(0,6),
-    extra:       (g.genres||[]).map(x=>x.name).slice(0,2).join(', '),
-    airingStatus: null, nextAiring: null
+    extra:       (g.genres||[]).map(x=>x.name).slice(0,2).join(', ')
   }));
 }
 
@@ -1127,8 +1119,6 @@ function addEntry() {
     review:      document.getElementById('review-text').value.trim(),
     progress:    document.getElementById('add-progress').value.trim(),
     franchise:   document.getElementById('add-franchise').value.trim(),
-    airingStatus: selectedResult.airingStatus || null,
-    nextAiring:   selectedResult.nextAiring   || null,
     addedAt:     Date.now()
   });
   save(); updateStats(); updateGenreFilterBar(); renderGrid();
@@ -1256,9 +1246,7 @@ function renderGrid() {
   }
 
   items.forEach(entry => {
-    const genreTags  = (entry.genres||[]).slice(0,4).map(g=>`<span class="genre-tag">${g}</span>`).join('');
-    const airing     = airingText(entry.nextAiring);
-    const isOngoing  = entry.airingStatus === 'RELEASING';
+    const genreTags = (entry.genres||[]).slice(0,4).map(g=>`<span class="genre-tag">${g}</span>`).join('');
 
     const card = document.createElement('div');
     card.className = 'media-card';
@@ -1276,9 +1264,8 @@ function renderGrid() {
         ${genreTags ? `<div class="card-genres">${genreTags}</div>` : ''}
         <div class="card-status">${statusLabel(entry.status, entry.type)}</div>
         ${entry.status === 'watching' && entry.progress ? `<div class="card-progress">↳ ${entry.progress}</div>` : ''}
-        ${airing ? `<div class="card-airing">✦ ${airing}</div>` : isOngoing && entry.type !== 'anime' ? `<div class="card-airing">✦ Ongoing</div>` : ''}
-        ${entry.franchise ? `<div class="card-franchise"><span class="franchise-tag" onclick="setFranchiseFilter('${entry.franchise.replace(/'/g,"\\'")}', event)">◈ ${entry.franchise}</span></div>` : ''}
       </div>
+      ${entry.franchise ? `<div class="card-franchise-caption"><span class="franchise-tag" onclick="event.stopPropagation();setFranchiseFilter('${entry.franchise.replace(/'/g,"\\'")}')">◈ ${entry.franchise}</span></div>` : ''}
       <div class="card-overlay">
         <button class="overlay-btn view" onclick="openModal(${entry.id},event)">View Details</button>
         <button class="overlay-btn edit" onclick="openEdit(${entry.id},event)">Edit</button>
@@ -1304,13 +1291,6 @@ function openModal(id, e) {
   const progEl = document.getElementById('modal-progress');
   if (entry.status === 'watching' && entry.progress) { progEl.textContent = '↳ '+entry.progress; progEl.style.display='block'; }
   else { progEl.style.display='none'; }
-
-  const airingEl = document.getElementById('modal-airing');
-  const airingStr = airingText(entry.nextAiring);
-  const isOngoing = entry.airingStatus === 'RELEASING';
-  if (airingStr) { airingEl.textContent = '✦ Next: '+airingStr; airingEl.style.display='block'; }
-  else if (isOngoing) { airingEl.textContent = '✦ Ongoing'; airingEl.style.display='block'; }
-  else { airingEl.style.display='none'; }
 
   const franEl = document.getElementById('modal-franchise');
   if (entry.franchise) { franEl.textContent = '◈ '+entry.franchise; franEl.style.display='block'; }
