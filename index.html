@@ -1403,9 +1403,9 @@ function scrollToLetter(ch) {
     const first = key[0]?.toUpperCase() || '#';
     const match = ch === '#' ? !/[A-Z]/.test(first) : first === ch;
     if (match) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Offset for sticky header
-      setTimeout(() => window.scrollBy({ top: -90, behavior: 'smooth' }), 50);
+      const headerH = document.querySelector('header')?.offsetHeight || 80;
+      const top     = card.getBoundingClientRect().top + window.scrollY - headerH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
       break;
     }
   }
