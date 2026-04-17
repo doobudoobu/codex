@@ -6,45 +6,45 @@
 <title>☽ CODEX — Media Archive ☾</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
+/* ─── PASTE YOUR TMDB API KEY HERE ─────────────────────────
+   Find this at: themoviedb.org → Settings → API
+   Replace the empty string below with your key.
+   ───────────────────────────────────────────────────────── */
+
 :root {
-  --bg:        #1a1720;
-  --surface:   #221f2b;
-  --surface2:  #2a2637;
-  --surface3:  #312d3f;
-  --border:    #3d3750;
-  --lav:       #c4a8e8;
-  --blush:     #f0b8cc;
-  --mint:      #a8ddc8;
-  --periwink:  #a8b8f0;
-  --butter:    #f0e0a8;
-  --lilac:     #d8b8f0;
-  --peach:     #f5c8a8;
-  --rose:      #e8a8b8;
-  --text:      #ede8f5;
-  --text-mid:  #b0a8c8;
-  --text-dim:  #6a6080;
-  --anime:     #f0b8cc;
-  --manga:     #a8ddc8;
-  --manhwa:    #f5c8a8;
-  --manhua:    #c8a8e0;
-  --game:      #a8b8f0;
-  --danger:    #e89898;
+  --bg:       #1a1720;
+  --surface:  #221f2b;
+  --surface2: #2a2637;
+  --surface3: #312d3f;
+  --border:   #3d3750;
+  --lav:      #c4a8e8;
+  --blush:    #f0b8cc;
+  --mint:     #a8ddc8;
+  --periwink: #a8b8f0;
+  --butter:   #f0e0a8;
+  --lilac:    #d8b8f0;
+  --peach:    #f5c8a8;
+  --text:     #ede8f5;
+  --text-mid: #b0a8c8;
+  --text-dim: #6a6080;
+  --anime:    #f0b8cc;
+  --manga:    #a8ddc8;
+  --tv:       #f5c8a8;
+  --movie:    #c8a8e0;
+  --game:     #a8b8f0;
+  --danger:   #e89898;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg); color: var(--text);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 17px;
-  line-height: 1.65;
-  min-height: 100vh;
+  font-size: 17px; line-height: 1.65; min-height: 100vh;
 }
 
 body::before {
-  content: '';
-  position: fixed; inset: 0;
+  content: ''; position: fixed; inset: 0;
   background:
     radial-gradient(ellipse 60% 40% at 15% 10%, rgba(196,168,232,0.07) 0%, transparent 70%),
     radial-gradient(ellipse 50% 35% at 85% 80%, rgba(240,184,204,0.06) 0%, transparent 70%),
@@ -53,8 +53,7 @@ body::before {
 }
 
 body::after {
-  content: '';
-  position: fixed; inset: 0;
+  content: ''; position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none; z-index: 1; opacity: 0.5;
 }
@@ -62,221 +61,143 @@ body::after {
 /* ─── Header ─── */
 header {
   position: sticky; top: 0; z-index: 200;
-  background: rgba(26,23,32,0.9);
-  backdrop-filter: blur(16px);
+  background: rgba(26,23,32,0.9); backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  padding: 0 48px; height: 72px;
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; min-height: 72px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
 }
 
 header::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--lav), var(--blush), var(--manhwa), var(--manhua), var(--mint), transparent);
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), transparent);
   opacity: 0.45;
 }
 
-.logo { display: flex; align-items: baseline; gap: 12px; }
+.logo { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; }
+.logo-title { font-family: 'UnifrakturMaguntia', cursive; font-size: 26px; color: var(--lav); letter-spacing: 0.04em; text-shadow: 0 0 22px rgba(196,168,232,0.38); line-height: 1; }
+.logo-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.3em; text-transform: uppercase; }
 
-.logo-title {
-  font-family: 'UnifrakturMaguntia', cursive;
-  font-size: 26px; color: var(--lav); letter-spacing: 0.04em;
-  text-shadow: 0 0 22px rgba(196,168,232,0.38); line-height: 1;
-}
-
-.logo-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 0.3em; text-transform: uppercase;
-}
-
+.header-right { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 12px 0; }
 .header-stats { display: flex; gap: 20px; flex-wrap: wrap; }
 
-.stat-item {
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1;
-}
+.stat-item { text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1; }
+.stat-item strong { display: block; font-size: 19px; font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0; margin-bottom: 4px; }
+.stat-item.s-total  strong { color: var(--lav); }
+.stat-item.s-anime  strong { color: var(--anime); }
+.stat-item.s-manga  strong { color: var(--manga); }
+.stat-item.s-tv     strong { color: var(--tv); }
+.stat-item.s-movie  strong { color: var(--movie); }
+.stat-item.s-game   strong { color: var(--game); }
 
-.stat-item strong {
-  display: block; font-size: 19px;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; letter-spacing: 0; margin-bottom: 4px;
-}
-
-.stat-item.s-total   strong { color: var(--lav); }
-.stat-item.s-anime   strong { color: var(--anime); }
-.stat-item.s-manga   strong { color: var(--manga); }
-.stat-item.s-manhwa  strong { color: var(--manhwa); }
-.stat-item.s-manhua  strong { color: var(--manhua); }
-.stat-item.s-game    strong { color: var(--game); }
+/* ─── Sync controls ─── */
+.sync-controls { display: flex; align-items: center; gap: 8px; }
+.btn-sync { background: rgba(168,221,200,0.1); border: 1px solid rgba(168,221,200,0.32); color: var(--mint); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 14px; cursor: pointer; border-radius: 1px; transition: all 0.2s; height: 32px; white-space: nowrap; }
+.btn-sync:hover { background: rgba(168,221,200,0.2); box-shadow: 0 0 14px rgba(168,221,200,0.15); }
+.btn-sync:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-sync.pushing { border-color: rgba(240,224,168,0.4); color: var(--butter); background: rgba(240,224,168,0.08); }
+.btn-sync.success { border-color: rgba(168,221,200,0.6); color: var(--mint); }
+.btn-sync.error   { border-color: rgba(232,152,152,0.5); color: var(--danger); background: rgba(232,152,152,0.08); }
+.btn-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-size: 14px; letter-spacing: 0; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 1px; transition: all 0.2s; text-transform: none; }
+.btn-settings:hover { border-color: var(--lav); color: var(--lav); }
+.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.3s; }
+.sync-dot.synced   { background: var(--mint); box-shadow: 0 0 6px rgba(168,221,200,0.5); }
+.sync-dot.unsynced { background: var(--butter); box-shadow: 0 0 6px rgba(240,224,168,0.4); }
+.sync-dot.error    { background: var(--danger); }
 
 /* ─── Main ─── */
-main {
-  position: relative; z-index: 2;
-  max-width: 1380px; margin: 0 auto;
-  padding: 44px 48px 80px;
-}
+main { position: relative; z-index: 2; max-width: 1380px; margin: 0 auto; padding: 44px 48px 80px; }
 
 /* ─── Add Section ─── */
-.add-section {
-  background: var(--surface);
-  border: 1px solid var(--border); border-radius: 2px;
-  padding: 32px 36px; margin-bottom: 52px;
-  position: relative; overflow: hidden;
+.add-section { background: var(--surface); border: 1px solid var(--border); border-radius: 2px; padding: 32px 36px; margin-bottom: 52px; position: relative; overflow: visible; }
+.add-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), var(--periwink)); opacity: 0.55; border-radius: 2px 2px 0 0; }
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.35em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 22px; }
+
+.search-row { display: grid; grid-template-columns: 1fr 180px 130px; gap: 10px; align-items: end; }
+.field-group { display: flex; flex-direction: column; gap: 7px; position: relative; }
+
+label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
+
+input[type="text"], input[type="password"], select, textarea {
+  background: var(--bg); border: 1px solid var(--border); color: var(--text);
+  padding: 9px 13px; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+  outline: none; border-radius: 1px; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
 }
-
-.add-section::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--lav), var(--blush), var(--manhwa), var(--manhua), var(--mint), var(--periwink));
-  opacity: 0.55;
-}
-
-.section-label {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.35em; color: var(--text-dim);
-  text-transform: uppercase; margin-bottom: 22px;
-}
-
-.search-row {
-  display: grid;
-  grid-template-columns: 1fr 180px 130px;
-  gap: 10px; align-items: end;
-}
-
-.field-group { display: flex; flex-direction: column; gap: 7px; }
-
-label {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase;
-}
-
-input[type="text"], select, textarea {
-  background: var(--bg); border: 1px solid var(--border);
-  color: var(--text); padding: 9px 13px;
-  font-family: 'Cormorant Garamond', serif; font-size: 16px;
-  outline: none; border-radius: 1px;
-  transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
-}
-
-input[type="text"]:focus, select:focus, textarea:focus {
-  border-color: var(--lav);
-  box-shadow: 0 0 0 2px rgba(196,168,232,0.11);
-}
-
+input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus { border-color: var(--lav); box-shadow: 0 0 0 2px rgba(196,168,232,0.11); }
 input::placeholder { color: var(--text-dim); font-style: italic; }
 textarea { resize: vertical; min-height: 82px; }
-
-select {
-  cursor: pointer; appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 11px center; padding-right: 32px;
-}
-
+select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; padding-right: 32px; }
 select option { background: var(--surface2); }
 
-button {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 9px 20px; cursor: pointer;
-  border: 1px solid transparent; border-radius: 1px;
-  transition: all 0.2s; height: 40px; white-space: nowrap;
-}
-
-.btn-search {
-  background: rgba(196,168,232,0.1);
-  border-color: rgba(196,168,232,0.32); color: var(--lav);
-}
+button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border: 1px solid transparent; border-radius: 1px; transition: all 0.2s; height: 40px; white-space: nowrap; }
+.btn-search { background: rgba(196,168,232,0.1); border-color: rgba(196,168,232,0.32); color: var(--lav); }
 .btn-search:hover { background: rgba(196,168,232,0.2); box-shadow: 0 0 16px rgba(196,168,232,0.14); }
-
-.btn-add {
-  background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14));
-  border-color: rgba(196,168,232,0.45); color: var(--lav);
-}
+.btn-add { background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14)); border-color: rgba(196,168,232,0.45); color: var(--lav); }
 .btn-add:hover { background: linear-gradient(135deg, rgba(196,168,232,0.28), rgba(240,184,204,0.22)); box-shadow: 0 0 20px rgba(196,168,232,0.18); }
 .btn-add:disabled { opacity: 0.35; cursor: not-allowed; }
 
-.loading {
+/* ─── Autocomplete dropdown ─── */
+.autocomplete-wrap { position: relative; }
+
+.autocomplete-list {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: var(--surface2); border: 1px solid var(--lav);
+  border-radius: 2px; z-index: 300; max-height: 280px; overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 16px rgba(196,168,232,0.1);
+}
+
+.autocomplete-item {
   display: flex; align-items: center; gap: 10px;
-  color: var(--text-dim); font-family: 'DM Mono', monospace;
-  font-size: 11px; margin-top: 16px;
+  padding: 8px 12px; cursor: pointer;
+  transition: background 0.15s; border-bottom: 1px solid var(--border);
+}
+.autocomplete-item:last-child { border-bottom: none; }
+.autocomplete-item:hover, .autocomplete-item.active { background: rgba(196,168,232,0.1); }
+
+.ac-thumb {
+  width: 32px; height: 44px; object-fit: cover;
+  border-radius: 1px; flex-shrink: 0; background: var(--surface3);
+}
+.ac-thumb-placeholder { width: 32px; height: 44px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+.ac-info { flex: 1; min-width: 0; }
+.ac-title { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ac-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
+
+.ac-loading, .ac-empty {
+  padding: 12px; font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--text-dim); text-align: center; letter-spacing: 0.1em;
 }
 
-.spinner {
-  width: 14px; height: 14px;
-  border: 1.5px solid var(--border); border-top-color: var(--lav);
-  border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
-}
-
+/* ─── Loading / Error ─── */
+.loading { display: flex; align-items: center; gap: 10px; color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 11px; margin-top: 16px; }
+.spinner { width: 14px; height: 14px; border: 1.5px solid var(--border); border-top-color: var(--lav); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.error-msg {
-  color: var(--danger); font-family: 'DM Mono', monospace;
-  font-size: 11px; margin-top: 12px; opacity: 0.85;
-}
+.error-msg { color: var(--danger); font-family: 'DM Mono', monospace; font-size: 11px; margin-top: 12px; opacity: 0.85; }
 
 /* ─── Search Results ─── */
-.search-results {
-  margin-top: 22px;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 13px;
-}
+.search-results { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 13px; }
 
-.result-card {
-  border: 1px solid var(--border); cursor: pointer;
-  transition: all 0.22s; overflow: hidden;
-  position: relative; border-radius: 2px; background: var(--surface2);
-}
-
+.result-card { border: 1px solid var(--border); cursor: pointer; transition: all 0.22s; overflow: hidden; position: relative; border-radius: 2px; background: var(--surface2); }
 .result-card:hover { border-color: var(--lav); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(196,168,232,0.14); }
 .result-card.selected { border-color: var(--lav); box-shadow: 0 0 0 1px var(--lav), 0 8px 28px rgba(196,168,232,0.18); }
-
 .result-card img { width: 100%; height: 208px; object-fit: cover; display: block; }
 .result-card-info { padding: 8px 10px; }
 .result-card-info h4 { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
 .result-card-info small { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
+.selected-badge { position: absolute; top: 7px; right: 7px; background: var(--lav); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 9px; letter-spacing: 0.1em; border-radius: 20px; }
 
-.selected-badge {
-  position: absolute; top: 7px; right: 7px;
-  background: var(--lav); color: var(--bg);
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  padding: 2px 9px; letter-spacing: 0.1em; border-radius: 20px;
-}
-
-/* ─── Review Fields ─── */
-.review-fields {
-  margin-top: 24px; display: grid;
-  grid-template-columns: 1fr 1fr; gap: 20px;
-  padding-top: 22px; border-top: 1px solid var(--border);
-}
-
+/* ─── Review fields ─── */
+.review-fields { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding-top: 22px; border-top: 1px solid var(--border); }
 .star-row { display: flex; gap: 4px; margin-top: 7px; }
-
-.star {
-  font-size: 22px; cursor: pointer;
-  color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1;
-}
+.star { font-size: 22px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
 .star.filled { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.45); }
 .star:hover  { color: var(--butter); }
-
 .status-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
-
-.status-chip {
-  padding: 4px 13px; font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 0.1em; cursor: pointer;
-  border: 1px solid var(--border); color: var(--text-dim);
-  background: transparent; border-radius: 20px; transition: all 0.15s; white-space: nowrap;
-}
+.status-chip { padding: 4px 13px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; white-space: nowrap; }
 .status-chip.active { border-color: var(--blush); color: var(--blush); background: rgba(240,184,204,0.1); }
 
 /* ─── Genre Tags ─── */
-.genre-tag {
-  display: inline-block; padding: 2px 9px; border-radius: 20px;
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  letter-spacing: 0.07em; white-space: nowrap;
-}
-
+.genre-tag { display: inline-block; padding: 2px 9px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.07em; white-space: nowrap; }
 .genre-tag:nth-child(6n+1) { background: rgba(196,168,232,0.16); color: var(--lav);      border: 1px solid rgba(196,168,232,0.28); }
 .genre-tag:nth-child(6n+2) { background: rgba(240,184,204,0.16); color: var(--blush);    border: 1px solid rgba(240,184,204,0.28); }
 .genre-tag:nth-child(6n+3) { background: rgba(168,221,200,0.16); color: var(--mint);     border: 1px solid rgba(168,221,200,0.28); }
@@ -284,117 +205,57 @@ button {
 .genre-tag:nth-child(6n+5) { background: rgba(240,224,168,0.16); color: var(--butter);   border: 1px solid rgba(240,224,168,0.28); }
 .genre-tag:nth-child(6n+6) { background: rgba(216,184,240,0.16); color: var(--lilac);    border: 1px solid rgba(216,184,240,0.28); }
 
-/* ─── Collection Header ─── */
-.collection-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 26px; flex-wrap: wrap; gap: 16px;
-}
-
+/* ─── Collection header ─── */
+.collection-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 26px; flex-wrap: wrap; gap: 16px; }
 .collection-header-left { display: flex; flex-direction: column; gap: 12px; }
-
 .filters-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-
-.filter-label {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--text-dim); letter-spacing: 0.2em;
-  text-transform: uppercase; margin-right: 2px; white-space: nowrap;
-}
-
-.filter-chip {
-  padding: 4px 13px; font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 0.1em; cursor: pointer;
-  border: 1px solid var(--border); color: var(--text-dim);
-  background: transparent; border-radius: 20px;
-  transition: all 0.15s; text-transform: uppercase;
-  white-space: nowrap; height: auto;
-}
-
+.filter-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; margin-right: 2px; white-space: nowrap; }
+.filter-chip { padding: 4px 13px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; text-transform: uppercase; white-space: nowrap; height: auto; }
 .filter-chip:hover { border-color: var(--text-dim); color: var(--text-mid); }
-.filter-chip.active                      { color: var(--text);    border-color: var(--text-mid); background: rgba(255,255,255,0.04); }
-.filter-chip[data-type="anime"].active   { color: var(--anime);   border-color: var(--anime);   background: rgba(240,184,204,0.1); }
-.filter-chip[data-type="manga"].active   { color: var(--manga);   border-color: var(--manga);   background: rgba(168,221,200,0.1); }
-.filter-chip[data-type="manhwa"].active  { color: var(--manhwa);  border-color: var(--manhwa);  background: rgba(245,200,168,0.1); }
-.filter-chip[data-type="manhua"].active  { color: var(--manhua);  border-color: var(--manhua);  background: rgba(200,168,224,0.1); }
-.filter-chip[data-type="game"].active    { color: var(--game);    border-color: var(--game);    background: rgba(168,184,240,0.1); }
-.filter-chip.genre-filter.active         { color: var(--lav);     border-color: var(--lav);     background: rgba(196,168,232,0.1); }
-
+.filter-chip.active                    { color: var(--text);   border-color: var(--text-mid); background: rgba(255,255,255,0.04); }
+.filter-chip[data-type="anime"].active { color: var(--anime);  border-color: var(--anime);   background: rgba(240,184,204,0.1); }
+.filter-chip[data-type="manga"].active { color: var(--manga);  border-color: var(--manga);   background: rgba(168,221,200,0.1); }
+.filter-chip[data-type="tv"].active    { color: var(--tv);     border-color: var(--tv);      background: rgba(245,200,168,0.1); }
+.filter-chip[data-type="movie"].active { color: var(--movie);  border-color: var(--movie);   background: rgba(200,168,224,0.1); }
+.filter-chip[data-type="game"].active  { color: var(--game);   border-color: var(--game);    background: rgba(168,184,240,0.1); }
+.filter-chip.genre-filter.active       { color: var(--lav);    border-color: var(--lav);     background: rgba(196,168,232,0.1); }
 .collection-header-right { display: flex; align-items: center; }
-
-.sort-select {
-  background: var(--surface2); border: 1px solid var(--border);
-  color: var(--text-mid); padding: 6px 28px 6px 12px;
-  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
-  width: auto; cursor: pointer; height: 32px; border-radius: 1px;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center;
-}
+.sort-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text-mid); padding: 6px 28px 6px 12px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; width: auto; cursor: pointer; height: 32px; border-radius: 1px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
 
 /* ─── Media Grid ─── */
 .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(192px, 1fr)); gap: 22px; }
-
-.media-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 2px; overflow: hidden; position: relative;
-  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s; cursor: pointer;
-}
-
-.media-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(196,168,232,0.38);
-  box-shadow: 0 14px 44px rgba(0,0,0,0.44), 0 0 22px rgba(196,168,232,0.07);
-}
-
+.media-card { background: var(--surface); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; position: relative; transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s; cursor: pointer; }
+.media-card:hover { transform: translateY(-4px); border-color: rgba(196,168,232,0.38); box-shadow: 0 14px 44px rgba(0,0,0,0.44), 0 0 22px rgba(196,168,232,0.07); }
 .media-card:hover .card-overlay { opacity: 1; }
-
 .card-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: var(--surface2); }
-
-.card-cover-placeholder {
-  width: 100%; aspect-ratio: 2/3; background: var(--surface2);
-  display: flex; align-items: center; justify-content: center; font-size: 40px;
-}
-
+.card-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 40px; }
 .type-bar { height: 3px; width: 100%; position: absolute; top: 0; left: 0; opacity: 0.75; }
-.type-bar.anime   { background: linear-gradient(90deg, var(--blush),   var(--lilac)); }
-.type-bar.manga   { background: linear-gradient(90deg, var(--mint),    var(--periwink)); }
-.type-bar.manhwa  { background: linear-gradient(90deg, var(--manhwa),  var(--peach)); }
-.type-bar.manhua  { background: linear-gradient(90deg, var(--manhua),  var(--lav)); }
-.type-bar.game    { background: linear-gradient(90deg, var(--periwink),var(--lav)); }
-
+.type-bar.anime { background: linear-gradient(90deg, var(--blush),   var(--lilac)); }
+.type-bar.manga { background: linear-gradient(90deg, var(--mint),    var(--periwink)); }
+.type-bar.tv    { background: linear-gradient(90deg, var(--tv),      var(--peach)); }
+.type-bar.movie { background: linear-gradient(90deg, var(--movie),   var(--lav)); }
+.type-bar.game  { background: linear-gradient(90deg, var(--periwink),var(--lav)); }
 .card-body { padding: 12px 13px 13px; }
-
 .card-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-
 .card-type { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; }
-.card-type.anime   { color: var(--anime); }
-.card-type.manga   { color: var(--manga); }
-.card-type.manhwa  { color: var(--manhwa); }
-.card-type.manhua  { color: var(--manhua); }
-.card-type.game    { color: var(--game); }
-
+.card-type.anime { color: var(--anime); }
+.card-type.manga { color: var(--manga); }
+.card-type.tv    { color: var(--tv); }
+.card-type.movie { color: var(--movie); }
+.card-type.game  { color: var(--game); }
 .card-year { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
 .card-title { font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); margin-bottom: 7px; }
-
 .card-stars { font-size: 11px; margin-bottom: 7px; letter-spacing: 1.5px; }
 .card-stars .f { color: var(--butter); text-shadow: 0 0 8px rgba(240,224,168,0.38); }
 .card-stars .e { color: var(--border); }
-
 .card-genres { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
-
 .card-status { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
-
-.card-overlay {
-  position: absolute; inset: 0;
-  background: rgba(26,23,32,0.87);
-  opacity: 0; transition: opacity 0.2s;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 10px;
-  padding: 24px; backdrop-filter: blur(4px);
-}
-
-.overlay-btn { width: 100%; padding: 8px; font-size: 10px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
+.card-overlay { position: absolute; inset: 0; background: rgba(26,23,32,0.87); opacity: 0; transition: opacity 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; backdrop-filter: blur(4px); }
+.overlay-btn { width: 100%; padding: 7px; font-size: 10px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
 .overlay-btn.view { background: rgba(196,168,232,0.13); border-color: rgba(196,168,232,0.45); color: var(--lav); }
-.overlay-btn.view:hover { background: rgba(196,168,232,0.24); box-shadow: 0 0 14px rgba(196,168,232,0.18); }
+.overlay-btn.view:hover { background: rgba(196,168,232,0.24); }
+.overlay-btn.edit { background: rgba(168,221,200,0.1); border-color: rgba(168,221,200,0.38); color: var(--mint); }
+.overlay-btn.edit:hover { background: rgba(168,221,200,0.2); }
 .overlay-btn.del  { background: transparent; border-color: rgba(232,152,152,0.38); color: var(--danger); }
 .overlay-btn.del:hover { background: rgba(232,152,152,0.08); }
 
@@ -404,188 +265,70 @@ button {
 .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: var(--text-mid); margin-bottom: 6px; font-weight: 300; }
 .empty-state p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
 
-/* ─── Modal ─── */
-.modal-backdrop {
-  position: fixed; inset: 0; background: rgba(10,8,14,0.82);
-  z-index: 500; display: flex; align-items: center; justify-content: center;
-  padding: 24px; backdrop-filter: blur(6px);
-}
-
-.modal {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 3px; max-width: 680px; width: 100%;
-  max-height: 90vh; overflow-y: auto; position: relative;
-}
-
-.modal::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--lav), var(--blush), var(--manhwa), var(--manhua), var(--mint), var(--periwink));
-  opacity: 0.65;
-}
-
+/* ─── Detail Modal ─── */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), var(--periwink)); opacity: 0.65; }
 .modal-header { padding: 26px 28px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
 .modal-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--text); line-height: 1.25; }
-
-.modal-close {
-  background: none; color: var(--text-dim); font-size: 16px;
-  padding: 0; width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid var(--border); border-radius: 50%;
-  flex-shrink: 0; letter-spacing: 0;
-}
+.modal-close { background: none; color: var(--text-dim); font-size: 16px; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 50%; flex-shrink: 0; letter-spacing: 0; }
 .modal-close:hover { border-color: var(--text-dim); color: var(--text); }
-
 .modal-body { padding: 22px 28px 28px; display: grid; grid-template-columns: 148px 1fr; gap: 22px; }
-
 .modal-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; border: 1px solid var(--border); border-radius: 2px; }
-.modal-cover-placeholder {
-  width: 100%; aspect-ratio: 2/3; background: var(--surface2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 36px; border: 1px solid var(--border); border-radius: 2px;
-}
-
+.modal-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 36px; border: 1px solid var(--border); border-radius: 2px; }
 .modal-meta { display: flex; flex-direction: column; gap: 11px; }
-
 .modal-type { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; }
-.modal-type.anime   { color: var(--anime); }
-.modal-type.manga   { color: var(--manga); }
-.modal-type.manhwa  { color: var(--manhwa); }
-.modal-type.manhua  { color: var(--manhua); }
-.modal-type.game    { color: var(--game); }
-
+.modal-type.anime { color: var(--anime); } .modal-type.manga { color: var(--manga); }
+.modal-type.tv    { color: var(--tv); }    .modal-type.movie { color: var(--movie); }
+.modal-type.game  { color: var(--game); }
 .modal-stars { font-size: 17px; letter-spacing: 2px; }
 .modal-stars .f { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.4); }
 .modal-stars .e { color: var(--border); }
-
-.modal-status-tag {
-  display: inline-block; padding: 3px 12px;
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  letter-spacing: 0.15em; border: 1px solid var(--border);
-  color: var(--text-dim); border-radius: 20px; width: fit-content;
-}
-
+.modal-status-tag { display: inline-block; padding: 3px 12px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; border: 1px solid var(--border); color: var(--text-dim); border-radius: 20px; width: fit-content; }
 .modal-genres { display: flex; flex-wrap: wrap; gap: 5px; }
-
-.modal-desc {
-  font-style: italic; color: var(--text-mid); font-size: 15px;
-  line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical; overflow: hidden; font-weight: 300;
-}
-
+.modal-desc { font-style: italic; color: var(--text-mid); font-size: 15px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-weight: 300; }
 .modal-review { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
 .modal-review label { display: block; margin-bottom: 8px; color: var(--lav); opacity: 0.8; }
 .modal-review p { color: var(--text-mid); font-style: italic; font-size: 15px; line-height: 1.75; font-weight: 300; }
+.modal-edit-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; margin-top: 2px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; background: rgba(196,168,232,0.1); border: 1px solid rgba(196,168,232,0.32); color: var(--lav); border-radius: 20px; transition: all 0.2s; width: fit-content; }
+.modal-edit-btn:hover { background: rgba(196,168,232,0.2); box-shadow: 0 0 12px rgba(196,168,232,0.15); }
 
-/* ─── Sync controls ─── */
-.sync-controls {
-  display: flex; align-items: center; gap: 8px;
-}
+/* ─── Edit Modal ─── */
+.edit-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 550; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
+.edit-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 500px; width: 100%; position: relative; }
+.edit-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blush), var(--lav), var(--periwink)); opacity: 0.65; }
+.edit-header { padding: 24px 26px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.edit-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.edit-body { padding: 20px 26px 26px; display: flex; flex-direction: column; gap: 18px; }
+.edit-star-row { display: flex; gap: 4px; margin-top: 7px; }
+.edit-star { font-size: 26px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
+.edit-star.filled { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.45); }
+.edit-star:hover  { color: var(--butter); }
+.edit-status-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.edit-actions { display: flex; gap: 10px; padding-top: 4px; }
+.btn-save-edit { background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14)); border: 1px solid rgba(196,168,232,0.45); color: var(--lav); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
+.btn-save-edit:hover { background: linear-gradient(135deg, rgba(196,168,232,0.28), rgba(240,184,204,0.22)); box-shadow: 0 0 16px rgba(196,168,232,0.18); }
+.btn-cancel-edit { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
+.btn-cancel-edit:hover { border-color: var(--text-dim); color: var(--text-mid); }
 
-.btn-sync {
-  background: rgba(168,221,200,0.1);
-  border: 1px solid rgba(168,221,200,0.32); color: var(--mint);
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 6px 14px; cursor: pointer; border-radius: 1px;
-  transition: all 0.2s; height: 32px; white-space: nowrap;
-}
-.btn-sync:hover { background: rgba(168,221,200,0.2); box-shadow: 0 0 14px rgba(168,221,200,0.15); }
-.btn-sync:disabled { opacity: 0.35; cursor: not-allowed; }
-.btn-sync.pushing { border-color: rgba(240,224,168,0.4); color: var(--butter); background: rgba(240,224,168,0.08); }
-.btn-sync.success { border-color: rgba(168,221,200,0.6); color: var(--mint); }
-.btn-sync.error   { border-color: rgba(232,152,152,0.5); color: var(--danger); background: rgba(232,152,152,0.08); }
-
-.btn-settings {
-  background: transparent; border: 1px solid var(--border);
-  color: var(--text-dim); font-size: 14px; letter-spacing: 0;
-  padding: 0; width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; border-radius: 1px; transition: all 0.2s;
-  text-transform: none;
-}
-.btn-settings:hover { border-color: var(--lav); color: var(--lav); }
-
-.sync-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--border); flex-shrink: 0;
-  transition: background 0.3s;
-}
-.sync-dot.synced   { background: var(--mint); box-shadow: 0 0 6px rgba(168,221,200,0.5); }
-.sync-dot.unsynced { background: var(--butter); box-shadow: 0 0 6px rgba(240,224,168,0.4); }
-.sync-dot.error    { background: var(--danger); }
-
-/* ─── Settings modal ─── */
-.settings-backdrop {
-  position: fixed; inset: 0; background: rgba(10,8,14,0.82);
-  z-index: 600; display: flex; align-items: center; justify-content: center;
-  padding: 24px; backdrop-filter: blur(6px);
-}
-
-.settings-modal {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 3px; max-width: 480px; width: 100%;
-  position: relative;
-}
-
-.settings-modal::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--mint), var(--periwink), var(--lav));
-  opacity: 0.65;
-}
-
-.settings-header {
-  padding: 24px 26px 0;
-  display: flex; justify-content: space-between; align-items: center;
-}
-
-.settings-header h3 {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim);
-}
-
+/* ─── Settings Modal ─── */
+.settings-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 600; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
+.settings-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 480px; width: 100%; position: relative; }
+.settings-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--mint), var(--periwink), var(--lav)); opacity: 0.65; }
+.settings-header { padding: 24px 26px 0; display: flex; justify-content: space-between; align-items: center; }
+.settings-header h3 { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
 .settings-body { padding: 20px 26px 26px; display: flex; flex-direction: column; gap: 18px; }
-
 .settings-field { display: flex; flex-direction: column; gap: 7px; }
-
-.settings-field label { color: var(--text-dim); }
-
-.settings-field input {
-  font-family: 'DM Mono', monospace; font-size: 13px;
-  letter-spacing: 0.05em;
-}
-
-.settings-hint {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--text-dim); line-height: 1.6; margin-top: -8px;
-}
-
+.settings-field input { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.05em; }
+.settings-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); line-height: 1.6; margin-top: -8px; }
 .settings-hint a { color: var(--lav); text-decoration: none; }
 .settings-hint a:hover { text-decoration: underline; }
-
 .settings-actions { display: flex; gap: 10px; padding-top: 4px; }
-
-.btn-save-settings {
-  background: linear-gradient(135deg, rgba(168,221,200,0.18), rgba(168,184,240,0.14));
-  border: 1px solid rgba(168,221,200,0.45); color: var(--mint);
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 9px 20px; cursor: pointer; border-radius: 1px;
-  transition: all 0.2s; flex: 1;
-}
+.btn-save-settings { background: linear-gradient(135deg, rgba(168,221,200,0.18), rgba(168,184,240,0.14)); border: 1px solid rgba(168,221,200,0.45); color: var(--mint); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
 .btn-save-settings:hover { background: linear-gradient(135deg, rgba(168,221,200,0.28), rgba(168,184,240,0.22)); }
-
-.btn-clear-settings {
-  background: transparent; border: 1px solid var(--border);
-  color: var(--text-dim); font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s;
-}
+.btn-clear-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
 .btn-clear-settings:hover { border-color: var(--danger); color: var(--danger); }
-
-.settings-status {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: var(--mint); min-height: 16px; letter-spacing: 0.1em;
-}
+.settings-status { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--mint); min-height: 16px; letter-spacing: 0.1em; }
 .settings-status.error { color: var(--danger); }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -594,12 +337,11 @@ button {
 ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
 @media (max-width: 820px) {
-  header { padding: 0 20px; height: auto; padding: 14px 20px; flex-wrap: wrap; gap: 10px; }
+  header { padding: 12px 20px; }
   main { padding: 28px 20px 60px; }
   .search-row { grid-template-columns: 1fr 1fr; }
   .review-fields { grid-template-columns: 1fr; }
   .modal-body { grid-template-columns: 1fr; }
-  .header-stats { gap: 14px; }
 }
 </style>
 </head>
@@ -610,20 +352,20 @@ button {
     <div class="logo-title">☽ Codex ☾</div>
     <div class="logo-sub">Media Archive</div>
   </div>
-  <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+  <div class="header-right">
     <div class="header-stats">
-      <div class="stat-item s-total">  <strong id="stat-total">0</strong>Total</div>
-      <div class="stat-item s-anime">  <strong id="stat-anime">0</strong>Anime</div>
-      <div class="stat-item s-manga">  <strong id="stat-manga">0</strong>Manga</div>
-      <div class="stat-item s-manhwa"> <strong id="stat-manhwa">0</strong>Manhwa</div>
-      <div class="stat-item s-manhua"> <strong id="stat-manhua">0</strong>Manhua</div>
-      <div class="stat-item s-game">   <strong id="stat-game">0</strong>Games</div>
+      <div class="stat-item s-total"> <strong id="stat-total">0</strong>Total</div>
+      <div class="stat-item s-anime"> <strong id="stat-anime">0</strong>Anime</div>
+      <div class="stat-item s-manga"> <strong id="stat-manga">0</strong>Manga</div>
+      <div class="stat-item s-tv">    <strong id="stat-tv">0</strong>TV</div>
+      <div class="stat-item s-movie"> <strong id="stat-movie">0</strong>Movies</div>
+      <div class="stat-item s-game">  <strong id="stat-game">0</strong>Games</div>
     </div>
     <div class="sync-controls">
-      <div class="sync-dot" id="sync-dot" title="Sync status"></div>
-      <button class="btn-sync" id="btn-pull" onclick="pullFromGist()" title="Pull latest from Gist">↓ Pull</button>
-      <button class="btn-sync" id="btn-push" onclick="pushToGist()"  title="Push local to Gist">↑ Push</button>
-      <button class="btn-settings" onclick="openSettings()" title="Sync settings">⚙</button>
+      <div class="sync-dot" id="sync-dot"></div>
+      <button class="btn-sync" id="btn-pull" onclick="pullFromGist()">↓ Pull</button>
+      <button class="btn-sync" id="btn-push" onclick="pushToGist()">↑ Push</button>
+      <button class="btn-settings" onclick="openSettings()">⚙</button>
     </div>
   </div>
 </header>
@@ -632,17 +374,18 @@ button {
   <div class="add-section">
     <div class="section-label">✦ Add to Collection</div>
     <div class="search-row">
-      <div class="field-group">
+      <div class="field-group autocomplete-wrap">
         <label>Title</label>
-        <input type="text" id="search-input" placeholder="Search for a title…" />
+        <input type="text" id="search-input" placeholder="Start typing a title…" autocomplete="off" />
+        <div class="autocomplete-list" id="ac-list" style="display:none"></div>
       </div>
       <div class="field-group">
         <label>Type</label>
-        <select id="type-select">
+        <select id="type-select" onchange="clearSearch()">
           <option value="anime">Anime</option>
-          <option value="manga">Manga (Japanese)</option>
-          <option value="manhwa">Manhwa (Korean)</option>
-          <option value="manhua">Manhua (Chinese)</option>
+          <option value="manga">Manga / Manhwa / Manhua</option>
+          <option value="tv">TV Show</option>
+          <option value="movie">Movie</option>
           <option value="game">Game</option>
         </select>
       </div>
@@ -652,9 +395,7 @@ button {
       </div>
     </div>
 
-    <div id="loading" class="loading" style="display:none">
-      <div class="spinner"></div> Searching…
-    </div>
+    <div id="loading" class="loading" style="display:none"><div class="spinner"></div> Searching…</div>
     <div id="error-msg" class="error-msg" style="display:none"></div>
     <div id="search-results" class="search-results"></div>
 
@@ -688,17 +429,16 @@ button {
     </div>
   </div>
 
-  <!-- Collection -->
   <div class="collection-header">
     <div class="collection-header-left">
       <div class="filters-row">
         <span class="filter-label">Type:</span>
-        <span class="filter-chip active" data-type="all"    onclick="setTypeFilter('all')">All</span>
-        <span class="filter-chip" data-type="anime"         onclick="setTypeFilter('anime')">Anime</span>
-        <span class="filter-chip" data-type="manga"         onclick="setTypeFilter('manga')">Manga</span>
-        <span class="filter-chip" data-type="manhwa"        onclick="setTypeFilter('manhwa')">Manhwa</span>
-        <span class="filter-chip" data-type="manhua"        onclick="setTypeFilter('manhua')">Manhua</span>
-        <span class="filter-chip" data-type="game"          onclick="setTypeFilter('game')">Games</span>
+        <span class="filter-chip active" data-type="all"   onclick="setTypeFilter('all')">All</span>
+        <span class="filter-chip" data-type="anime"        onclick="setTypeFilter('anime')">Anime</span>
+        <span class="filter-chip" data-type="manga"        onclick="setTypeFilter('manga')">Manga</span>
+        <span class="filter-chip" data-type="tv"           onclick="setTypeFilter('tv')">TV</span>
+        <span class="filter-chip" data-type="movie"        onclick="setTypeFilter('movie')">Movies</span>
+        <span class="filter-chip" data-type="game"         onclick="setTypeFilter('game')">Games</span>
       </div>
       <div class="filters-row" id="genre-filter-row" style="display:none">
         <span class="filter-label">Genre:</span>
@@ -718,7 +458,7 @@ button {
   <div class="media-grid" id="media-grid"></div>
 </main>
 
-<!-- Modal -->
+<!-- Detail Modal -->
 <div class="modal-backdrop" id="modal-backdrop" style="display:none" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-header">
@@ -741,230 +481,125 @@ button {
         <label>✦ My Notes</label>
         <p id="modal-review-text"></p>
       </div>
+      <div style="grid-column:1/-1; padding-top:4px">
+        <button class="modal-edit-btn" id="modal-edit-btn" onclick="openEditFromModal()">✎ Edit Rating &amp; Notes</button>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- Edit Modal -->
+<div class="edit-backdrop" id="edit-backdrop" style="display:none" onclick="closeEdit(event)">
+  <div class="edit-modal">
+    <div class="edit-header">
+      <h3 id="edit-title"></h3>
+      <button class="modal-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="edit-body">
+      <div class="field-group">
+        <label>Rating</label>
+        <div class="edit-star-row" id="edit-stars">
+          <span class="edit-star" data-v="1" onclick="setEditRating(1)">★</span>
+          <span class="edit-star" data-v="2" onclick="setEditRating(2)">★</span>
+          <span class="edit-star" data-v="3" onclick="setEditRating(3)">★</span>
+          <span class="edit-star" data-v="4" onclick="setEditRating(4)">★</span>
+          <span class="edit-star" data-v="5" onclick="setEditRating(5)">★</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Status</label>
+        <div class="edit-status-row" id="edit-status-chips">
+          <div class="status-chip" data-s="completed" onclick="setEditStatus('completed')">Completed</div>
+          <div class="status-chip" data-s="watching"  onclick="setEditStatus('watching')">In Progress</div>
+          <div class="status-chip" data-s="dropped"   onclick="setEditStatus('dropped')">Dropped</div>
+          <div class="status-chip" data-s="planned"   onclick="setEditStatus('planned')">Plan to</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Notes</label>
+        <textarea id="edit-review" placeholder="Write your thoughts…"></textarea>
+      </div>
+      <div class="edit-actions">
+        <button class="btn-save-edit" onclick="saveEdit()">✦ Save Changes</button>
+        <button class="btn-cancel-edit" onclick="closeEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Settings Modal -->
 <div class="settings-backdrop" id="settings-backdrop" style="display:none" onclick="closeSettings(event)">
   <div class="settings-modal">
     <div class="settings-header">
-      <h3>⚙ Gist Sync Settings</h3>
+      <h3>⚙ Settings</h3>
       <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
     <div class="settings-body">
       <div class="settings-field">
-        <label>Gist ID</label>
-        <input type="text" id="input-gist-id" placeholder="e.g. abc123def456…" spellcheck="false" autocomplete="off" />
-        <p class="settings-hint">The long alphanumeric ID from your Gist URL:<br>gist.github.com/yourusername/<strong>THIS_PART</strong></p>
+        <label>TMDB API Key</label>
+        <input type="password" id="input-tmdb-key" placeholder="Paste your v3 API key…" spellcheck="false" autocomplete="off" />
+        <p class="settings-hint">For TV show &amp; movie searches. Get yours free at <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">themoviedb.org → Settings → API</a></p>
       </div>
       <div class="settings-field">
-        <label>Personal Access Token</label>
+        <label>Gist ID</label>
+        <input type="text" id="input-gist-id" placeholder="e.g. abc123def456…" spellcheck="false" autocomplete="off" />
+        <p class="settings-hint">From your Gist URL: gist.github.com/yourusername/<strong>THIS_PART</strong></p>
+      </div>
+      <div class="settings-field">
+        <label>GitHub Token</label>
         <input type="password" id="input-token" placeholder="ghp_…" spellcheck="false" autocomplete="off" />
-        <p class="settings-hint">
-          Needs only the <code style="color:var(--lav)">gist</code> scope.
-          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Generate one here →</a><br>
-          Stored in your browser's localStorage only — never sent anywhere except GitHub.
-        </p>
+        <p class="settings-hint">Needs only the <code style="color:var(--lav)">gist</code> scope. <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Generate one here →</a></p>
       </div>
       <div id="settings-status" class="settings-status"></div>
       <div class="settings-actions">
-        <button class="btn-save-settings" onclick="saveSettings()">✦ Save &amp; Test Connection</button>
-        <button class="btn-clear-settings" onclick="clearSettings()">Clear</button>
+        <button class="btn-save-settings" onclick="saveSettings()">✦ Save &amp; Test</button>
+        <button class="btn-clear-settings" onclick="clearSettings()">Clear All</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+// ─── Config ───────────────────────────────────────────────
+// TMDB key is stored in localStorage via the settings panel.
+// To set it, click ⚙ in the header and paste your key there.
+const GIST_FILENAME = 'codex-collection.json';
+
 // ─── State ────────────────────────────────────────────────
-let collection = JSON.parse(localStorage.getItem('codex-v2') || '[]');
+let collection         = JSON.parse(localStorage.getItem('codex-v2') || '[]');
 let selectedResult     = null;
 let currentRating      = 0;
 let currentStatus      = 'completed';
 let currentTypeFilter  = 'all';
 let currentGenreFilter = 'all';
 let currentSort        = 'newest';
+let editingId          = null;
+let editRating         = 0;
+let editStatus         = 'completed';
+let acDebounceTimer    = null;
+let acResults          = [];
+let acIndex            = -1;
 
 // ─── Persistence ──────────────────────────────────────────
 function save() {
   localStorage.setItem('codex-v2', JSON.stringify(collection));
-  setSyncDot('unsynced'); // local is ahead of remote after any write
+  setSyncDot('unsynced');
 }
 
-// ─── Gist Sync ────────────────────────────────────────────
-const GIST_FILENAME = 'codex-collection.json';
-
-function getCredentials() {
+// ─── Credentials ──────────────────────────────────────────
+function getCreds() {
   return {
-    gistId: localStorage.getItem('codex-gist-id') || '',
-    token:  localStorage.getItem('codex-token')   || ''
+    tmdbKey: localStorage.getItem('codex-tmdb-key') || '',
+    gistId:  localStorage.getItem('codex-gist-id')  || '',
+    token:   localStorage.getItem('codex-token')    || ''
   };
 }
 
-function setSyncDot(state) {
-  // states: 'none' | 'synced' | 'unsynced' | 'error'
-  const dot = document.getElementById('sync-dot');
-  dot.className = 'sync-dot' + (state !== 'none' ? ' ' + state : '');
-  const titles = { none:'No Gist configured', synced:'Up to date', unsynced:'Local changes not pushed', error:'Sync error' };
-  dot.title = titles[state] || '';
-}
-
-function setSyncBtns(enabled) {
-  document.getElementById('btn-pull').disabled = !enabled;
-  document.getElementById('btn-push').disabled = !enabled;
-}
-
-async function pushToGist() {
-  const { gistId, token } = getCredentials();
-  if (!gistId || !token) { openSettings(); return; }
-
-  const btn = document.getElementById('btn-push');
-  btn.textContent = '↑ Pushing…'; btn.classList.add('pushing'); btn.disabled = true;
-
-  try {
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `token ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github+json'
-      },
-      body: JSON.stringify({
-        files: { [GIST_FILENAME]: { content: JSON.stringify(collection, null, 2) } }
-      })
-    });
-
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    btn.textContent = '↑ Pushed ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
-    setSyncDot('synced');
-    setTimeout(() => { btn.textContent = '↑ Push'; btn.classList.remove('success'); btn.disabled = false; }, 2500);
-  } catch (err) {
-    btn.textContent = '↑ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
-    setSyncDot('error');
-    setTimeout(() => { btn.textContent = '↑ Push'; btn.classList.remove('error'); btn.disabled = false; }, 3000);
-    console.error('Push error:', err);
-  }
-}
-
-async function pullFromGist() {
-  const { gistId, token } = getCredentials();
-  if (!gistId || !token) { openSettings(); return; }
-
-  const btn = document.getElementById('btn-pull');
-  btn.textContent = '↓ Pulling…'; btn.classList.add('pushing'); btn.disabled = true;
-
-  try {
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      headers: {
-        'Authorization': `token ${token}`,
-        'Accept': 'application/vnd.github+json'
-      }
-    });
-
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    const data = await res.json();
-    const raw  = data.files?.[GIST_FILENAME]?.content;
-    if (!raw) throw new Error('File not found in Gist');
-
-    const remote = JSON.parse(raw);
-    if (!Array.isArray(remote)) throw new Error('Invalid data format');
-
-    collection = remote;
-    localStorage.setItem('codex-v2', JSON.stringify(collection));
-    updateStats(); updateGenreFilterBar(); renderGrid();
-
-    btn.textContent = '↓ Pulled ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
-    setSyncDot('synced');
-    setTimeout(() => { btn.textContent = '↓ Pull'; btn.classList.remove('success'); btn.disabled = false; }, 2500);
-  } catch (err) {
-    btn.textContent = '↓ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
-    setSyncDot('error');
-    setTimeout(() => { btn.textContent = '↓ Pull'; btn.classList.remove('error'); btn.disabled = false; }, 3000);
-    console.error('Pull error:', err);
-  }
-}
-
-// ─── Settings panel ───────────────────────────────────────
-function openSettings() {
-  const { gistId, token } = getCredentials();
-  document.getElementById('input-gist-id').value = gistId;
-  document.getElementById('input-token').value   = token;
-  document.getElementById('settings-status').textContent = '';
-  document.getElementById('settings-status').className   = 'settings-status';
-  document.getElementById('settings-backdrop').style.display = 'flex';
-}
-
-function closeSettings(e) {
-  if (e && e.target !== document.getElementById('settings-backdrop')) return;
-  document.getElementById('settings-backdrop').style.display = 'none';
-}
-
-async function saveSettings() {
-  const gistId = document.getElementById('input-gist-id').value.trim();
-  const token  = document.getElementById('input-token').value.trim();
-  const status = document.getElementById('settings-status');
-
-  if (!gistId || !token) {
-    status.textContent = '✕ Both fields are required.';
-    status.className = 'settings-status error'; return;
-  }
-
-  status.textContent = 'Testing connection…';
-  status.className = 'settings-status';
-
-  try {
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' }
-    });
-
-    if (res.status === 404) throw new Error('Gist not found — double-check the ID.');
-    if (res.status === 401) throw new Error('Token rejected — check it was copied correctly.');
-    if (!res.ok)            throw new Error(`GitHub returned ${res.status}.`);
-
-    const data = await res.json();
-    if (!data.files?.[GIST_FILENAME]) {
-      status.textContent = `✕ No file named "${GIST_FILENAME}" found in this Gist. Make sure the filename matches exactly.`;
-      status.className = 'settings-status error'; return;
-    }
-
-    localStorage.setItem('codex-gist-id', gistId);
-    localStorage.setItem('codex-token',   token);
-    setSyncBtns(true);
-    setSyncDot('unsynced');
-    status.textContent = '✓ Connected! Use ↑ Push / ↓ Pull to sync.';
-    status.className = 'settings-status';
-  } catch (err) {
-    status.textContent = '✕ ' + err.message;
-    status.className = 'settings-status error';
-  }
-}
-
-function clearSettings() {
-  localStorage.removeItem('codex-gist-id');
-  localStorage.removeItem('codex-token');
-  document.getElementById('input-gist-id').value = '';
-  document.getElementById('input-token').value   = '';
-  setSyncDot('none'); setSyncBtns(false);
-  const s = document.getElementById('settings-status');
-  s.textContent = 'Credentials cleared.'; s.className = 'settings-status';
-}
-
 // ─── Utilities ────────────────────────────────────────────
-function typeEmoji(t) {
-  return { anime:'📺', manga:'📖', manhwa:'📗', manhua:'📕', game:'🎮' }[t] || '📄';
-}
+function typeEmoji(t) { return { anime:'📺', manga:'📖', tv:'📡', movie:'🎬', game:'🎮' }[t] || '📄'; }
+function typeLabel(t) { return { anime:'Anime', manga:'Manga', tv:'TV Show', movie:'Movie', game:'Game' }[t] || t; }
+function starsHTML(r) { let h=''; for(let i=1;i<=5;i++) h+=`<span class="${i<=r?'f':'e'}">★</span>`; return h; }
 
-function typeLabel(t) {
-  return { anime:'Anime', manga:'Manga', manhwa:'Manhwa', manhua:'Manhua', game:'Game' }[t] || t;
-}
-
-function starsHTML(r) {
-  let h = '';
-  for (let i = 1; i <= 5; i++) h += `<span class="${i<=r?'f':'e'}">★</span>`;
-  return h;
-}
-
-// ─── Genre filter bar ─────────────────────────────────────
 function getAllGenres() {
   const s = new Set();
   collection.forEach(e => (e.genres||[]).forEach(g => s.add(g)));
@@ -981,18 +616,131 @@ function updateGenreFilterBar() {
   genres.forEach(g => {
     const el = document.createElement('span');
     el.className = 'filter-chip genre-filter' + (currentGenreFilter === g ? ' active' : '');
-    el.dataset.genre = g;
-    el.textContent = g;
+    el.dataset.genre = g; el.textContent = g;
     el.onclick = () => setGenreFilter(g);
     chips.appendChild(el);
   });
 }
 
-// ─── Search router ────────────────────────────────────────
+function clearSearch() {
+  document.getElementById('search-results').innerHTML = '';
+  document.getElementById('review-fields').style.display = 'none';
+  document.getElementById('error-msg').style.display = 'none';
+  hideAC();
+  selectedResult = null;
+}
+
+// ─── Autocomplete ─────────────────────────────────────────
+function setupAutocomplete() {
+  const input = document.getElementById('search-input');
+
+  input.addEventListener('input', () => {
+    clearTimeout(acDebounceTimer);
+    const q = input.value.trim();
+    if (q.length < 2) { hideAC(); return; }
+    acDebounceTimer = setTimeout(() => fetchAC(q), 350);
+  });
+
+  input.addEventListener('keydown', e => {
+    const list = document.getElementById('ac-list');
+    if (list.style.display === 'none') {
+      if (e.key === 'Enter') doSearch();
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      acIndex = Math.min(acIndex + 1, acResults.length - 1);
+      renderACHighlight();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      acIndex = Math.max(acIndex - 1, -1);
+      renderACHighlight();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (acIndex >= 0 && acResults[acIndex]) {
+        selectAC(acResults[acIndex]);
+      } else {
+        hideAC(); doSearch();
+      }
+    } else if (e.key === 'Escape') {
+      hideAC();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!document.getElementById('search-input').contains(e.target) &&
+        !document.getElementById('ac-list').contains(e.target)) hideAC();
+  });
+}
+
+async function fetchAC(q) {
+  const type = document.getElementById('type-select').value;
+  const list = document.getElementById('ac-list');
+  list.style.display = 'block';
+  list.innerHTML = `<div class="ac-loading">searching…</div>`;
+  acIndex = -1;
+
+  try {
+    let results = [];
+    if (type === 'anime')  results = await searchAniList(q, 'anime');
+    else if (type === 'manga') results = await searchMangaDex(q);
+    else if (type === 'tv')    results = await searchTMDB(q, 'tv');
+    else if (type === 'movie') results = await searchTMDB(q, 'movie');
+    else                       results = await searchRAWG(q);
+
+    acResults = results.slice(0, 7);
+    renderACList();
+  } catch(err) {
+    list.innerHTML = `<div class="ac-empty">search failed</div>`;
+  }
+}
+
+function renderACList() {
+  const list = document.getElementById('ac-list');
+  if (!acResults.length) { list.innerHTML = `<div class="ac-empty">no results</div>`; return; }
+  list.innerHTML = '';
+  acResults.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'autocomplete-item' + (i === acIndex ? ' active' : '');
+    item.innerHTML = `
+      ${r.cover
+        ? `<img class="ac-thumb" src="${r.cover}" alt="" loading="lazy">`
+        : `<div class="ac-thumb-placeholder">${typeEmoji(r.type)}</div>`}
+      <div class="ac-info">
+        <div class="ac-title">${r.title}</div>
+        <div class="ac-meta">${r.year||''}${r.genres?.length ? ' · ' + r.genres.slice(0,2).join(', ') : ''}</div>
+      </div>`;
+    item.onclick = () => selectAC(r);
+    list.appendChild(item);
+  });
+}
+
+function renderACHighlight() {
+  document.querySelectorAll('.autocomplete-item').forEach((el, i) =>
+    el.classList.toggle('active', i === acIndex));
+}
+
+function selectAC(result) {
+  document.getElementById('search-input').value = result.title;
+  hideAC();
+  // Directly render this single result as a selectable card
+  renderSearchResults([result]);
+  // Auto-select it
+  const card = document.querySelector('.result-card');
+  if (card) selectResult(result, card);
+}
+
+function hideAC() {
+  document.getElementById('ac-list').style.display = 'none';
+  acResults = []; acIndex = -1;
+}
+
+// ─── Full search (Search button) ──────────────────────────
 async function doSearch() {
   const q    = document.getElementById('search-input').value.trim();
   const type = document.getElementById('type-select').value;
   if (!q) return;
+  hideAC();
 
   document.getElementById('loading').style.display = 'flex';
   document.getElementById('error-msg').style.display = 'none';
@@ -1002,27 +750,20 @@ async function doSearch() {
 
   try {
     let results;
-    if (type === 'anime') {
-      results = await searchAniList(q, 'anime');
-    } else if (type === 'manga') {
-      results = await searchAniList(q, 'manga');
-    } else if (type === 'manhwa') {
-      results = await searchMangaDex(q, 'ko');   // Korean
-    } else if (type === 'manhua') {
-      results = await searchMangaDex(q, 'zh');   // Chinese (simplified + traditional)
-    } else {
-      results = await searchRAWG(q);
-    }
+    if      (type === 'anime')  results = await searchAniList(q, 'anime');
+    else if (type === 'manga')  results = await searchMangaDex(q);
+    else if (type === 'tv')     results = await searchTMDB(q, 'tv');
+    else if (type === 'movie')  results = await searchTMDB(q, 'movie');
+    else                        results = await searchRAWG(q);
 
     document.getElementById('loading').style.display = 'none';
-
     if (!results.length) {
       document.getElementById('error-msg').textContent = 'No results found. Try a different spelling.';
       document.getElementById('error-msg').style.display = 'block';
       return;
     }
-    renderSearchResults(results, type);
-  } catch (err) {
+    renderSearchResults(results);
+  } catch(err) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('error-msg').textContent = 'Search failed — check your connection and try again.';
     document.getElementById('error-msg').style.display = 'block';
@@ -1030,14 +771,13 @@ async function doSearch() {
   }
 }
 
-// ─── AniList (anime + JP manga) ───────────────────────────
+// ─── AniList ──────────────────────────────────────────────
 async function searchAniList(q, type) {
   const gql = `query ($s: String, $t: MediaType) {
     Page(perPage: 8) {
       media(search: $s, type: $t) {
         id title { romaji english } coverImage { large }
-        description(asHtml: false) startDate { year }
-        genres episodes chapters
+        description(asHtml: false) startDate { year } genres episodes chapters
       }
     }
   }`;
@@ -1051,68 +791,71 @@ async function searchAniList(q, type) {
     id:          String(m.id),
     title:       m.title.english || m.title.romaji,
     cover:       m.coverImage.large,
-    description: (m.description || '').replace(/<[^>]*>/g, '').substring(0, 700),
+    description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
     year:        m.startDate?.year || '',
-    type,
-    genres:      (m.genres || []).slice(0, 7),
-    extra:       type === 'anime'
-                   ? (m.episodes ? `${m.episodes} eps` : '')
-                   : (m.chapters ? `${m.chapters} ch` : '')
+    type:        'anime',
+    genres:      (m.genres||[]).slice(0,7),
+    extra:       m.episodes ? `${m.episodes} eps` : ''
   }));
 }
 
-// ─── MangaDex (manhwa + manhua) ───────────────────────────
-// originalLanguage: 'ko' = Korean manhwa, 'zh'/'zh-hk' = Chinese manhua
-async function searchMangaDex(q, langCode) {
-  // MangaDex needs CORS-friendly params; use their public API
-  const langParam = langCode === 'zh'
-    ? 'originalLanguage[]=zh&originalLanguage[]=zh-hk'
-    : `originalLanguage[]=${langCode}`;
-
-  const url = `https://api.mangadex.org/manga?title=${encodeURIComponent(q)}&${langParam}&limit=8&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica`;
-
-  const res  = await fetch(url);
-  const data = await res.json();
-
+// ─── MangaDex (manga + manhwa + manhua) ───────────────────
+async function searchMangaDex(q) {
+  const apiUrl = `https://api.mangadex.org/manga?title=${encodeURIComponent(q)}&limit=8&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica`;
+  const url    = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
+  const res    = await fetch(url);
+  const data   = await res.json();
   if (!data.data) return [];
-
   return data.data.map(m => {
-    const attrs = m.attributes;
-
-    // Title: prefer English, fall back to romanized, then first available
-    const title =
-      attrs.title.en ||
-      attrs.title.ro ||
-      Object.values(attrs.title)[0] ||
-      'Unknown Title';
-
-    // Description: prefer English
-    const desc =
-      (attrs.description.en || Object.values(attrs.description)[0] || '')
-        .substring(0, 700);
-
-    // Cover art
+    const attrs    = m.attributes;
+    const title    = attrs.title.en || attrs.title.ro || Object.values(attrs.title)[0] || 'Unknown Title';
+    const desc     = (attrs.description?.en || Object.values(attrs.description||{})[0] || '').substring(0,700);
     const coverRel = m.relationships.find(r => r.type === 'cover_art');
-    const coverFile = coverRel?.attributes?.fileName;
-    const cover = coverFile
-      ? `https://uploads.mangadex.org/covers/${m.id}/${coverFile}.256.jpg`
-      : '';
-
-    // Tags → genres
-    const genres = (attrs.tags || [])
-      .filter(t => t.attributes.group === 'genre' || t.attributes.group === 'theme')
-      .map(t => t.attributes.name.en)
-      .filter(Boolean)
-      .slice(0, 7);
-
-    const year = attrs.year || '';
-    const type = langCode === 'ko' ? 'manhwa' : 'manhua';
-
-    return { id: m.id, title, cover, description: desc, year, type, genres, extra: '' };
+    const cover    = coverRel?.attributes?.fileName
+      ? `https://uploads.mangadex.org/covers/${m.id}/${coverRel.attributes.fileName}.256.jpg` : '';
+    const genres   = (attrs.tags||[]).filter(t => t.attributes.group==='genre'||t.attributes.group==='theme').map(t=>t.attributes.name.en).filter(Boolean).slice(0,7);
+    // Determine subtype label for display but store as 'manga'
+    const lang     = attrs.originalLanguage || '';
+    const subtype  = lang === 'ko' ? 'Manhwa' : lang.startsWith('zh') ? 'Manhua' : 'Manga';
+    return { id: m.id, title, cover, description: desc, year: attrs.year||'', type: 'manga', genres, extra: subtype };
   });
 }
 
-// ─── RAWG (games) ─────────────────────────────────────────
+// ─── TMDB (TV + Movies) ───────────────────────────────────
+async function searchTMDB(q, mediaType) {
+  const { tmdbKey } = getCreds();
+  if (!tmdbKey) throw new Error('No TMDB key — add it in ⚙ Settings');
+
+  const endpoint = mediaType === 'tv' ? 'search/tv' : 'search/movie';
+  const res  = await fetch(`https://api.themoviedb.org/3/${endpoint}?api_key=${tmdbKey}&query=${encodeURIComponent(q)}&page=1`);
+  const data = await res.json();
+  if (!data.results) return [];
+
+  // Fetch genre list for mapping IDs → names (cached in memory)
+  const genreMap = await getTMDBGenreMap(mediaType, tmdbKey);
+
+  return data.results.slice(0,8).map(r => {
+    const title = r.name || r.title || '';
+    const year  = (r.first_air_date || r.release_date || '').slice(0,4);
+    const cover = r.poster_path ? `https://image.tmdb.org/t/p/w300${r.poster_path}` : '';
+    const desc  = (r.overview || '').substring(0,700);
+    const genres = (r.genre_ids||[]).map(id => genreMap[id]).filter(Boolean).slice(0,6);
+    return { id: String(r.id), title, cover, description: desc, year, type: mediaType, genres, extra: '' };
+  });
+}
+
+const _tmdbGenreCache = {};
+async function getTMDBGenreMap(mediaType, key) {
+  if (_tmdbGenreCache[mediaType]) return _tmdbGenreCache[mediaType];
+  const res  = await fetch(`https://api.themoviedb.org/3/genre/${mediaType}/list?api_key=${key}`);
+  const data = await res.json();
+  const map  = {};
+  (data.genres||[]).forEach(g => { map[g.id] = g.name; });
+  _tmdbGenreCache[mediaType] = map;
+  return map;
+}
+
+// ─── RAWG ─────────────────────────────────────────────────
 async function searchRAWG(q) {
   const res  = await fetch(`https://api.rawg.io/api/games?key=&search=${encodeURIComponent(q)}&page_size=8`);
   const data = await res.json();
@@ -1124,13 +867,13 @@ async function searchRAWG(q) {
     description: '',
     year:        g.released ? g.released.slice(0,4) : '',
     type:        'game',
-    genres:      (g.genres || []).map(x => x.name).slice(0, 6),
-    extra:       (g.genres || []).map(x => x.name).slice(0,2).join(', ')
+    genres:      (g.genres||[]).map(x=>x.name).slice(0,6),
+    extra:       (g.genres||[]).map(x=>x.name).slice(0,2).join(', ')
   }));
 }
 
 // ─── Render search results ────────────────────────────────
-function renderSearchResults(results, type) {
+function renderSearchResults(results) {
   const c = document.getElementById('search-results');
   c.innerHTML = '';
   results.forEach(r => {
@@ -1142,7 +885,7 @@ function renderSearchResults(results, type) {
         : `<div style="height:208px;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:34px">${typeEmoji(r.type)}</div>`}
       <div class="result-card-info">
         <h4>${r.title}</h4>
-        <small>${r.year}${r.genres.length ? ' · ' + r.genres.slice(0,2).join(', ') : ''}</small>
+        <small>${r.year}${r.extra ? ' · '+r.extra : r.genres?.length ? ' · '+r.genres.slice(0,2).join(', ') : ''}</small>
       </div>`;
     card.onclick = () => selectResult(r, card);
     c.appendChild(card);
@@ -1151,8 +894,7 @@ function renderSearchResults(results, type) {
 
 function selectResult(r, el) {
   document.querySelectorAll('.result-card').forEach(c => {
-    c.classList.remove('selected');
-    c.querySelector('.selected-badge')?.remove();
+    c.classList.remove('selected'); c.querySelector('.selected-badge')?.remove();
   });
   el.classList.add('selected');
   const b = document.createElement('div');
@@ -1165,19 +907,10 @@ function selectResult(r, el) {
 }
 
 // ─── Rating & Status ──────────────────────────────────────
-function setRating(v) { currentRating = v; updateStarUI(); }
-
-function updateStarUI() {
-  document.querySelectorAll('#rating-stars .star').forEach(s =>
-    s.classList.toggle('filled', +s.dataset.v <= currentRating));
-}
-
-function setStatus(s) { currentStatus = s; updateStatusUI(); }
-
-function updateStatusUI() {
-  document.querySelectorAll('#status-chips .status-chip').forEach(c =>
-    c.classList.toggle('active', c.dataset.s === currentStatus));
-}
+function setRating(v)    { currentRating = v; updateStarUI(); }
+function updateStarUI()  { document.querySelectorAll('#rating-stars .star').forEach(s => s.classList.toggle('filled', +s.dataset.v <= currentRating)); }
+function setStatus(s)    { currentStatus = s; updateStatusUI(); }
+function updateStatusUI(){ document.querySelectorAll('#status-chips .status-chip').forEach(c => c.classList.toggle('active', c.dataset.s === currentStatus)); }
 
 // ─── Add Entry ────────────────────────────────────────────
 function addEntry() {
@@ -1191,14 +924,13 @@ function addEntry() {
     year:        selectedResult.year,
     type:        selectedResult.type,
     genres:      selectedResult.genres || [],
-    extra:       selectedResult.extra,
+    extra:       selectedResult.extra  || '',
     rating:      currentRating,
     status:      currentStatus,
     review:      document.getElementById('review-text').value.trim(),
     addedAt:     Date.now()
   });
   save(); updateStats(); updateGenreFilterBar(); renderGrid();
-
   document.getElementById('search-input').value = '';
   document.getElementById('search-results').innerHTML = '';
   document.getElementById('review-fields').style.display = 'none';
@@ -1209,18 +941,14 @@ function addEntry() {
 // ─── Filters & Sort ───────────────────────────────────────
 function setTypeFilter(f) {
   currentTypeFilter = f;
-  document.querySelectorAll('.filters-row .filter-chip:not(.genre-filter)').forEach(c =>
-    c.classList.toggle('active', c.dataset.type === f));
+  document.querySelectorAll('.filters-row .filter-chip:not(.genre-filter)').forEach(c => c.classList.toggle('active', c.dataset.type === f));
   renderGrid();
 }
-
 function setGenreFilter(g) {
   currentGenreFilter = g;
-  document.querySelectorAll('.filter-chip.genre-filter').forEach(c =>
-    c.classList.toggle('active', c.dataset.genre === g));
+  document.querySelectorAll('.filter-chip.genre-filter').forEach(c => c.classList.toggle('active', c.dataset.genre === g));
   renderGrid();
 }
-
 function setSort(s) { currentSort = s; renderGrid(); }
 
 // ─── Render Grid ──────────────────────────────────────────
@@ -1228,28 +956,23 @@ function renderGrid() {
   let items = [...collection];
   if (currentTypeFilter  !== 'all') items = items.filter(e => e.type === currentTypeFilter);
   if (currentGenreFilter !== 'all') items = items.filter(e => (e.genres||[]).includes(currentGenreFilter));
-
   if      (currentSort === 'title')  items.sort((a,b) => a.title.localeCompare(b.title));
   else if (currentSort === 'rating') items.sort((a,b) => b.rating - a.rating);
   else                               items.sort((a,b) => b.addedAt - a.addedAt);
 
   const grid = document.getElementById('media-grid');
   grid.innerHTML = '';
-
   if (!items.length) {
     grid.innerHTML = `<div class="empty-state"><div class="icon">☽</div><h3>Nothing here yet</h3><p>Search above to start your collection.</p></div>`;
     return;
   }
-
   items.forEach(entry => {
-    const genreTags = (entry.genres||[]).slice(0,4).map(g => `<span class="genre-tag">${g}</span>`).join('');
+    const genreTags = (entry.genres||[]).slice(0,4).map(g=>`<span class="genre-tag">${g}</span>`).join('');
     const card = document.createElement('div');
     card.className = 'media-card';
     card.innerHTML = `
       <div class="type-bar ${entry.type}"></div>
-      ${entry.cover
-        ? `<img class="card-cover" src="${entry.cover}" alt="" loading="lazy">`
-        : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}</div>`}
+      ${entry.cover ? `<img class="card-cover" src="${entry.cover}" alt="" loading="lazy">` : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}</div>`}
       <div class="card-body">
         <div class="card-top-row">
           <span class="card-type ${entry.type}">${typeLabel(entry.type)}</span>
@@ -1262,48 +985,81 @@ function renderGrid() {
       </div>
       <div class="card-overlay">
         <button class="overlay-btn view" onclick="openModal(${entry.id},event)">View Details</button>
+        <button class="overlay-btn edit" onclick="openEdit(${entry.id},event)">Edit</button>
         <button class="overlay-btn del"  onclick="deleteEntry(${entry.id},event)">Remove</button>
       </div>`;
     grid.appendChild(card);
   });
 }
 
-// ─── Modal ────────────────────────────────────────────────
+// ─── Detail Modal ─────────────────────────────────────────
 function openModal(id, e) {
   if (e) e.stopPropagation();
   const entry = collection.find(c => c.id === id);
   if (!entry) return;
-
-  document.getElementById('modal-title').textContent   = entry.title;
-  document.getElementById('modal-type').textContent    = typeLabel(entry.type).toUpperCase();
-  document.getElementById('modal-type').className      = `modal-type ${entry.type}`;
-  document.getElementById('modal-stars').innerHTML     = starsHTML(entry.rating);
-  document.getElementById('modal-status').textContent  = entry.status.toUpperCase();
-  document.getElementById('modal-genres').innerHTML    = (entry.genres||[]).map(g => `<span class="genre-tag">${g}</span>`).join('');
-  document.getElementById('modal-desc').textContent    = entry.description || 'No description available.';
+  document.getElementById('modal-title').textContent  = entry.title;
+  document.getElementById('modal-type').textContent   = typeLabel(entry.type).toUpperCase();
+  document.getElementById('modal-type').className     = `modal-type ${entry.type}`;
+  document.getElementById('modal-stars').innerHTML    = starsHTML(entry.rating);
+  document.getElementById('modal-status').textContent = entry.status.toUpperCase();
+  document.getElementById('modal-genres').innerHTML   = (entry.genres||[]).map(g=>`<span class="genre-tag">${g}</span>`).join('');
+  document.getElementById('modal-desc').textContent   = entry.description || 'No description available.';
+  document.getElementById('modal-edit-btn').dataset.entryId = id;
 
   const img = document.getElementById('modal-cover-img');
   const ph  = document.getElementById('modal-cover-placeholder');
-  if (entry.cover) {
-    img.src = entry.cover; img.style.display = 'block'; ph.style.display = 'none';
-  } else {
-    img.style.display = 'none'; ph.style.display = 'flex'; ph.textContent = typeEmoji(entry.type);
-  }
+  if (entry.cover) { img.src = entry.cover; img.style.display='block'; ph.style.display='none'; }
+  else             { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
 
   const rev = document.getElementById('modal-review-section');
-  if (entry.review) {
-    rev.style.display = 'block';
-    document.getElementById('modal-review-text').textContent = entry.review;
-  } else {
-    rev.style.display = 'none';
-  }
-
+  if (entry.review) { rev.style.display='block'; document.getElementById('modal-review-text').textContent=entry.review; }
+  else              { rev.style.display='none'; }
   document.getElementById('modal-backdrop').style.display = 'flex';
 }
 
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal-backdrop')) return;
   document.getElementById('modal-backdrop').style.display = 'none';
+}
+
+// ─── Edit Modal ───────────────────────────────────────────
+function openEdit(id, e) {
+  if (e) e.stopPropagation();
+  const entry = collection.find(c => c.id === id);
+  if (!entry) return;
+  editingId = id; editRating = entry.rating; editStatus = entry.status;
+  document.getElementById('edit-title').textContent = entry.title;
+  document.getElementById('edit-review').value       = entry.review || '';
+  updateEditStarUI(); updateEditStatusUI();
+  document.getElementById('edit-backdrop').style.display = 'flex';
+}
+
+function openEditFromModal() {
+  const id = parseInt(document.getElementById('modal-edit-btn').dataset.entryId);
+  document.getElementById('modal-backdrop').style.display = 'none';
+  openEdit(id);
+}
+
+function closeEdit(e) {
+  if (e && e.target !== document.getElementById('edit-backdrop')) return;
+  document.getElementById('edit-backdrop').style.display = 'none';
+  editingId = null;
+}
+
+function setEditRating(v)    { editRating = v; updateEditStarUI(); }
+function updateEditStarUI()  { document.querySelectorAll('#edit-stars .edit-star').forEach(s => s.classList.toggle('filled', +s.dataset.v <= editRating)); }
+function setEditStatus(s)    { editStatus = s; updateEditStatusUI(); }
+function updateEditStatusUI(){ document.querySelectorAll('#edit-status-chips .status-chip').forEach(c => c.classList.toggle('active', c.dataset.s === editStatus)); }
+
+function saveEdit() {
+  const idx = collection.findIndex(c => c.id === editingId);
+  if (idx === -1) return;
+  collection[idx].rating = editRating;
+  collection[idx].status = editStatus;
+  collection[idx].review = document.getElementById('edit-review').value.trim();
+  save(); updateStats(); renderGrid();
+  document.getElementById('edit-backdrop').style.display = 'none';
+  editingId = null;
 }
 
 // ─── Delete ───────────────────────────────────────────────
@@ -1315,39 +1071,149 @@ function deleteEntry(id, e) {
 
 // ─── Stats ────────────────────────────────────────────────
 function updateStats() {
-  document.getElementById('stat-total').textContent  = collection.length;
-  document.getElementById('stat-anime').textContent  = collection.filter(c => c.type==='anime').length;
-  document.getElementById('stat-manga').textContent  = collection.filter(c => c.type==='manga').length;
-  document.getElementById('stat-manhwa').textContent = collection.filter(c => c.type==='manhwa').length;
-  document.getElementById('stat-manhua').textContent = collection.filter(c => c.type==='manhua').length;
-  document.getElementById('stat-game').textContent   = collection.filter(c => c.type==='game').length;
+  document.getElementById('stat-total').textContent = collection.length;
+  document.getElementById('stat-anime').textContent = collection.filter(c=>c.type==='anime').length;
+  document.getElementById('stat-manga').textContent = collection.filter(c=>c.type==='manga').length;
+  document.getElementById('stat-tv').textContent    = collection.filter(c=>c.type==='tv').length;
+  document.getElementById('stat-movie').textContent = collection.filter(c=>c.type==='movie').length;
+  document.getElementById('stat-game').textContent  = collection.filter(c=>c.type==='game').length;
+}
+
+// ─── Gist Sync ────────────────────────────────────────────
+function setSyncDot(state) {
+  const dot = document.getElementById('sync-dot');
+  dot.className = 'sync-dot' + (state !== 'none' ? ' '+state : '');
+  dot.title = {none:'No Gist configured', synced:'Up to date', unsynced:'Local changes not pushed', error:'Sync error'}[state]||'';
+}
+function setSyncBtns(e) { document.getElementById('btn-pull').disabled=!e; document.getElementById('btn-push').disabled=!e; }
+
+async function pushToGist() {
+  const { gistId, token } = getCreds();
+  if (!gistId||!token) { openSettings(); return; }
+  const btn = document.getElementById('btn-push');
+  btn.textContent='↑ Pushing…'; btn.classList.add('pushing'); btn.disabled=true;
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      method: 'PATCH',
+      headers: { 'Authorization':`token ${token}`, 'Content-Type':'application/json', 'Accept':'application/vnd.github+json' },
+      body: JSON.stringify({ files:{ [GIST_FILENAME]:{ content: JSON.stringify(collection,null,2) } } })
+    });
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    btn.textContent='↑ Pushed ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
+    setSyncDot('synced');
+    setTimeout(()=>{ btn.textContent='↑ Push'; btn.classList.remove('success'); btn.disabled=false; },2500);
+  } catch(err) {
+    btn.textContent='↑ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
+    setSyncDot('error');
+    setTimeout(()=>{ btn.textContent='↑ Push'; btn.classList.remove('error'); btn.disabled=false; },3000);
+  }
+}
+
+async function pullFromGist() {
+  const { gistId, token } = getCreds();
+  if (!gistId||!token) { openSettings(); return; }
+  const btn = document.getElementById('btn-pull');
+  btn.textContent='↓ Pulling…'; btn.classList.add('pushing'); btn.disabled=true;
+  try {
+    const res  = await fetch(`https://api.github.com/gists/${gistId}`, { headers:{ 'Authorization':`token ${token}`, 'Accept':'application/vnd.github+json' } });
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const data = await res.json();
+    const raw  = data.files?.[GIST_FILENAME]?.content;
+    if (!raw) throw new Error('File not found in Gist');
+    const remote = JSON.parse(raw);
+    if (!Array.isArray(remote)) throw new Error('Invalid format');
+    collection = remote;
+    localStorage.setItem('codex-v2', JSON.stringify(collection));
+    updateStats(); updateGenreFilterBar(); renderGrid();
+    btn.textContent='↓ Pulled ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
+    setSyncDot('synced');
+    setTimeout(()=>{ btn.textContent='↓ Pull'; btn.classList.remove('success'); btn.disabled=false; },2500);
+  } catch(err) {
+    btn.textContent='↓ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
+    setSyncDot('error');
+    setTimeout(()=>{ btn.textContent='↓ Pull'; btn.classList.remove('error'); btn.disabled=false; },3000);
+  }
+}
+
+// ─── Settings ─────────────────────────────────────────────
+function openSettings() {
+  const { tmdbKey, gistId, token } = getCreds();
+  document.getElementById('input-tmdb-key').value = tmdbKey;
+  document.getElementById('input-gist-id').value  = gistId;
+  document.getElementById('input-token').value    = token;
+  document.getElementById('settings-status').textContent = '';
+  document.getElementById('settings-status').className   = 'settings-status';
+  document.getElementById('settings-backdrop').style.display = 'flex';
+}
+
+function closeSettings(e) {
+  if (e && e.target !== document.getElementById('settings-backdrop')) return;
+  document.getElementById('settings-backdrop').style.display = 'none';
+}
+
+async function saveSettings() {
+  const tmdbKey = document.getElementById('input-tmdb-key').value.trim();
+  const gistId  = document.getElementById('input-gist-id').value.trim();
+  const token   = document.getElementById('input-token').value.trim();
+  const status  = document.getElementById('settings-status');
+  status.textContent = 'Testing…'; status.className = 'settings-status';
+
+  // Test TMDB key if provided
+  if (tmdbKey) {
+    try {
+      const res = await fetch(`https://api.themoviedb.org/3/configuration?api_key=${tmdbKey}`);
+      if (!res.ok) { status.textContent = '✕ TMDB key invalid.'; status.className='settings-status error'; return; }
+      localStorage.setItem('codex-tmdb-key', tmdbKey);
+    } catch { status.textContent = '✕ Could not reach TMDB.'; status.className='settings-status error'; return; }
+  }
+
+  // Test Gist if provided
+  if (gistId && token) {
+    try {
+      const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers:{ 'Authorization':`token ${token}`, 'Accept':'application/vnd.github+json' } });
+      if (res.status===404) { status.textContent='✕ Gist not found.'; status.className='settings-status error'; return; }
+      if (res.status===401) { status.textContent='✕ Token rejected.'; status.className='settings-status error'; return; }
+      if (!res.ok)          { status.textContent=`✕ GitHub error ${res.status}.`; status.className='settings-status error'; return; }
+      const data = await res.json();
+      if (!data.files?.[GIST_FILENAME]) { status.textContent=`✕ No "${GIST_FILENAME}" file in Gist.`; status.className='settings-status error'; return; }
+      localStorage.setItem('codex-gist-id', gistId);
+      localStorage.setItem('codex-token',   token);
+      setSyncBtns(true); setSyncDot('unsynced');
+    } catch { status.textContent='✕ Could not reach GitHub.'; status.className='settings-status error'; return; }
+  }
+
+  status.textContent = '✓ Saved!'; status.className = 'settings-status';
+}
+
+function clearSettings() {
+  ['codex-tmdb-key','codex-gist-id','codex-token'].forEach(k => localStorage.removeItem(k));
+  document.getElementById('input-tmdb-key').value = '';
+  document.getElementById('input-gist-id').value  = '';
+  document.getElementById('input-token').value    = '';
+  setSyncDot('none'); setSyncBtns(false);
+  const s = document.getElementById('settings-status');
+  s.textContent='Cleared.'; s.className='settings-status';
 }
 
 // ─── Keyboard ─────────────────────────────────────────────
-document.getElementById('search-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doSearch();
-});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
+    hideAC();
     document.getElementById('modal-backdrop').style.display    = 'none';
+    document.getElementById('edit-backdrop').style.display     = 'none';
     document.getElementById('settings-backdrop').style.display = 'none';
   }
 });
 
 // ─── Init ─────────────────────────────────────────────────
+setupAutocomplete();
 updateStats();
 updateGenreFilterBar();
 renderGrid();
 
-// Check if credentials are already saved
-const _creds = getCredentials();
-if (_creds.gistId && _creds.token) {
-  setSyncBtns(true);
-  setSyncDot('unsynced'); // assume local may differ until first pull
-} else {
-  setSyncBtns(false);
-  setSyncDot('none');
-}
+const _c = getCreds();
+if (_c.gistId && _c.token) { setSyncBtns(true); setSyncDot('unsynced'); }
+else                        { setSyncBtns(false); setSyncDot('none'); }
 </script>
 </body>
 </html>
