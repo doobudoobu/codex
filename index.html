@@ -250,6 +250,36 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .card-stars .e { color: var(--border); }
 .card-genres { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
 .card-status { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+.card-progress { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--mint); letter-spacing: 0.1em; margin-top: 3px; }
+.card-franchise { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--lav); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.75; }
+.card-seasons { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--blush); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.85; }
+
+/* ─── Seasons section in detail modal ─── */
+.modal-seasons { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
+.modal-seasons label { display: block; margin-bottom: 10px; color: var(--blush); opacity: 0.8; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+.season-list { display: flex; flex-direction: column; gap: 6px; }
+.season-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; gap: 12px; }
+.season-row-info { display: flex; flex-direction: column; gap: 2px; }
+.season-row-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.season-row-year { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
+.season-remove { background: transparent; border: 1px solid rgba(232,152,152,0.3); color: var(--danger); font-size: 10px; padding: 3px 10px; height: auto; border-radius: 20px; letter-spacing: 0.1em; flex-shrink: 0; opacity: 0.7; }
+.season-remove:hover { opacity: 1; background: rgba(232,152,152,0.08); }
+
+/* ─── Season picker (attaches to existing entry) ─── */
+.season-picker-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 560; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
+.season-picker { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 420px; width: 100%; position: relative; }
+.season-picker::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blush), var(--lav)); opacity: 0.65; }
+.season-picker-header { padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.season-picker-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.season-picker-body { padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.season-picker-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; line-height: 1.5; }
+.season-entry-list { display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto; }
+.season-entry-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 2px; background: var(--surface2); transition: all 0.15s; }
+.season-entry-option:hover { border-color: var(--blush); background: rgba(240,184,204,0.07); }
+.season-entry-thumb { width: 28px; height: 38px; object-fit: cover; border-radius: 1px; flex-shrink: 0; background: var(--surface3); }
+.season-entry-thumb-ph { width: 28px; height: 38px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.season-entry-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.season-entry-count { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
 .card-overlay { position: absolute; inset: 0; background: rgba(26,23,32,0.87); opacity: 0; transition: opacity 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; backdrop-filter: blur(4px); }
 .overlay-btn { width: 100%; padding: 7px; font-size: 10px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
 .overlay-btn.view { background: rgba(196,168,232,0.13); border-color: rgba(196,168,232,0.45); color: var(--lav); }
@@ -285,6 +315,8 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .modal-stars .f { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.4); }
 .modal-stars .e { color: var(--border); }
 .modal-status-tag { display: inline-block; padding: 3px 12px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; border: 1px solid var(--border); color: var(--text-dim); border-radius: 20px; width: fit-content; }
+.modal-progress { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--mint); letter-spacing: 0.1em; }
+.modal-franchise { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--lav); letter-spacing: 0.12em; opacity: 0.8; }
 .modal-genres { display: flex; flex-wrap: wrap; gap: 5px; }
 .modal-desc { font-style: italic; color: var(--text-mid); font-size: 15px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-weight: 300; }
 .modal-review { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
@@ -423,8 +455,17 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <label>Review / Notes</label>
         <textarea id="review-text" placeholder="Write your thoughts…"></textarea>
       </div>
-      <div style="grid-column:1/-1">
-        <button class="btn-add" onclick="addEntry()">✦ Add to Collection</button>
+      <div class="field-group" id="add-progress-wrap" style="display:none">
+        <label id="add-progress-label">Progress</label>
+        <input type="text" id="add-progress" placeholder="e.g. Episode 12 / Ch. 47 / S02E04" />
+      </div>
+      <div class="field-group">
+        <label>Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
+        <input type="text" id="add-franchise" placeholder="e.g. Attack on Titan" />
+      </div>
+      <div style="grid-column:1/-1; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn-add" onclick="addEntry()">✦ Add as New Entry</button>
+        <button class="btn-add" id="btn-add-season" onclick="openSeasonPicker()" style="display:none; background:linear-gradient(135deg,rgba(240,184,204,0.18),rgba(196,168,232,0.14)); border-color:rgba(240,184,204,0.45); color:var(--blush)">+ Add as Season to…</button>
       </div>
     </div>
   </div>
@@ -471,15 +512,21 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <div id="modal-cover-placeholder" class="modal-cover-placeholder" style="display:none"></div>
       </div>
       <div class="modal-meta">
-        <div id="modal-type"   class="modal-type"></div>
-        <div id="modal-stars"  class="modal-stars"></div>
-        <div id="modal-status" class="modal-status-tag"></div>
-        <div id="modal-genres" class="modal-genres"></div>
-        <p   id="modal-desc"   class="modal-desc"></p>
+        <div id="modal-type"     class="modal-type"></div>
+        <div id="modal-stars"    class="modal-stars"></div>
+        <div id="modal-status"   class="modal-status-tag"></div>
+        <div id="modal-progress" class="modal-progress"   style="display:none"></div>
+        <div id="modal-franchise"class="modal-franchise"  style="display:none"></div>
+        <div id="modal-genres"   class="modal-genres"></div>
+        <p   id="modal-desc"     class="modal-desc"></p>
       </div>
       <div class="modal-review" id="modal-review-section" style="display:none">
         <label>✦ My Notes</label>
         <p id="modal-review-text"></p>
+      </div>
+      <div class="modal-seasons" id="modal-seasons-section" style="display:none">
+        <label>Seasons</label>
+        <div class="season-list" id="modal-season-list"></div>
       </div>
       <div style="grid-column:1/-1; padding-top:4px">
         <button class="modal-edit-btn" id="modal-edit-btn" onclick="openEditFromModal()">✎ Edit Rating &amp; Notes</button>
@@ -518,6 +565,14 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
       <div class="field-group">
         <label>Notes</label>
         <textarea id="edit-review" placeholder="Write your thoughts…"></textarea>
+      </div>
+      <div class="field-group" id="edit-progress-wrap" style="display:none">
+        <label id="edit-progress-label">Progress</label>
+        <input type="text" id="edit-progress" placeholder="e.g. Episode 12 / Ch. 47 / S02E04" />
+      </div>
+      <div class="field-group">
+        <label>Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
+        <input type="text" id="edit-franchise" placeholder="e.g. Attack on Titan" />
       </div>
       <div class="edit-actions">
         <button class="btn-save-edit" onclick="saveEdit()">✦ Save Changes</button>
@@ -559,6 +614,20 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
   </div>
 </div>
 
+<!-- Season Picker Modal -->
+<div class="season-picker-backdrop" id="season-picker-backdrop" style="display:none" onclick="closeSeasonPicker(event)">
+  <div class="season-picker">
+    <div class="season-picker-header">
+      <h3 id="season-picker-title">Add as Season to…</h3>
+      <button class="modal-close" onclick="closeSeasonPicker()">✕</button>
+    </div>
+    <div class="season-picker-body">
+      <p class="season-picker-hint">Choose which series entry to attach this season to:</p>
+      <div class="season-entry-list" id="season-entry-list"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ─── Config ───────────────────────────────────────────────
 // TMDB key is stored in localStorage via the settings panel.
@@ -579,7 +648,6 @@ let editStatus         = 'completed';
 let acDebounceTimer    = null;
 let acResults          = [];
 let acIndex            = -1;
-
 // ─── Persistence ──────────────────────────────────────────
 function save() {
   localStorage.setItem('codex-v2', JSON.stringify(collection));
@@ -904,13 +972,52 @@ function selectResult(r, el) {
   document.getElementById('review-fields').style.display = 'grid';
   currentRating = 0; currentStatus = 'completed';
   updateStarUI(); updateStatusUI();
+  document.getElementById('add-progress-wrap').style.display = 'none';
+  document.getElementById('add-progress').value  = '';
+  document.getElementById('add-franchise').value = '';
+  // Show "Add as Season" button only for anime, and only if anime entries already exist
+  const hasAnimeEntries = collection.some(e => e.type === 'anime');
+  const seasonBtn = document.getElementById('btn-add-season');
+  seasonBtn.style.display = (r.type === 'anime' && hasAnimeEntries) ? 'inline-flex' : 'none';
 }
 
 // ─── Rating & Status ──────────────────────────────────────
+function progressLabel(type) {
+  if (type === 'manga')  return 'Chapter';
+  if (type === 'movie')  return null; // no progress for movies
+  if (type === 'anime')  return 'Episode';
+  if (type === 'tv')     return 'Episode / Season';
+  return 'Progress';
+}
+
 function setRating(v)    { currentRating = v; updateStarUI(); }
 function updateStarUI()  { document.querySelectorAll('#rating-stars .star').forEach(s => s.classList.toggle('filled', +s.dataset.v <= currentRating)); }
-function setStatus(s)    { currentStatus = s; updateStatusUI(); }
+function setStatus(s)    { currentStatus = s; updateStatusUI(); updateAddProgressVisibility(); }
 function updateStatusUI(){ document.querySelectorAll('#status-chips .status-chip').forEach(c => c.classList.toggle('active', c.dataset.s === currentStatus)); }
+
+function updateAddProgressVisibility() {
+  const type  = document.getElementById('type-select').value;
+  const wrap  = document.getElementById('add-progress-wrap');
+  const label = progressLabel(type);
+  if (currentStatus === 'watching' && label) {
+    wrap.style.display = 'flex';
+    document.getElementById('add-progress-label').textContent = label;
+  } else {
+    wrap.style.display = 'none';
+    document.getElementById('add-progress').value = '';
+  }
+}
+
+function updateEditProgressVisibility(type) {
+  const wrap  = document.getElementById('edit-progress-wrap');
+  const label = progressLabel(type);
+  if (editStatus === 'watching' && label) {
+    wrap.style.display = 'flex';
+    document.getElementById('edit-progress-label').textContent = label;
+  } else {
+    wrap.style.display = 'none';
+  }
+}
 
 // ─── Add Entry ────────────────────────────────────────────
 function addEntry() {
@@ -928,14 +1035,104 @@ function addEntry() {
     rating:      currentRating,
     status:      currentStatus,
     review:      document.getElementById('review-text').value.trim(),
+    progress:    document.getElementById('add-progress').value.trim(),
+    franchise:   document.getElementById('add-franchise').value.trim(),
     addedAt:     Date.now()
   });
   save(); updateStats(); updateGenreFilterBar(); renderGrid();
-  document.getElementById('search-input').value = '';
+  document.getElementById('search-input').value    = '';
   document.getElementById('search-results').innerHTML = '';
   document.getElementById('review-fields').style.display = 'none';
-  document.getElementById('review-text').value = '';
+  document.getElementById('review-text').value    = '';
+  document.getElementById('add-progress').value   = '';
+  document.getElementById('add-franchise').value  = '';
+  document.getElementById('add-progress-wrap').style.display = 'none';
+  document.getElementById('btn-add-season').style.display = 'none';
   selectedResult = null; currentRating = 0; updateStarUI();
+}
+
+// ─── Season Picker ────────────────────────────────────────
+function openSeasonPicker() {
+  if (!selectedResult) return;
+  const animeEntries = collection.filter(e => e.type === 'anime');
+  if (!animeEntries.length) return;
+
+  document.getElementById('season-picker-title').textContent =
+    `Add "${selectedResult.title}" as a season to…`;
+
+  const list = document.getElementById('season-entry-list');
+  list.innerHTML = '';
+  animeEntries.forEach(entry => {
+    const seasonCount = (entry.seasons||[]).length;
+    const row = document.createElement('div');
+    row.className = 'season-entry-option';
+    row.innerHTML = `
+      ${entry.cover
+        ? `<img class="season-entry-thumb" src="${entry.cover}" alt="">`
+        : `<div class="season-entry-thumb-ph">📺</div>`}
+      <div>
+        <div class="season-entry-name">${entry.title}</div>
+        <div class="season-entry-count">${seasonCount ? seasonCount + ' season' + (seasonCount>1?'s':'') + ' already added' : 'No seasons yet'}</div>
+      </div>`;
+    row.onclick = () => attachSeason(entry.id);
+    list.appendChild(row);
+  });
+
+  document.getElementById('season-picker-backdrop').style.display = 'flex';
+}
+
+function closeSeasonPicker(e) {
+  if (e && e.target !== document.getElementById('season-picker-backdrop')) return;
+  document.getElementById('season-picker-backdrop').style.display = 'none';
+}
+
+function attachSeason(targetEntryId) {
+  if (!selectedResult) return;
+  const idx = collection.findIndex(c => c.id === targetEntryId);
+  if (idx === -1) return;
+
+  if (!collection[idx].seasons) collection[idx].seasons = [];
+
+  // Avoid duplicate season IDs
+  const alreadyAdded = collection[idx].seasons.some(s => s.mediaId === selectedResult.id);
+  if (alreadyAdded) {
+    closeSeasonPicker();
+    return;
+  }
+
+  collection[idx].seasons.push({
+    id:      Date.now(),
+    mediaId: selectedResult.id,
+    title:   selectedResult.title,
+    year:    selectedResult.year,
+    cover:   selectedResult.cover
+  });
+
+  // Sort seasons chronologically by year
+  collection[idx].seasons.sort((a,b) => (a.year||0) - (b.year||0));
+
+  save(); renderGrid();
+  closeSeasonPicker();
+
+  // Reset add form
+  document.getElementById('search-input').value    = '';
+  document.getElementById('search-results').innerHTML = '';
+  document.getElementById('review-fields').style.display = 'none';
+  document.getElementById('review-text').value    = '';
+  document.getElementById('add-progress').value   = '';
+  document.getElementById('add-franchise').value  = '';
+  document.getElementById('add-progress-wrap').style.display = 'none';
+  document.getElementById('btn-add-season').style.display = 'none';
+  selectedResult = null; currentRating = 0; updateStarUI();
+}
+
+function removeSeason(entryId, seasonId) {
+  const idx = collection.findIndex(c => c.id === entryId);
+  if (idx === -1) return;
+  collection[idx].seasons = (collection[idx].seasons||[]).filter(s => s.id !== seasonId);
+  save(); renderGrid();
+  // Refresh modal to reflect removal
+  openModal(entryId);
 }
 
 // ─── Filters & Sort ───────────────────────────────────────
@@ -979,9 +1176,12 @@ function renderGrid() {
           <span class="card-year">${entry.year||''}</span>
         </div>
         <div class="card-title">${entry.title}</div>
+        ${entry.seasons?.length ? `<div class="card-seasons">◉ ${entry.seasons.length} season${entry.seasons.length>1?'s':''}</div>` : ''}
         <div class="card-stars">${starsHTML(entry.rating)}</div>
         ${genreTags ? `<div class="card-genres">${genreTags}</div>` : ''}
-        <div class="card-status">${entry.status}</div>
+        <div class="card-status">${entry.status.toUpperCase()}</div>
+        ${entry.status === 'watching' && entry.progress ? `<div class="card-progress">↳ ${entry.progress}</div>` : ''}
+        ${entry.franchise ? `<div class="card-franchise">◈ ${entry.franchise}</div>` : ''}
       </div>
       <div class="card-overlay">
         <button class="overlay-btn view" onclick="openModal(${entry.id},event)">View Details</button>
@@ -1002,6 +1202,17 @@ function openModal(id, e) {
   document.getElementById('modal-type').className     = `modal-type ${entry.type}`;
   document.getElementById('modal-stars').innerHTML    = starsHTML(entry.rating);
   document.getElementById('modal-status').textContent = entry.status.toUpperCase();
+
+  const progEl = document.getElementById('modal-progress');
+  if (entry.status === 'watching' && entry.progress) {
+    progEl.textContent = '↳ ' + entry.progress; progEl.style.display = 'block';
+  } else { progEl.style.display = 'none'; }
+
+  const franEl = document.getElementById('modal-franchise');
+  if (entry.franchise) {
+    franEl.textContent = '◈ ' + entry.franchise; franEl.style.display = 'block';
+  } else { franEl.style.display = 'none'; }
+
   document.getElementById('modal-genres').innerHTML   = (entry.genres||[]).map(g=>`<span class="genre-tag">${g}</span>`).join('');
   document.getElementById('modal-desc').textContent   = entry.description || 'No description available.';
   document.getElementById('modal-edit-btn').dataset.entryId = id;
@@ -1014,6 +1225,28 @@ function openModal(id, e) {
   const rev = document.getElementById('modal-review-section');
   if (entry.review) { rev.style.display='block'; document.getElementById('modal-review-text').textContent=entry.review; }
   else              { rev.style.display='none'; }
+
+  // Seasons
+  const seasonsSection = document.getElementById('modal-seasons-section');
+  const seasonList     = document.getElementById('modal-season-list');
+  if (entry.seasons?.length) {
+    seasonsSection.style.display = 'block';
+    seasonList.innerHTML = '';
+    entry.seasons.forEach(s => {
+      const row = document.createElement('div');
+      row.className = 'season-row';
+      row.innerHTML = `
+        <div class="season-row-info">
+          <div class="season-row-title">${s.title}</div>
+          ${s.year ? `<div class="season-row-year">${s.year}</div>` : ''}
+        </div>
+        <button class="season-remove" onclick="removeSeason(${entry.id}, ${s.id})">Remove</button>`;
+      seasonList.appendChild(row);
+    });
+  } else {
+    seasonsSection.style.display = 'none';
+  }
+
   document.getElementById('modal-backdrop').style.display = 'flex';
 }
 
@@ -1028,9 +1261,12 @@ function openEdit(id, e) {
   const entry = collection.find(c => c.id === id);
   if (!entry) return;
   editingId = id; editRating = entry.rating; editStatus = entry.status;
-  document.getElementById('edit-title').textContent = entry.title;
-  document.getElementById('edit-review').value       = entry.review || '';
+  document.getElementById('edit-title').textContent   = entry.title;
+  document.getElementById('edit-review').value         = entry.review    || '';
+  document.getElementById('edit-progress').value       = entry.progress  || '';
+  document.getElementById('edit-franchise').value      = entry.franchise || '';
   updateEditStarUI(); updateEditStatusUI();
+  updateEditProgressVisibility(entry.type);
   document.getElementById('edit-backdrop').style.display = 'flex';
 }
 
@@ -1048,15 +1284,21 @@ function closeEdit(e) {
 
 function setEditRating(v)    { editRating = v; updateEditStarUI(); }
 function updateEditStarUI()  { document.querySelectorAll('#edit-stars .edit-star').forEach(s => s.classList.toggle('filled', +s.dataset.v <= editRating)); }
-function setEditStatus(s)    { editStatus = s; updateEditStatusUI(); }
+function setEditStatus(s)    {
+  editStatus = s; updateEditStatusUI();
+  const entry = collection.find(c => c.id === editingId);
+  if (entry) updateEditProgressVisibility(entry.type);
+}
 function updateEditStatusUI(){ document.querySelectorAll('#edit-status-chips .status-chip').forEach(c => c.classList.toggle('active', c.dataset.s === editStatus)); }
 
 function saveEdit() {
   const idx = collection.findIndex(c => c.id === editingId);
   if (idx === -1) return;
-  collection[idx].rating = editRating;
-  collection[idx].status = editStatus;
-  collection[idx].review = document.getElementById('edit-review').value.trim();
+  collection[idx].rating    = editRating;
+  collection[idx].status    = editStatus;
+  collection[idx].review    = document.getElementById('edit-review').value.trim();
+  collection[idx].progress  = document.getElementById('edit-progress').value.trim();
+  collection[idx].franchise = document.getElementById('edit-franchise').value.trim();
   save(); updateStats(); renderGrid();
   document.getElementById('edit-backdrop').style.display = 'none';
   editingId = null;
@@ -1199,9 +1441,10 @@ function clearSettings() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     hideAC();
-    document.getElementById('modal-backdrop').style.display    = 'none';
-    document.getElementById('edit-backdrop').style.display     = 'none';
-    document.getElementById('settings-backdrop').style.display = 'none';
+    document.getElementById('modal-backdrop').style.display          = 'none';
+    document.getElementById('edit-backdrop').style.display           = 'none';
+    document.getElementById('settings-backdrop').style.display       = 'none';
+    document.getElementById('season-picker-backdrop').style.display  = 'none';
   }
 });
 
