@@ -180,7 +180,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .result-card { border: 1px solid var(--border); cursor: pointer; transition: all 0.22s; overflow: hidden; position: relative; border-radius: 2px; background: var(--surface2); }
 .result-card:hover { border-color: var(--lav); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(196,168,232,0.14); }
 .result-card.selected { border-color: var(--lav); box-shadow: 0 0 0 1px var(--lav), 0 8px 28px rgba(196,168,232,0.18); }
-.result-card img { width: 100%; height: 208px; object-fit: cover; display: block; }
+.result-card img, .result-card-img { width: 100%; height: 208px; object-fit: cover; display: block; }
 .result-card-info { padding: 8px 10px; }
 .result-card-info h4 { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
 .result-card-info small { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
@@ -668,6 +668,13 @@ function typeEmoji(t) { return { anime:'📺', manga:'📖', tv:'📡', movie:'�
 function typeLabel(t) { return { anime:'Anime', manga:'Manga', tv:'TV Show', movie:'Movie', game:'Game' }[t] || t; }
 function starsHTML(r) { let h=''; for(let i=1;i<=5;i++) h+=`<span class="${i<=r?'f':'e'}">★</span>`; return h; }
 
+// MangaDex blocks hotlinking via Referer header — no-referrer bypasses this
+function coverImg(src, cssClass, alt='') {
+  if (!src) return '';
+  const isMD = src.includes('mangadex.org');
+  return `<img src="${src}" class="${cssClass}" alt="${alt}" loading="lazy"${isMD ? ' referrerpolicy="no-referrer" crossorigin="anonymous"' : ''}>`;
+}
+
 function getAllGenres() {
   const s = new Set();
   collection.forEach(e => (e.genres||[]).forEach(g => s.add(g)));
@@ -772,7 +779,7 @@ function renderACList() {
     item.className = 'autocomplete-item' + (i === acIndex ? ' active' : '');
     item.innerHTML = `
       ${r.cover
-        ? `<img class="ac-thumb" src="${r.cover}" alt="" loading="lazy">`
+        ? coverImg(r.cover, 'ac-thumb', r.title)
         : `<div class="ac-thumb-placeholder">${typeEmoji(r.type)}</div>`}
       <div class="ac-info">
         <div class="ac-title">${r.title}</div>
@@ -879,9 +886,8 @@ async function searchMangaDex(q) {
     const title    = attrs.title.en || attrs.title.ro || Object.values(attrs.title)[0] || 'Unknown Title';
     const desc     = (attrs.description?.en || Object.values(attrs.description||{})[0] || '').substring(0,700);
     const coverRel = m.relationships.find(r => r.type === 'cover_art');
-    const coverUrl = coverRel?.attributes?.fileName
+    const cover = coverRel?.attributes?.fileName
       ? `https://uploads.mangadex.org/covers/${m.id}/${coverRel.attributes.fileName}.256.jpg` : '';
-    const cover = coverUrl ? `https://corsproxy.io/?url=${encodeURIComponent(coverUrl)}` : '';
     const genres   = (attrs.tags||[]).filter(t => t.attributes.group==='genre'||t.attributes.group==='theme').map(t=>t.attributes.name.en).filter(Boolean).slice(0,7);
     // Determine subtype label for display but store as 'manga'
     const lang     = attrs.originalLanguage || '';
@@ -950,7 +956,7 @@ function renderSearchResults(results) {
     card.className = 'result-card';
     card.innerHTML = `
       ${r.cover
-        ? `<img src="${r.cover}" alt="" loading="lazy">`
+        ? coverImg(r.cover, 'result-card-img', r.title)
         : `<div style="height:208px;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:34px">${typeEmoji(r.type)}</div>`}
       <div class="result-card-info">
         <h4>${r.title}</h4>
@@ -1170,7 +1176,7 @@ function renderGrid() {
     card.className = 'media-card';
     card.innerHTML = `
       <div class="type-bar ${entry.type}"></div>
-      ${entry.cover ? `<img class="card-cover" src="${entry.cover}" alt="" loading="lazy">` : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}</div>`}
+      ${entry.cover ? coverImg(entry.cover, 'card-cover', entry.title) : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}</div>`}
       <div class="card-body">
         <div class="card-top-row">
           <span class="card-type ${entry.type}">${typeLabel(entry.type)}</span>
@@ -1220,8 +1226,13 @@ function openModal(id, e) {
 
   const img = document.getElementById('modal-cover-img');
   const ph  = document.getElementById('modal-cover-placeholder');
-  if (entry.cover) { img.src = entry.cover; img.style.display='block'; ph.style.display='none'; }
-  else             { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
+  if (entry.cover) {
+    img.src = entry.cover;
+    img.referrerPolicy = entry.cover.includes('mangadex.org') ? 'no-referrer' : '';
+    img.crossOrigin    = entry.cover.includes('mangadex.org') ? 'anonymous' : null;
+    img.style.display='block'; ph.style.display='none';
+  }
+  else { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
 
   const rev = document.getElementById('modal-review-section');
   if (entry.review) { rev.style.display='block'; document.getElementById('modal-review-text').textContent=entry.review; }
