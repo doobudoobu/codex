@@ -541,10 +541,11 @@ button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2
         <span class="filter-chip" data-status="planned"          onclick="setStatusFilter('planned')">Plan to</span>
         <span class="filter-chip" data-status="dropped"          onclick="setStatusFilter('dropped')">Dropped</span>
       </div>
-      <div class="filters-row" id="genre-filter-row" style="display:none">
-        <span class="filter-label" style="flex-shrink:0">◈ Genre:</span>
-        <span class="filter-chip genre-filter active" data-genre="all" onclick="setGenreFilter('all')" style="flex-shrink:0">All</span>
-        <span id="genre-filter-chips" style="display:contents"></span>
+      <div class="filters-row wrap" id="genre-filter-row" style="display:none">
+        <span class="filter-label">◈ Genre:</span>
+        <select class="sort-select" id="genre-select" onchange="setGenreFilter(this.value)">
+          <option value="all">All Genres</option>
+        </select>
       </div>
       <div id="franchise-filter-bar" style="display:none">
         <div class="franchise-filter-bar">
@@ -771,20 +772,17 @@ function getAllGenres() {
 function updateGenreFilterBar() {
   const genres = getAllGenres();
   const row    = document.getElementById('genre-filter-row');
+  const sel    = document.getElementById('genre-select');
   if (!genres.length) { row.style.display = 'none'; return; }
   row.style.display = 'flex';
 
-  // Remove old genre chips (keep the label and All chip)
-  row.querySelectorAll('.genre-filter:not([data-genre="all"])').forEach(el => el.remove());
-
+  // Rebuild options, preserving current selection
+  sel.innerHTML = '<option value="all">All Genres</option>';
   genres.forEach(g => {
-    const el = document.createElement('span');
-    el.className = 'filter-chip genre-filter' + (currentGenreFilter === g ? ' active' : '');
-    el.dataset.genre = g;
-    el.textContent = g;
-    el.style.flexShrink = '0';
-    el.onclick = () => setGenreFilter(g);
-    row.appendChild(el);
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    if (g === currentGenreFilter) opt.selected = true;
+    sel.appendChild(opt);
   });
 }
 
@@ -1206,7 +1204,8 @@ function setStatusFilter(s) {
 
 function setGenreFilter(g) {
   currentGenreFilter = g;
-  document.querySelectorAll('.filter-chip.genre-filter').forEach(c => c.classList.toggle('active', c.dataset.genre === g));
+  const sel = document.getElementById('genre-select');
+  if (sel) sel.value = g;
   renderGrid();
 }
 
