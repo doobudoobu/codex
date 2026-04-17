@@ -6,11 +6,6 @@
 <title>☽ CODEX — Media Archive ☾</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ─── PASTE YOUR TMDB API KEY HERE ─────────────────────────
-   Find this at: themoviedb.org → Settings → API
-   Replace the empty string below with your key.
-   ───────────────────────────────────────────────────────── */
-
 :root {
   --bg:       #1a1720;
   --surface:  #221f2b;
@@ -40,15 +35,15 @@
 body {
   background: var(--bg); color: var(--text);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 17px; line-height: 1.65; min-height: 100vh;
+  font-size: 18px; line-height: 1.65; min-height: 100vh;
 }
 
 body::before {
   content: ''; position: fixed; inset: 0;
   background:
-    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(196,168,232,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 35% at 85% 80%, rgba(240,184,204,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 50% at 50% 50%, rgba(168,184,240,0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(196,168,232,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 80%, rgba(240,184,204,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 50% 50%, rgba(168,184,240,0.05) 0%, transparent 60%);
   pointer-events: none; z-index: 0;
 }
 
@@ -61,7 +56,7 @@ body::after {
 /* ─── Header ─── */
 header {
   position: sticky; top: 0; z-index: 200;
-  background: rgba(26,23,32,0.9); backdrop-filter: blur(16px);
+  background: rgba(26,23,32,0.92); backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 48px; min-height: 72px;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
@@ -70,18 +65,17 @@ header {
 header::after {
   content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), transparent);
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
 .logo { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; }
-.logo-title { font-family: 'UnifrakturMaguntia', cursive; font-size: 26px; color: var(--lav); letter-spacing: 0.04em; text-shadow: 0 0 22px rgba(196,168,232,0.38); line-height: 1; }
+.logo-title { font-family: 'UnifrakturMaguntia', cursive; font-size: 28px; color: var(--lav); letter-spacing: 0.04em; text-shadow: 0 0 28px rgba(196,168,232,0.45); line-height: 1; }
 .logo-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.3em; text-transform: uppercase; }
 
 .header-right { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 12px 0; }
 .header-stats { display: flex; gap: 20px; flex-wrap: wrap; }
-
 .stat-item { text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1; }
-.stat-item strong { display: block; font-size: 19px; font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0; margin-bottom: 4px; }
+.stat-item strong { display: block; font-size: 20px; font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0; margin-bottom: 4px; }
 .stat-item.s-total  strong { color: var(--lav); }
 .stat-item.s-anime  strong { color: var(--anime); }
 .stat-item.s-manga  strong { color: var(--manga); }
@@ -89,7 +83,7 @@ header::after {
 .stat-item.s-movie  strong { color: var(--movie); }
 .stat-item.s-game   strong { color: var(--game); }
 
-/* ─── Sync controls ─── */
+/* ─── Sync ─── */
 .sync-controls { display: flex; align-items: center; gap: 8px; }
 .btn-sync { background: rgba(168,221,200,0.1); border: 1px solid rgba(168,221,200,0.32); color: var(--mint); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 14px; cursor: pointer; border-radius: 1px; transition: all 0.2s; height: 32px; white-space: nowrap; }
 .btn-sync:hover { background: rgba(168,221,200,0.2); box-shadow: 0 0 14px rgba(168,221,200,0.15); }
@@ -97,9 +91,9 @@ header::after {
 .btn-sync.pushing { border-color: rgba(240,224,168,0.4); color: var(--butter); background: rgba(240,224,168,0.08); }
 .btn-sync.success { border-color: rgba(168,221,200,0.6); color: var(--mint); }
 .btn-sync.error   { border-color: rgba(232,152,152,0.5); color: var(--danger); background: rgba(232,152,152,0.08); }
-.btn-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-size: 14px; letter-spacing: 0; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 1px; transition: all 0.2s; text-transform: none; }
+.btn-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-size: 15px; letter-spacing: 0; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 1px; transition: all 0.2s; text-transform: none; }
 .btn-settings:hover { border-color: var(--lav); color: var(--lav); }
-.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.3s; }
+.sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.3s; }
 .sync-dot.synced   { background: var(--mint); box-shadow: 0 0 6px rgba(168,221,200,0.5); }
 .sync-dot.unsynced { background: var(--butter); box-shadow: 0 0 6px rgba(240,224,168,0.4); }
 .sync-dot.error    { background: var(--danger); }
@@ -107,66 +101,68 @@ header::after {
 /* ─── Main ─── */
 main { position: relative; z-index: 2; max-width: 1380px; margin: 0 auto; padding: 44px 48px 80px; }
 
-/* ─── Add Section ─── */
-.add-section { background: var(--surface); border: 1px solid var(--border); border-radius: 2px; padding: 32px 36px; margin-bottom: 52px; position: relative; overflow: visible; }
-.add-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), var(--periwink)); opacity: 0.55; border-radius: 2px 2px 0 0; }
-.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.35em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 22px; }
+/* ─── Decorative divider ─── */
+.deco-divider {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 22px; user-select: none;
+}
+.deco-divider span { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.35em; color: var(--text-dim); text-transform: uppercase; white-space: nowrap; }
+.deco-divider::before, .deco-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border));
+}
+.deco-divider::after { background: linear-gradient(270deg, transparent, var(--border)); }
 
-.search-row { display: grid; grid-template-columns: 1fr 180px 130px; gap: 10px; align-items: end; }
+/* ─── Add Section ─── */
+.add-section {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 2px;
+  padding: 32px 36px; margin-bottom: 52px; position: relative; overflow: visible;
+}
+.add-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), var(--periwink)); opacity: 0.55; border-radius: 2px 2px 0 0; }
+
+/* Decorative corner stars on add section */
+.add-section::after {
+  content: '✦';
+  position: absolute; top: 10px; right: 14px;
+  color: var(--lav); font-size: 11px; opacity: 0.35;
+  pointer-events: none;
+}
+
+.search-row { display: grid; grid-template-columns: 1fr 200px 130px; gap: 10px; align-items: end; }
 .field-group { display: flex; flex-direction: column; gap: 7px; position: relative; }
 
-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
+label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
 
 input[type="text"], input[type="password"], select, textarea {
   background: var(--bg); border: 1px solid var(--border); color: var(--text);
-  padding: 9px 13px; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+  padding: 10px 14px; font-family: 'Cormorant Garamond', serif; font-size: 17px;
   outline: none; border-radius: 1px; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
 }
 input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus { border-color: var(--lav); box-shadow: 0 0 0 2px rgba(196,168,232,0.11); }
 input::placeholder { color: var(--text-dim); font-style: italic; }
-textarea { resize: vertical; min-height: 82px; }
+textarea { resize: vertical; min-height: 88px; font-size: 16px; }
 select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; padding-right: 32px; }
 select option { background: var(--surface2); }
 
-button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border: 1px solid transparent; border-radius: 1px; transition: all 0.2s; height: 40px; white-space: nowrap; }
+button { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 20px; cursor: pointer; border: 1px solid transparent; border-radius: 1px; transition: all 0.2s; height: 42px; white-space: nowrap; }
 .btn-search { background: rgba(196,168,232,0.1); border-color: rgba(196,168,232,0.32); color: var(--lav); }
 .btn-search:hover { background: rgba(196,168,232,0.2); box-shadow: 0 0 16px rgba(196,168,232,0.14); }
 .btn-add { background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14)); border-color: rgba(196,168,232,0.45); color: var(--lav); }
 .btn-add:hover { background: linear-gradient(135deg, rgba(196,168,232,0.28), rgba(240,184,204,0.22)); box-shadow: 0 0 20px rgba(196,168,232,0.18); }
 .btn-add:disabled { opacity: 0.35; cursor: not-allowed; }
 
-/* ─── Autocomplete dropdown ─── */
+/* ─── Autocomplete ─── */
 .autocomplete-wrap { position: relative; }
-
-.autocomplete-list {
-  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-  background: var(--surface2); border: 1px solid var(--lav);
-  border-radius: 2px; z-index: 300; max-height: 280px; overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 16px rgba(196,168,232,0.1);
-}
-
-.autocomplete-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 12px; cursor: pointer;
-  transition: background 0.15s; border-bottom: 1px solid var(--border);
-}
+.autocomplete-list { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--surface2); border: 1px solid var(--lav); border-radius: 2px; z-index: 300; max-height: 300px; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 16px rgba(196,168,232,0.1); }
+.autocomplete-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border); }
 .autocomplete-item:last-child { border-bottom: none; }
 .autocomplete-item:hover, .autocomplete-item.active { background: rgba(196,168,232,0.1); }
-
-.ac-thumb {
-  width: 32px; height: 44px; object-fit: cover;
-  border-radius: 1px; flex-shrink: 0; background: var(--surface3);
-}
-.ac-thumb-placeholder { width: 32px; height: 44px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-
+.ac-thumb { width: 34px; height: 46px; object-fit: cover; border-radius: 1px; flex-shrink: 0; background: var(--surface3); }
+.ac-thumb-placeholder { width: 34px; height: 46px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; }
 .ac-info { flex: 1; min-width: 0; }
 .ac-title { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ac-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
-
-.ac-loading, .ac-empty {
-  padding: 12px; font-family: 'DM Mono', monospace; font-size: 11px;
-  color: var(--text-dim); text-align: center; letter-spacing: 0.1em;
-}
+.ac-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+.ac-loading, .ac-empty { padding: 12px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); text-align: center; letter-spacing: 0.1em; }
 
 /* ─── Loading / Error ─── */
 .loading { display: flex; align-items: center; gap: 10px; color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 11px; margin-top: 16px; }
@@ -176,28 +172,27 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 
 /* ─── Search Results ─── */
 .search-results { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 13px; }
-
 .result-card { border: 1px solid var(--border); cursor: pointer; transition: all 0.22s; overflow: hidden; position: relative; border-radius: 2px; background: var(--surface2); }
 .result-card:hover { border-color: var(--lav); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(196,168,232,0.14); }
 .result-card.selected { border-color: var(--lav); box-shadow: 0 0 0 1px var(--lav), 0 8px 28px rgba(196,168,232,0.18); }
-.result-card img, .result-card-img { width: 100%; height: 208px; object-fit: cover; display: block; }
-.result-card-info { padding: 8px 10px; }
-.result-card-info h4 { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
-.result-card-info small { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
+.result-card img, .result-card-img { width: 100%; height: 210px; object-fit: cover; display: block; }
+.result-card-info { padding: 9px 11px; }
+.result-card-info h4 { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.result-card-info small { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); }
 .selected-badge { position: absolute; top: 7px; right: 7px; background: var(--lav); color: var(--bg); font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 9px; letter-spacing: 0.1em; border-radius: 20px; }
 
 /* ─── Review fields ─── */
 .review-fields { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding-top: 22px; border-top: 1px solid var(--border); }
-.star-row { display: flex; gap: 4px; margin-top: 7px; }
-.star { font-size: 22px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
+.star-row { display: flex; gap: 5px; margin-top: 7px; }
+.star { font-size: 24px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
 .star.filled { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.45); }
 .star:hover  { color: var(--butter); }
 .status-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
-.status-chip { padding: 4px 13px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; white-space: nowrap; }
+.status-chip { padding: 5px 14px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; white-space: nowrap; }
 .status-chip.active { border-color: var(--blush); color: var(--blush); background: rgba(240,184,204,0.1); }
 
 /* ─── Genre Tags ─── */
-.genre-tag { display: inline-block; padding: 2px 9px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.07em; white-space: nowrap; }
+.genre-tag { display: inline-block; padding: 2px 9px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.07em; white-space: nowrap; }
 .genre-tag:nth-child(6n+1) { background: rgba(196,168,232,0.16); color: var(--lav);      border: 1px solid rgba(196,168,232,0.28); }
 .genre-tag:nth-child(6n+2) { background: rgba(240,184,204,0.16); color: var(--blush);    border: 1px solid rgba(240,184,204,0.28); }
 .genre-tag:nth-child(6n+3) { background: rgba(168,221,200,0.16); color: var(--mint);     border: 1px solid rgba(168,221,200,0.28); }
@@ -205,12 +200,22 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .genre-tag:nth-child(6n+5) { background: rgba(240,224,168,0.16); color: var(--butter);   border: 1px solid rgba(240,224,168,0.28); }
 .genre-tag:nth-child(6n+6) { background: rgba(216,184,240,0.16); color: var(--lilac);    border: 1px solid rgba(216,184,240,0.28); }
 
+/* Franchise tag — clickable pill */
+.franchise-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 10px; border-radius: 20px; cursor: pointer;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; white-space: nowrap;
+  background: rgba(196,168,232,0.12); color: var(--lav); border: 1px solid rgba(196,168,232,0.3);
+  transition: all 0.15s;
+}
+.franchise-tag:hover { background: rgba(196,168,232,0.22); box-shadow: 0 0 10px rgba(196,168,232,0.15); }
+
 /* ─── Collection header ─── */
 .collection-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 26px; flex-wrap: wrap; gap: 16px; }
-.collection-header-left { display: flex; flex-direction: column; gap: 12px; }
+.collection-header-left { display: flex; flex-direction: column; gap: 10px; }
 .filters-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .filter-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; margin-right: 2px; white-space: nowrap; }
-.filter-chip { padding: 4px 13px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; text-transform: uppercase; white-space: nowrap; height: auto; }
+.filter-chip { padding: 5px 14px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; cursor: pointer; border: 1px solid var(--border); color: var(--text-dim); background: transparent; border-radius: 20px; transition: all 0.15s; text-transform: uppercase; white-space: nowrap; height: auto; }
 .filter-chip:hover { border-color: var(--text-dim); color: var(--text-mid); }
 .filter-chip.active                    { color: var(--text);   border-color: var(--text-mid); background: rgba(255,255,255,0.04); }
 .filter-chip[data-type="anime"].active { color: var(--anime);  border-color: var(--anime);   background: rgba(240,184,204,0.1); }
@@ -219,69 +224,72 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .filter-chip[data-type="movie"].active { color: var(--movie);  border-color: var(--movie);   background: rgba(200,168,224,0.1); }
 .filter-chip[data-type="game"].active  { color: var(--game);   border-color: var(--game);    background: rgba(168,184,240,0.1); }
 .filter-chip.genre-filter.active       { color: var(--lav);    border-color: var(--lav);     background: rgba(196,168,232,0.1); }
+.filter-chip[data-status="watching"].active  { color: var(--mint);   border-color: var(--mint);   background: rgba(168,221,200,0.1); }
+.filter-chip[data-status="completed"].active { color: var(--butter); border-color: var(--butter); background: rgba(240,224,168,0.1); }
+.filter-chip[data-status="dropped"].active   { color: var(--danger); border-color: var(--danger); background: rgba(232,152,152,0.1); }
+.filter-chip[data-status="planned"].active   { color: var(--periwink);border-color: var(--periwink);background: rgba(168,184,240,0.1); }
+
+/* Franchise filter breadcrumb */
+.franchise-filter-bar {
+  display: flex; align-items: center; gap: 8px; padding: 7px 14px;
+  background: rgba(196,168,232,0.08); border: 1px solid rgba(196,168,232,0.25);
+  border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 11px;
+}
+.franchise-filter-bar span { color: var(--lav); }
+.franchise-filter-bar .ff-label { color: var(--text-mid); letter-spacing: 0.1em; }
+.franchise-filter-bar button { background: none; border: none; color: var(--text-dim); font-size: 14px; padding: 0; width: 20px; height: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; letter-spacing: 0; }
+.franchise-filter-bar button:hover { color: var(--danger); }
+
 .collection-header-right { display: flex; align-items: center; }
-.sort-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text-mid); padding: 6px 28px 6px 12px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; width: auto; cursor: pointer; height: 32px; border-radius: 1px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+.sort-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text-mid); padding: 7px 30px 7px 13px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; width: auto; cursor: pointer; height: 34px; border-radius: 1px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236a6080' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
 
 /* ─── Media Grid ─── */
-.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(192px, 1fr)); gap: 22px; }
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; }
 .media-card { background: var(--surface); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; position: relative; transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s; cursor: pointer; }
 .media-card:hover { transform: translateY(-4px); border-color: rgba(196,168,232,0.38); box-shadow: 0 14px 44px rgba(0,0,0,0.44), 0 0 22px rgba(196,168,232,0.07); }
 .media-card:hover .card-overlay { opacity: 1; }
+
+/* Decorative corner star on cards */
+.media-card::after {
+  content: '✦'; position: absolute; top: 6px; left: 7px;
+  font-size: 9px; color: var(--lav); opacity: 0; transition: opacity 0.2s;
+  pointer-events: none; z-index: 2;
+}
+.media-card:hover::after { opacity: 0.5; }
+
 .card-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: var(--surface2); }
-.card-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 40px; }
+.card-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 42px; }
+.card-cover-placeholder small { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-dim); letter-spacing: 0.1em; }
+
 .type-bar { height: 3px; width: 100%; position: absolute; top: 0; left: 0; opacity: 0.75; }
 .type-bar.anime { background: linear-gradient(90deg, var(--blush),   var(--lilac)); }
 .type-bar.manga { background: linear-gradient(90deg, var(--mint),    var(--periwink)); }
 .type-bar.tv    { background: linear-gradient(90deg, var(--tv),      var(--peach)); }
 .type-bar.movie { background: linear-gradient(90deg, var(--movie),   var(--lav)); }
 .type-bar.game  { background: linear-gradient(90deg, var(--periwink),var(--lav)); }
-.card-body { padding: 12px 13px 13px; }
-.card-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-.card-type { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; }
+
+.card-body { padding: 12px 13px 14px; }
+.card-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.card-type { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; }
 .card-type.anime { color: var(--anime); }
 .card-type.manga { color: var(--manga); }
 .card-type.tv    { color: var(--tv); }
 .card-type.movie { color: var(--movie); }
 .card-type.game  { color: var(--game); }
-.card-year { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
-.card-title { font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); margin-bottom: 7px; }
-.card-stars { font-size: 11px; margin-bottom: 7px; letter-spacing: 1.5px; }
+.card-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); }
+.card-title { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--text); margin-bottom: 7px; }
+.card-stars { font-size: 12px; margin-bottom: 7px; letter-spacing: 2px; }
 .card-stars .f { color: var(--butter); text-shadow: 0 0 8px rgba(240,224,168,0.38); }
 .card-stars .e { color: var(--border); }
 .card-genres { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
-.card-status { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
-.card-progress { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--mint); letter-spacing: 0.1em; margin-top: 3px; }
-.card-franchise { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--lav); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.75; }
-.card-seasons { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--blush); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.85; }
+.card-status { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+.card-progress { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--mint); letter-spacing: 0.1em; margin-top: 3px; }
+.card-franchise { margin-top: 5px; }
+.card-seasons { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blush); letter-spacing: 0.1em; margin-top: 3px; opacity: 0.85; }
+.card-airing { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--periwink); letter-spacing: 0.08em; margin-top: 4px; line-height: 1.4; }
 
-/* ─── Seasons section in detail modal ─── */
-.modal-seasons { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
-.modal-seasons label { display: block; margin-bottom: 10px; color: var(--blush); opacity: 0.8; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
-.season-list { display: flex; flex-direction: column; gap: 6px; }
-.season-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; gap: 12px; }
-.season-row-info { display: flex; flex-direction: column; gap: 2px; }
-.season-row-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
-.season-row-year { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); }
-.season-remove { background: transparent; border: 1px solid rgba(232,152,152,0.3); color: var(--danger); font-size: 10px; padding: 3px 10px; height: auto; border-radius: 20px; letter-spacing: 0.1em; flex-shrink: 0; opacity: 0.7; }
-.season-remove:hover { opacity: 1; background: rgba(232,152,152,0.08); }
-
-/* ─── Season picker (attaches to existing entry) ─── */
-.season-picker-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 560; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
-.season-picker { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 420px; width: 100%; position: relative; }
-.season-picker::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blush), var(--lav)); opacity: 0.65; }
-.season-picker-header { padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.season-picker-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.3; }
-.season-picker-body { padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
-.season-picker-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; line-height: 1.5; }
-.season-entry-list { display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto; }
-.season-entry-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; cursor: pointer; border: 1px solid var(--border); border-radius: 2px; background: var(--surface2); transition: all 0.15s; }
-.season-entry-option:hover { border-color: var(--blush); background: rgba(240,184,204,0.07); }
-.season-entry-thumb { width: 28px; height: 38px; object-fit: cover; border-radius: 1px; flex-shrink: 0; background: var(--surface3); }
-.season-entry-thumb-ph { width: 28px; height: 38px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.season-entry-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
-.season-entry-count { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dim); margin-top: 2px; }
-.card-overlay { position: absolute; inset: 0; background: rgba(26,23,32,0.87); opacity: 0; transition: opacity 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; backdrop-filter: blur(4px); }
-.overlay-btn { width: 100%; padding: 7px; font-size: 10px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
+.card-overlay { position: absolute; inset: 0; background: rgba(26,23,32,0.88); opacity: 0; transition: opacity 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; backdrop-filter: blur(4px); }
+.overlay-btn { width: 100%; padding: 8px; font-size: 11px; letter-spacing: 0.15em; border-radius: 20px; height: auto; }
 .overlay-btn.view { background: rgba(196,168,232,0.13); border-color: rgba(196,168,232,0.45); color: var(--lav); }
 .overlay-btn.view:hover { background: rgba(196,168,232,0.24); }
 .overlay-btn.edit { background: rgba(168,221,200,0.1); border-color: rgba(168,221,200,0.38); color: var(--mint); }
@@ -289,63 +297,92 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .overlay-btn.del  { background: transparent; border-color: rgba(232,152,152,0.38); color: var(--danger); }
 .overlay-btn.del:hover { background: rgba(232,152,152,0.08); }
 
-/* ─── Empty ─── */
+/* ─── Empty state ─── */
 .empty-state { grid-column: 1/-1; text-align: center; padding: 80px 40px; color: var(--text-dim); }
-.empty-state .icon { font-size: 42px; margin-bottom: 14px; opacity: 0.6; }
-.empty-state h3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: var(--text-mid); margin-bottom: 6px; font-weight: 300; }
+.empty-state .icon { font-size: 44px; margin-bottom: 14px; opacity: 0.6; }
+.empty-state h3 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--text-mid); margin-bottom: 6px; font-weight: 300; }
 .empty-state p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+.empty-state .deco { color: var(--lav); opacity: 0.3; font-size: 14px; letter-spacing: 8px; margin-bottom: 14px; }
 
 /* ─── Detail Modal ─── */
 .modal-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
-.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
 .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lav), var(--blush), var(--tv), var(--movie), var(--mint), var(--periwink)); opacity: 0.65; }
 .modal-header { padding: 26px 28px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-.modal-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--text); line-height: 1.25; }
-.modal-close { background: none; color: var(--text-dim); font-size: 16px; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 50%; flex-shrink: 0; letter-spacing: 0; }
+.modal-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--text); line-height: 1.25; }
+.modal-close { background: none; color: var(--text-dim); font-size: 16px; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 50%; flex-shrink: 0; letter-spacing: 0; }
 .modal-close:hover { border-color: var(--text-dim); color: var(--text); }
-.modal-body { padding: 22px 28px 28px; display: grid; grid-template-columns: 148px 1fr; gap: 22px; }
+.modal-body { padding: 22px 28px 28px; display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
 .modal-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; border: 1px solid var(--border); border-radius: 2px; }
-.modal-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 36px; border: 1px solid var(--border); border-radius: 2px; }
+.modal-cover-placeholder { width: 100%; aspect-ratio: 2/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 40px; border: 1px solid var(--border); border-radius: 2px; }
 .modal-meta { display: flex; flex-direction: column; gap: 11px; }
-.modal-type { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; }
+.modal-type { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
 .modal-type.anime { color: var(--anime); } .modal-type.manga { color: var(--manga); }
 .modal-type.tv    { color: var(--tv); }    .modal-type.movie { color: var(--movie); }
 .modal-type.game  { color: var(--game); }
-.modal-stars { font-size: 17px; letter-spacing: 2px; }
+.modal-stars { font-size: 18px; letter-spacing: 2px; }
 .modal-stars .f { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.4); }
 .modal-stars .e { color: var(--border); }
-.modal-status-tag { display: inline-block; padding: 3px 12px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; border: 1px solid var(--border); color: var(--text-dim); border-radius: 20px; width: fit-content; }
-.modal-progress { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--mint); letter-spacing: 0.1em; }
-.modal-franchise { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--lav); letter-spacing: 0.12em; opacity: 0.8; }
+.modal-status-tag { display: inline-block; padding: 4px 13px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; border: 1px solid var(--border); color: var(--text-dim); border-radius: 20px; width: fit-content; }
+.modal-progress { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--mint); letter-spacing: 0.1em; }
+.modal-franchise { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--lav); letter-spacing: 0.12em; opacity: 0.8; }
+.modal-airing { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--periwink); letter-spacing: 0.08em; line-height: 1.5; }
 .modal-genres { display: flex; flex-wrap: wrap; gap: 5px; }
-.modal-desc { font-style: italic; color: var(--text-mid); font-size: 15px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-weight: 300; }
+.modal-desc { font-style: italic; color: var(--text-mid); font-size: 16px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; font-weight: 300; }
 .modal-review { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
-.modal-review label { display: block; margin-bottom: 8px; color: var(--lav); opacity: 0.8; }
-.modal-review p { color: var(--text-mid); font-style: italic; font-size: 15px; line-height: 1.75; font-weight: 300; }
-.modal-edit-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; margin-top: 2px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; background: rgba(196,168,232,0.1); border: 1px solid rgba(196,168,232,0.32); color: var(--lav); border-radius: 20px; transition: all 0.2s; width: fit-content; }
+.modal-review label { display: block; margin-bottom: 8px; color: var(--lav); opacity: 0.8; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+.modal-review p { color: var(--text-mid); font-style: italic; font-size: 16px; line-height: 1.75; font-weight: 300; }
+.modal-edit-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 15px; margin-top: 2px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; background: rgba(196,168,232,0.1); border: 1px solid rgba(196,168,232,0.32); color: var(--lav); border-radius: 20px; transition: all 0.2s; width: fit-content; }
 .modal-edit-btn:hover { background: rgba(196,168,232,0.2); box-shadow: 0 0 12px rgba(196,168,232,0.15); }
+
+/* ─── Seasons in modal ─── */
+.modal-seasons { grid-column: 1/-1; padding-top: 16px; border-top: 1px solid var(--border); }
+.modal-seasons label { display: block; margin-bottom: 10px; color: var(--blush); opacity: 0.8; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+.season-list { display: flex; flex-direction: column; gap: 6px; }
+.season-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 13px; background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; gap: 12px; }
+.season-row-info { display: flex; flex-direction: column; gap: 2px; }
+.season-row-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.season-row-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); }
+.season-remove { background: transparent; border: 1px solid rgba(232,152,152,0.3); color: var(--danger); font-size: 10px; padding: 3px 10px; height: auto; border-radius: 20px; letter-spacing: 0.1em; flex-shrink: 0; opacity: 0.7; }
+.season-remove:hover { opacity: 1; background: rgba(232,152,152,0.08); }
 
 /* ─── Edit Modal ─── */
 .edit-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 550; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
-.edit-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 500px; width: 100%; position: relative; }
+.edit-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 500px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
 .edit-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blush), var(--lav), var(--periwink)); opacity: 0.65; }
 .edit-header { padding: 24px 26px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-.edit-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.edit-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.3; }
 .edit-body { padding: 20px 26px 26px; display: flex; flex-direction: column; gap: 18px; }
-.edit-star-row { display: flex; gap: 4px; margin-top: 7px; }
-.edit-star { font-size: 26px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
+.edit-star-row { display: flex; gap: 5px; margin-top: 7px; }
+.edit-star { font-size: 28px; cursor: pointer; color: var(--border); transition: color 0.12s, text-shadow 0.12s; line-height: 1; }
 .edit-star.filled { color: var(--butter); text-shadow: 0 0 10px rgba(240,224,168,0.45); }
 .edit-star:hover  { color: var(--butter); }
 .edit-status-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
 .edit-actions { display: flex; gap: 10px; padding-top: 4px; }
-.btn-save-edit { background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14)); border: 1px solid rgba(196,168,232,0.45); color: var(--lav); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
+.btn-save-edit { background: linear-gradient(135deg, rgba(196,168,232,0.18), rgba(240,184,204,0.14)); border: 1px solid rgba(196,168,232,0.45); color: var(--lav); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
 .btn-save-edit:hover { background: linear-gradient(135deg, rgba(196,168,232,0.28), rgba(240,184,204,0.22)); box-shadow: 0 0 16px rgba(196,168,232,0.18); }
-.btn-cancel-edit { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
+.btn-cancel-edit { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
 .btn-cancel-edit:hover { border-color: var(--text-dim); color: var(--text-mid); }
+
+/* ─── Season Picker ─── */
+.season-picker-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 560; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
+.season-picker { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 420px; width: 100%; position: relative; }
+.season-picker::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blush), var(--lav)); opacity: 0.65; }
+.season-picker-header { padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.season-picker-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.season-picker-body { padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.season-picker-hint { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; line-height: 1.5; }
+.season-entry-list { display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
+.season-entry-option { display: flex; align-items: center; gap: 10px; padding: 9px 11px; cursor: pointer; border: 1px solid var(--border); border-radius: 2px; background: var(--surface2); transition: all 0.15s; }
+.season-entry-option:hover { border-color: var(--blush); background: rgba(240,184,204,0.07); }
+.season-entry-thumb { width: 30px; height: 40px; object-fit: cover; border-radius: 1px; flex-shrink: 0; background: var(--surface3); }
+.season-entry-thumb-ph { width: 30px; height: 40px; background: var(--surface3); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.season-entry-name { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.season-entry-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
 /* ─── Settings Modal ─── */
 .settings-backdrop { position: fixed; inset: 0; background: rgba(10,8,14,0.82); z-index: 600; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
-.settings-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 480px; width: 100%; position: relative; }
+.settings-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 3px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
 .settings-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--mint), var(--periwink), var(--lav)); opacity: 0.65; }
 .settings-header { padding: 24px 26px 0; display: flex; justify-content: space-between; align-items: center; }
 .settings-header h3 { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
@@ -356,11 +393,11 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 .settings-hint a { color: var(--lav); text-decoration: none; }
 .settings-hint a:hover { text-decoration: underline; }
 .settings-actions { display: flex; gap: 10px; padding-top: 4px; }
-.btn-save-settings { background: linear-gradient(135deg, rgba(168,221,200,0.18), rgba(168,184,240,0.14)); border: 1px solid rgba(168,221,200,0.45); color: var(--mint); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
+.btn-save-settings { background: linear-gradient(135deg, rgba(168,221,200,0.18), rgba(168,184,240,0.14)); border: 1px solid rgba(168,221,200,0.45); color: var(--mint); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 20px; cursor: pointer; border-radius: 1px; transition: all 0.2s; flex: 1; }
 .btn-save-settings:hover { background: linear-gradient(135deg, rgba(168,221,200,0.28), rgba(168,184,240,0.22)); }
-.btn-clear-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
+.btn-clear-settings { background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
 .btn-clear-settings:hover { border-color: var(--danger); color: var(--danger); }
-.settings-status { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--mint); min-height: 16px; letter-spacing: 0.1em; }
+.settings-status { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--mint); min-height: 16px; letter-spacing: 0.1em; }
 .settings-status.error { color: var(--danger); }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -374,6 +411,12 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
   .search-row { grid-template-columns: 1fr 1fr; }
   .review-fields { grid-template-columns: 1fr; }
   .modal-body { grid-template-columns: 1fr; }
+  body { font-size: 19px; }
+  .card-title { font-size: 16px; }
+  .status-chip, .filter-chip { font-size: 12px; padding: 7px 16px; }
+  input[type="text"], select, textarea { font-size: 18px; padding: 12px 14px; }
+  button { font-size: 12px; height: 46px; }
+  .star { font-size: 28px; }
 }
 </style>
 </head>
@@ -382,7 +425,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 <header>
   <div class="logo">
     <div class="logo-title">☽ Codex ☾</div>
-    <div class="logo-sub">Media Archive</div>
+    <div class="logo-sub">✦ Media Archive ✦</div>
   </div>
   <div class="header-right">
     <div class="header-stats">
@@ -404,7 +447,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 
 <main>
   <div class="add-section">
-    <div class="section-label">✦ Add to Collection</div>
+    <div class="deco-divider"><span>✦ Add to Collection ✦</span></div>
     <div class="search-row">
       <div class="field-group autocomplete-wrap">
         <label>Title</label>
@@ -433,7 +476,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
 
     <div id="review-fields" class="review-fields" style="display:none">
       <div class="field-group">
-        <label>Your Rating</label>
+        <label>★ Your Rating</label>
         <div class="star-row" id="rating-stars">
           <span class="star" data-v="1" onclick="setRating(1)">★</span>
           <span class="star" data-v="2" onclick="setRating(2)">★</span>
@@ -446,7 +489,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <label>Status</label>
         <div class="status-row" id="status-chips">
           <div class="status-chip active" data-s="completed" onclick="setStatus('completed')">Completed</div>
-          <div class="status-chip"        data-s="watching"  onclick="setStatus('watching')">In Progress</div>
+          <div class="status-chip"        data-s="watching"  id="add-watching-chip" onclick="setStatus('watching')">In Progress</div>
           <div class="status-chip"        data-s="dropped"   onclick="setStatus('dropped')">Dropped</div>
           <div class="status-chip"        data-s="planned"   onclick="setStatus('planned')">Plan to</div>
         </div>
@@ -460,12 +503,12 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <input type="text" id="add-progress" placeholder="e.g. Episode 12 / Ch. 47 / S02E04" />
       </div>
       <div class="field-group">
-        <label>Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
+        <label>✦ Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
         <input type="text" id="add-franchise" placeholder="e.g. Attack on Titan" />
       </div>
       <div style="grid-column:1/-1; display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn-add" onclick="addEntry()">✦ Add as New Entry</button>
-        <button class="btn-add" id="btn-add-season" onclick="openSeasonPicker()" style="display:none; background:linear-gradient(135deg,rgba(240,184,204,0.18),rgba(196,168,232,0.14)); border-color:rgba(240,184,204,0.45); color:var(--blush)">+ Add as Season to…</button>
+        <button class="btn-add" id="btn-add-season" onclick="openSeasonPicker()" style="display:none; background:linear-gradient(135deg,rgba(240,184,204,0.18),rgba(196,168,232,0.14)); border-color:rgba(240,184,204,0.45); color:var(--blush)">☽ Add as Season to…</button>
       </div>
     </div>
   </div>
@@ -473,7 +516,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
   <div class="collection-header">
     <div class="collection-header-left">
       <div class="filters-row">
-        <span class="filter-label">Type:</span>
+        <span class="filter-label">✦ Type:</span>
         <span class="filter-chip active" data-type="all"   onclick="setTypeFilter('all')">All</span>
         <span class="filter-chip" data-type="anime"        onclick="setTypeFilter('anime')">Anime</span>
         <span class="filter-chip" data-type="manga"        onclick="setTypeFilter('manga')">Manga</span>
@@ -481,10 +524,25 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <span class="filter-chip" data-type="movie"        onclick="setTypeFilter('movie')">Movies</span>
         <span class="filter-chip" data-type="game"         onclick="setTypeFilter('game')">Games</span>
       </div>
+      <div class="filters-row">
+        <span class="filter-label">★ Status:</span>
+        <span class="filter-chip active" data-status="all"       onclick="setStatusFilter('all')">All</span>
+        <span class="filter-chip" data-status="watching"         onclick="setStatusFilter('watching')">In Progress</span>
+        <span class="filter-chip" data-status="completed"        onclick="setStatusFilter('completed')">Completed</span>
+        <span class="filter-chip" data-status="planned"          onclick="setStatusFilter('planned')">Plan to</span>
+        <span class="filter-chip" data-status="dropped"          onclick="setStatusFilter('dropped')">Dropped</span>
+      </div>
       <div class="filters-row" id="genre-filter-row" style="display:none">
-        <span class="filter-label">Genre:</span>
+        <span class="filter-label">◈ Genre:</span>
         <span class="filter-chip genre-filter active" data-genre="all" onclick="setGenreFilter('all')">All</span>
         <span id="genre-filter-chips"></span>
+      </div>
+      <div id="franchise-filter-bar" style="display:none">
+        <div class="franchise-filter-bar">
+          <span class="ff-label">Series:</span>
+          <span id="ff-name"></span>
+          <button onclick="clearFranchiseFilter()" title="Clear series filter">✕</button>
+        </div>
       </div>
     </div>
     <div class="collection-header-right">
@@ -516,6 +574,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <div id="modal-stars"    class="modal-stars"></div>
         <div id="modal-status"   class="modal-status-tag"></div>
         <div id="modal-progress" class="modal-progress"   style="display:none"></div>
+        <div id="modal-airing"   class="modal-airing"     style="display:none"></div>
         <div id="modal-franchise"class="modal-franchise"  style="display:none"></div>
         <div id="modal-genres"   class="modal-genres"></div>
         <p   id="modal-desc"     class="modal-desc"></p>
@@ -525,7 +584,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <p id="modal-review-text"></p>
       </div>
       <div class="modal-seasons" id="modal-seasons-section" style="display:none">
-        <label>Seasons</label>
+        <label>☽ Seasons</label>
         <div class="season-list" id="modal-season-list"></div>
       </div>
       <div style="grid-column:1/-1; padding-top:4px">
@@ -544,7 +603,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
     </div>
     <div class="edit-body">
       <div class="field-group">
-        <label>Rating</label>
+        <label>★ Rating</label>
         <div class="edit-star-row" id="edit-stars">
           <span class="edit-star" data-v="1" onclick="setEditRating(1)">★</span>
           <span class="edit-star" data-v="2" onclick="setEditRating(2)">★</span>
@@ -557,7 +616,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <label>Status</label>
         <div class="edit-status-row" id="edit-status-chips">
           <div class="status-chip" data-s="completed" onclick="setEditStatus('completed')">Completed</div>
-          <div class="status-chip" data-s="watching"  onclick="setEditStatus('watching')">In Progress</div>
+          <div class="status-chip" data-s="watching"  id="edit-watching-chip" onclick="setEditStatus('watching')">In Progress</div>
           <div class="status-chip" data-s="dropped"   onclick="setEditStatus('dropped')">Dropped</div>
           <div class="status-chip" data-s="planned"   onclick="setEditStatus('planned')">Plan to</div>
         </div>
@@ -571,13 +630,27 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
         <input type="text" id="edit-progress" placeholder="e.g. Episode 12 / Ch. 47 / S02E04" />
       </div>
       <div class="field-group">
-        <label>Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
+        <label>✦ Franchise / Series <span style="opacity:0.5;font-size:9px;letter-spacing:0.1em">(optional)</span></label>
         <input type="text" id="edit-franchise" placeholder="e.g. Attack on Titan" />
       </div>
       <div class="edit-actions">
         <button class="btn-save-edit" onclick="saveEdit()">✦ Save Changes</button>
         <button class="btn-cancel-edit" onclick="closeEdit()">Cancel</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Season Picker -->
+<div class="season-picker-backdrop" id="season-picker-backdrop" style="display:none" onclick="closeSeasonPicker(event)">
+  <div class="season-picker">
+    <div class="season-picker-header">
+      <h3 id="season-picker-title">Add as Season to…</h3>
+      <button class="modal-close" onclick="closeSeasonPicker()">✕</button>
+    </div>
+    <div class="season-picker-body">
+      <p class="season-picker-hint">Choose which series entry to attach this season to:</p>
+      <div class="season-entry-list" id="season-entry-list"></div>
     </div>
   </div>
 </div>
@@ -593,7 +666,12 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
       <div class="settings-field">
         <label>TMDB API Key</label>
         <input type="password" id="input-tmdb-key" placeholder="Paste your v3 API key…" spellcheck="false" autocomplete="off" />
-        <p class="settings-hint">For TV show &amp; movie searches. Get yours free at <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">themoviedb.org → Settings → API</a></p>
+        <p class="settings-hint">For TV show &amp; movie searches. <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Get yours free at themoviedb.org →</a></p>
+      </div>
+      <div class="settings-field">
+        <label>RAWG API Key</label>
+        <input type="password" id="input-rawg-key" placeholder="Paste your RAWG key…" spellcheck="false" autocomplete="off" />
+        <p class="settings-hint">For game searches. <a href="https://rawg.io/apidocs" target="_blank" rel="noopener">Get yours free at rawg.io/apidocs →</a></p>
       </div>
       <div class="settings-field">
         <label>Gist ID</label>
@@ -614,24 +692,7 @@ button { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2
   </div>
 </div>
 
-<!-- Season Picker Modal -->
-<div class="season-picker-backdrop" id="season-picker-backdrop" style="display:none" onclick="closeSeasonPicker(event)">
-  <div class="season-picker">
-    <div class="season-picker-header">
-      <h3 id="season-picker-title">Add as Season to…</h3>
-      <button class="modal-close" onclick="closeSeasonPicker()">✕</button>
-    </div>
-    <div class="season-picker-body">
-      <p class="season-picker-hint">Choose which series entry to attach this season to:</p>
-      <div class="season-entry-list" id="season-entry-list"></div>
-    </div>
-  </div>
-</div>
-
 <script>
-// ─── Config ───────────────────────────────────────────────
-// TMDB key is stored in localStorage via the settings panel.
-// To set it, click ⚙ in the header and paste your key there.
 const GIST_FILENAME = 'codex-collection.json';
 
 // ─── State ────────────────────────────────────────────────
@@ -641,6 +702,8 @@ let currentRating      = 0;
 let currentStatus      = 'completed';
 let currentTypeFilter  = 'all';
 let currentGenreFilter = 'all';
+let currentStatusFilter= 'all';
+let currentFranchise   = null;
 let currentSort        = 'newest';
 let editingId          = null;
 let editRating         = 0;
@@ -648,6 +711,7 @@ let editStatus         = 'completed';
 let acDebounceTimer    = null;
 let acResults          = [];
 let acIndex            = -1;
+
 // ─── Persistence ──────────────────────────────────────────
 function save() {
   localStorage.setItem('codex-v2', JSON.stringify(collection));
@@ -658,6 +722,7 @@ function save() {
 function getCreds() {
   return {
     tmdbKey: localStorage.getItem('codex-tmdb-key') || '',
+    rawgKey: localStorage.getItem('codex-rawg-key') || '',
     gistId:  localStorage.getItem('codex-gist-id')  || '',
     token:   localStorage.getItem('codex-token')    || ''
   };
@@ -668,12 +733,40 @@ function typeEmoji(t) { return { anime:'📺', manga:'📖', tv:'📡', movie:'�
 function typeLabel(t) { return { anime:'Anime', manga:'Manga', tv:'TV Show', movie:'Movie', game:'Game' }[t] || t; }
 function starsHTML(r) { let h=''; for(let i=1;i<=5;i++) h+=`<span class="${i<=r?'f':'e'}">★</span>`; return h; }
 
-// Simple cover image helper
+// Status label varies by type
+function statusLabel(status, type) {
+  if (status !== 'watching') {
+    return { completed:'Completed', dropped:'Dropped', planned:'Plan to' }[status] || status;
+  }
+  if (type === 'manga')  return 'Reading';
+  if (type === 'game')   return 'Playing';
+  return 'Watching';
+}
+
+// Sort key strips leading articles
+function sortKey(title) {
+  return title.replace(/^(the|a|an)\s+/i, '').trim().toLowerCase();
+}
+
 function coverImg(src, cssClass, alt='') {
   if (!src) return '';
   return `<img src="${src}" class="${cssClass}" alt="${alt}" loading="lazy">`;
 }
 
+// Format airing countdown
+function airingText(nextAiring) {
+  if (!nextAiring) return null;
+  const now     = Math.floor(Date.now() / 1000);
+  const secsLeft = nextAiring.timeUntilAiring;
+  const ep       = nextAiring.episode;
+  if (secsLeft < 0) return null;
+  const days  = Math.floor(secsLeft / 86400);
+  const hours = Math.floor((secsLeft % 86400) / 3600);
+  let timeStr = days > 0 ? `${days}d ${hours}h` : `${hours}h`;
+  return `Ep ${ep} in ${timeStr}`;
+}
+
+// ─── Genre & Filter bars ──────────────────────────────────
 function getAllGenres() {
   const s = new Set();
   collection.forEach(e => (e.genres||[]).forEach(g => s.add(g)));
@@ -700,47 +793,38 @@ function clearSearch() {
   document.getElementById('search-results').innerHTML = '';
   document.getElementById('review-fields').style.display = 'none';
   document.getElementById('error-msg').style.display = 'none';
-  hideAC();
-  selectedResult = null;
+  hideAC(); selectedResult = null;
+}
+
+// Update In Progress chip label based on type
+function updateInProgressLabel(type) {
+  const label = type === 'manga' ? 'Reading' : type === 'game' ? 'Playing' : 'Watching';
+  const addChip  = document.getElementById('add-watching-chip');
+  const editChip = document.getElementById('edit-watching-chip');
+  if (addChip)  addChip.textContent  = label;
+  if (editChip) editChip.textContent = label;
+  // Hide In Progress for movies
+  if (addChip)  addChip.style.display  = type === 'movie' ? 'none' : '';
+  if (editChip) editChip.style.display = type === 'movie' ? 'none' : '';
 }
 
 // ─── Autocomplete ─────────────────────────────────────────
 function setupAutocomplete() {
   const input = document.getElementById('search-input');
-
   input.addEventListener('input', () => {
     clearTimeout(acDebounceTimer);
     const q = input.value.trim();
     if (q.length < 2) { hideAC(); return; }
     acDebounceTimer = setTimeout(() => fetchAC(q), 350);
   });
-
   input.addEventListener('keydown', e => {
     const list = document.getElementById('ac-list');
-    if (list.style.display === 'none') {
-      if (e.key === 'Enter') doSearch();
-      return;
-    }
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      acIndex = Math.min(acIndex + 1, acResults.length - 1);
-      renderACHighlight();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      acIndex = Math.max(acIndex - 1, -1);
-      renderACHighlight();
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (acIndex >= 0 && acResults[acIndex]) {
-        selectAC(acResults[acIndex]);
-      } else {
-        hideAC(); doSearch();
-      }
-    } else if (e.key === 'Escape') {
-      hideAC();
-    }
+    if (list.style.display === 'none') { if (e.key === 'Enter') doSearch(); return; }
+    if (e.key === 'ArrowDown')  { e.preventDefault(); acIndex = Math.min(acIndex+1, acResults.length-1); renderACHighlight(); }
+    else if (e.key === 'ArrowUp')   { e.preventDefault(); acIndex = Math.max(acIndex-1, -1); renderACHighlight(); }
+    else if (e.key === 'Enter') { e.preventDefault(); acIndex >= 0 && acResults[acIndex] ? selectAC(acResults[acIndex]) : (hideAC(), doSearch()); }
+    else if (e.key === 'Escape') { hideAC(); }
   });
-
   document.addEventListener('click', e => {
     if (!document.getElementById('search-input').contains(e.target) &&
         !document.getElementById('ac-list').contains(e.target)) hideAC();
@@ -753,20 +837,16 @@ async function fetchAC(q) {
   list.style.display = 'block';
   list.innerHTML = `<div class="ac-loading">searching…</div>`;
   acIndex = -1;
-
   try {
     let results = [];
-    if (type === 'anime')  results = await searchAniList(q, 'anime');
-    else if (type === 'manga') results = await searchMangaDex(q);
-    else if (type === 'tv')    results = await searchTMDB(q, 'tv');
-    else if (type === 'movie') results = await searchTMDB(q, 'movie');
-    else                       results = await searchRAWG(q);
-
+    if      (type === 'anime')  results = await searchAniList(q, 'anime');
+    else if (type === 'manga')  results = await searchMangaAL(q);
+    else if (type === 'tv')     results = await searchTMDB(q, 'tv');
+    else if (type === 'movie')  results = await searchTMDB(q, 'movie');
+    else                        results = await searchRAWG(q);
     acResults = results.slice(0, 7);
     renderACList();
-  } catch(err) {
-    list.innerHTML = `<div class="ac-empty">search failed</div>`;
-  }
+  } catch(err) { list.innerHTML = `<div class="ac-empty">search failed</div>`; }
 }
 
 function renderACList() {
@@ -777,12 +857,10 @@ function renderACList() {
     const item = document.createElement('div');
     item.className = 'autocomplete-item' + (i === acIndex ? ' active' : '');
     item.innerHTML = `
-      ${r.cover
-        ? coverImg(r.cover, 'ac-thumb', r.title)
-        : `<div class="ac-thumb-placeholder">${typeEmoji(r.type)}</div>`}
+      ${r.cover ? coverImg(r.cover, 'ac-thumb', r.title) : `<div class="ac-thumb-placeholder">${typeEmoji(r.type)}</div>`}
       <div class="ac-info">
         <div class="ac-title">${r.title}</div>
-        <div class="ac-meta">${r.year||''}${r.genres?.length ? ' · ' + r.genres.slice(0,2).join(', ') : ''}</div>
+        <div class="ac-meta">${r.year||''}${r.genres?.length ? ' · '+r.genres.slice(0,2).join(', ') : ''}</div>
       </div>`;
     item.onclick = () => selectAC(r);
     list.appendChild(item);
@@ -790,16 +868,13 @@ function renderACList() {
 }
 
 function renderACHighlight() {
-  document.querySelectorAll('.autocomplete-item').forEach((el, i) =>
-    el.classList.toggle('active', i === acIndex));
+  document.querySelectorAll('.autocomplete-item').forEach((el,i) => el.classList.toggle('active', i === acIndex));
 }
 
 function selectAC(result) {
   document.getElementById('search-input').value = result.title;
   hideAC();
-  // Directly render this single result as a selectable card
   renderSearchResults([result]);
-  // Auto-select it
   const card = document.querySelector('.result-card');
   if (card) selectResult(result, card);
 }
@@ -809,49 +884,46 @@ function hideAC() {
   acResults = []; acIndex = -1;
 }
 
-// ─── Full search (Search button) ──────────────────────────
+// ─── Full Search ──────────────────────────────────────────
 async function doSearch() {
   const q    = document.getElementById('search-input').value.trim();
   const type = document.getElementById('type-select').value;
   if (!q) return;
   hideAC();
-
   document.getElementById('loading').style.display = 'flex';
   document.getElementById('error-msg').style.display = 'none';
   document.getElementById('search-results').innerHTML = '';
   document.getElementById('review-fields').style.display = 'none';
   selectedResult = null;
-
   try {
     let results;
     if      (type === 'anime')  results = await searchAniList(q, 'anime');
-    else if (type === 'manga')  results = await searchMangaDex(q);
+    else if (type === 'manga')  results = await searchMangaAL(q);
     else if (type === 'tv')     results = await searchTMDB(q, 'tv');
     else if (type === 'movie')  results = await searchTMDB(q, 'movie');
     else                        results = await searchRAWG(q);
-
     document.getElementById('loading').style.display = 'none';
     if (!results.length) {
       document.getElementById('error-msg').textContent = 'No results found. Try a different spelling.';
-      document.getElementById('error-msg').style.display = 'block';
-      return;
+      document.getElementById('error-msg').style.display = 'block'; return;
     }
     renderSearchResults(results);
   } catch(err) {
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('error-msg').textContent = 'Search failed — check your connection and try again.';
+    document.getElementById('error-msg').textContent = err.message || 'Search failed — check your connection.';
     document.getElementById('error-msg').style.display = 'block';
     console.error(err);
   }
 }
 
-// ─── AniList ──────────────────────────────────────────────
+// ─── AniList anime ────────────────────────────────────────
 async function searchAniList(q, type) {
   const gql = `query ($s: String, $t: MediaType) {
     Page(perPage: 8) {
       media(search: $s, type: $t) {
         id title { romaji english } coverImage { large }
-        description(asHtml: false) startDate { year } genres episodes chapters
+        description(asHtml: false) startDate { year } genres episodes
+        status nextAiringEpisode { episode timeUntilAiring }
       }
     }
   }`;
@@ -862,26 +934,27 @@ async function searchAniList(q, type) {
   });
   const data = await res.json();
   return data.data.Page.media.map(m => ({
-    id:          String(m.id),
-    title:       m.title.english || m.title.romaji,
-    cover:       m.coverImage.large,
-    description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
-    year:        m.startDate?.year || '',
-    type:        'anime',
-    genres:      (m.genres||[]).slice(0,7),
-    extra:       m.episodes ? `${m.episodes} eps` : ''
+    id:           String(m.id),
+    title:        m.title.english || m.title.romaji,
+    cover:        m.coverImage.large,
+    description:  (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
+    year:         m.startDate?.year || '',
+    type:         'anime',
+    genres:       (m.genres||[]).slice(0,7),
+    extra:        m.episodes ? `${m.episodes} eps` : '',
+    airingStatus: m.status,
+    nextAiring:   m.nextAiringEpisode || null
   }));
 }
 
-// ─── AniList manga (covers JP manga, manhwa, manhua) ──────
-// Switched from MangaDex — AniList has no image hotlink issues
-async function searchMangaDex(q) {
+// ─── AniList manga ────────────────────────────────────────
+async function searchMangaAL(q) {
   const gql = `query ($s: String) {
     Page(perPage: 8) {
       media(search: $s, type: MANGA) {
         id title { romaji english } coverImage { large }
         description(asHtml: false) startDate { year }
-        genres chapters countryOfOrigin
+        genres chapters countryOfOrigin status
       }
     }
   }`;
@@ -895,39 +968,40 @@ async function searchMangaDex(q) {
     const origin  = m.countryOfOrigin || 'JP';
     const subtype = origin === 'KR' ? 'Manhwa' : origin === 'CN' ? 'Manhua' : 'Manga';
     return {
-      id:          String(m.id),
-      title:       m.title.english || m.title.romaji,
-      cover:       m.coverImage.large,
-      description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
-      year:        m.startDate?.year || '',
-      type:        'manga',
-      genres:      (m.genres||[]).slice(0,7),
-      extra:       subtype
+      id:           String(m.id),
+      title:        m.title.english || m.title.romaji,
+      cover:        m.coverImage.large,
+      description:  (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
+      year:         m.startDate?.year || '',
+      type:         'manga',
+      genres:       (m.genres||[]).slice(0,7),
+      extra:        subtype,
+      airingStatus: m.status,
+      nextAiring:   null
     };
   });
 }
 
-// ─── TMDB (TV + Movies) ───────────────────────────────────
+// ─── TMDB ─────────────────────────────────────────────────
 async function searchTMDB(q, mediaType) {
   const { tmdbKey } = getCreds();
   if (!tmdbKey) throw new Error('No TMDB key — add it in ⚙ Settings');
-
   const endpoint = mediaType === 'tv' ? 'search/tv' : 'search/movie';
   const res  = await fetch(`https://api.themoviedb.org/3/${endpoint}?api_key=${tmdbKey}&query=${encodeURIComponent(q)}&page=1`);
   const data = await res.json();
   if (!data.results) return [];
-
-  // Fetch genre list for mapping IDs → names (cached in memory)
   const genreMap = await getTMDBGenreMap(mediaType, tmdbKey);
-
-  return data.results.slice(0,8).map(r => {
-    const title = r.name || r.title || '';
-    const year  = (r.first_air_date || r.release_date || '').slice(0,4);
-    const cover = r.poster_path ? `https://image.tmdb.org/t/p/w300${r.poster_path}` : '';
-    const desc  = (r.overview || '').substring(0,700);
-    const genres = (r.genre_ids||[]).map(id => genreMap[id]).filter(Boolean).slice(0,6);
-    return { id: String(r.id), title, cover, description: desc, year, type: mediaType, genres, extra: '' };
-  });
+  return data.results.slice(0,8).map(r => ({
+    id:          String(r.id),
+    title:       r.name || r.title || '',
+    cover:       r.poster_path ? `https://image.tmdb.org/t/p/w300${r.poster_path}` : '',
+    description: (r.overview||'').substring(0,700),
+    year:        (r.first_air_date||r.release_date||'').slice(0,4),
+    type:        mediaType,
+    genres:      (r.genre_ids||[]).map(id=>genreMap[id]).filter(Boolean).slice(0,6),
+    extra:       '',
+    airingStatus: null, nextAiring: null
+  }));
 }
 
 const _tmdbGenreCache = {};
@@ -943,7 +1017,9 @@ async function getTMDBGenreMap(mediaType, key) {
 
 // ─── RAWG ─────────────────────────────────────────────────
 async function searchRAWG(q) {
-  const res  = await fetch(`https://api.rawg.io/api/games?key=&search=${encodeURIComponent(q)}&page_size=8`);
+  const { rawgKey } = getCreds();
+  if (!rawgKey) throw new Error('No RAWG key — add it in ⚙ Settings');
+  const res  = await fetch(`https://api.rawg.io/api/games?key=${rawgKey}&search=${encodeURIComponent(q)}&page_size=8`);
   const data = await res.json();
   if (!data.results) return [];
   return data.results.map(g => ({
@@ -954,7 +1030,8 @@ async function searchRAWG(q) {
     year:        g.released ? g.released.slice(0,4) : '',
     type:        'game',
     genres:      (g.genres||[]).map(x=>x.name).slice(0,6),
-    extra:       (g.genres||[]).map(x=>x.name).slice(0,2).join(', ')
+    extra:       (g.genres||[]).map(x=>x.name).slice(0,2).join(', '),
+    airingStatus: null, nextAiring: null
   }));
 }
 
@@ -966,9 +1043,7 @@ function renderSearchResults(results) {
     const card = document.createElement('div');
     card.className = 'result-card';
     card.innerHTML = `
-      ${r.cover
-        ? coverImg(r.cover, 'result-card-img', r.title)
-        : `<div style="height:208px;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:34px">${typeEmoji(r.type)}</div>`}
+      ${r.cover ? coverImg(r.cover, 'result-card-img', r.title) : `<div style="height:210px;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:34px">${typeEmoji(r.type)}</div>`}
       <div class="result-card-info">
         <h4>${r.title}</h4>
         <small>${r.year}${r.extra ? ' · '+r.extra : r.genres?.length ? ' · '+r.genres.slice(0,2).join(', ') : ''}</small>
@@ -984,27 +1059,26 @@ function selectResult(r, el) {
   });
   el.classList.add('selected');
   const b = document.createElement('div');
-  b.className = 'selected-badge'; b.textContent = '✓';
-  el.appendChild(b);
+  b.className = 'selected-badge'; b.textContent = '✓'; el.appendChild(b);
   selectedResult = r;
   document.getElementById('review-fields').style.display = 'grid';
   currentRating = 0; currentStatus = 'completed';
+  updateInProgressLabel(r.type);
   updateStarUI(); updateStatusUI();
   document.getElementById('add-progress-wrap').style.display = 'none';
   document.getElementById('add-progress').value  = '';
   document.getElementById('add-franchise').value = '';
-  // Show "Add as Season" button only for anime, and only if anime entries already exist
   const hasAnimeEntries = collection.some(e => e.type === 'anime');
-  const seasonBtn = document.getElementById('btn-add-season');
-  seasonBtn.style.display = (r.type === 'anime' && hasAnimeEntries) ? 'inline-flex' : 'none';
+  document.getElementById('btn-add-season').style.display =
+    (r.type === 'anime' && hasAnimeEntries) ? 'inline-flex' : 'none';
 }
 
 // ─── Rating & Status ──────────────────────────────────────
 function progressLabel(type) {
-  if (type === 'manga')  return 'Chapter';
-  if (type === 'movie')  return null; // no progress for movies
-  if (type === 'anime')  return 'Episode';
-  if (type === 'tv')     return 'Episode / Season';
+  if (type === 'manga') return 'Chapter';
+  if (type === 'movie') return null;
+  if (type === 'anime') return 'Episode';
+  if (type === 'tv')    return 'Episode / Season';
   return 'Progress';
 }
 
@@ -1016,10 +1090,10 @@ function updateStatusUI(){ document.querySelectorAll('#status-chips .status-chip
 function updateAddProgressVisibility() {
   const type  = document.getElementById('type-select').value;
   const wrap  = document.getElementById('add-progress-wrap');
-  const label = progressLabel(type);
-  if (currentStatus === 'watching' && label) {
+  const lbl   = progressLabel(type);
+  if (currentStatus === 'watching' && lbl) {
     wrap.style.display = 'flex';
-    document.getElementById('add-progress-label').textContent = label;
+    document.getElementById('add-progress-label').textContent = lbl;
   } else {
     wrap.style.display = 'none';
     document.getElementById('add-progress').value = '';
@@ -1027,14 +1101,12 @@ function updateAddProgressVisibility() {
 }
 
 function updateEditProgressVisibility(type) {
-  const wrap  = document.getElementById('edit-progress-wrap');
-  const label = progressLabel(type);
-  if (editStatus === 'watching' && label) {
+  const wrap = document.getElementById('edit-progress-wrap');
+  const lbl  = progressLabel(type);
+  if (editStatus === 'watching' && lbl) {
     wrap.style.display = 'flex';
-    document.getElementById('edit-progress-label').textContent = label;
-  } else {
-    wrap.style.display = 'none';
-  }
+    document.getElementById('edit-progress-label').textContent = lbl;
+  } else { wrap.style.display = 'none'; }
 }
 
 // ─── Add Entry ────────────────────────────────────────────
@@ -1055,6 +1127,8 @@ function addEntry() {
     review:      document.getElementById('review-text').value.trim(),
     progress:    document.getElementById('add-progress').value.trim(),
     franchise:   document.getElementById('add-franchise').value.trim(),
+    airingStatus: selectedResult.airingStatus || null,
+    nextAiring:   selectedResult.nextAiring   || null,
     addedAt:     Date.now()
   });
   save(); updateStats(); updateGenreFilterBar(); renderGrid();
@@ -1074,28 +1148,22 @@ function openSeasonPicker() {
   if (!selectedResult) return;
   const animeEntries = collection.filter(e => e.type === 'anime');
   if (!animeEntries.length) return;
-
-  document.getElementById('season-picker-title').textContent =
-    `Add "${selectedResult.title}" as a season to…`;
-
+  document.getElementById('season-picker-title').textContent = `Add "${selectedResult.title}" as a season to…`;
   const list = document.getElementById('season-entry-list');
   list.innerHTML = '';
   animeEntries.forEach(entry => {
-    const seasonCount = (entry.seasons||[]).length;
+    const cnt = (entry.seasons||[]).length;
     const row = document.createElement('div');
     row.className = 'season-entry-option';
     row.innerHTML = `
-      ${entry.cover
-        ? `<img class="season-entry-thumb" src="${entry.cover}" alt="">`
-        : `<div class="season-entry-thumb-ph">📺</div>`}
+      ${entry.cover ? `<img class="season-entry-thumb" src="${entry.cover}" alt="">` : `<div class="season-entry-thumb-ph">📺</div>`}
       <div>
         <div class="season-entry-name">${entry.title}</div>
-        <div class="season-entry-count">${seasonCount ? seasonCount + ' season' + (seasonCount>1?'s':'') + ' already added' : 'No seasons yet'}</div>
+        <div class="season-entry-count">${cnt ? cnt+' season'+(cnt>1?'s':'')+' added' : 'No seasons yet'}</div>
       </div>`;
     row.onclick = () => attachSeason(entry.id);
     list.appendChild(row);
   });
-
   document.getElementById('season-picker-backdrop').style.display = 'flex';
 }
 
@@ -1108,31 +1176,11 @@ function attachSeason(targetEntryId) {
   if (!selectedResult) return;
   const idx = collection.findIndex(c => c.id === targetEntryId);
   if (idx === -1) return;
-
   if (!collection[idx].seasons) collection[idx].seasons = [];
-
-  // Avoid duplicate season IDs
-  const alreadyAdded = collection[idx].seasons.some(s => s.mediaId === selectedResult.id);
-  if (alreadyAdded) {
-    closeSeasonPicker();
-    return;
-  }
-
-  collection[idx].seasons.push({
-    id:      Date.now(),
-    mediaId: selectedResult.id,
-    title:   selectedResult.title,
-    year:    selectedResult.year,
-    cover:   selectedResult.cover
-  });
-
-  // Sort seasons chronologically by year
+  if (collection[idx].seasons.some(s => s.mediaId === selectedResult.id)) { closeSeasonPicker(); return; }
+  collection[idx].seasons.push({ id: Date.now(), mediaId: selectedResult.id, title: selectedResult.title, year: selectedResult.year, cover: selectedResult.cover });
   collection[idx].seasons.sort((a,b) => (a.year||0) - (b.year||0));
-
-  save(); renderGrid();
-  closeSeasonPicker();
-
-  // Reset add form
+  save(); renderGrid(); closeSeasonPicker();
   document.getElementById('search-input').value    = '';
   document.getElementById('search-results').innerHTML = '';
   document.getElementById('review-fields').style.display = 'none';
@@ -1148,58 +1196,88 @@ function removeSeason(entryId, seasonId) {
   const idx = collection.findIndex(c => c.id === entryId);
   if (idx === -1) return;
   collection[idx].seasons = (collection[idx].seasons||[]).filter(s => s.id !== seasonId);
-  save(); renderGrid();
-  // Refresh modal to reflect removal
-  openModal(entryId);
+  save(); renderGrid(); openModal(entryId);
 }
 
 // ─── Filters & Sort ───────────────────────────────────────
 function setTypeFilter(f) {
   currentTypeFilter = f;
-  document.querySelectorAll('.filters-row .filter-chip:not(.genre-filter)').forEach(c => c.classList.toggle('active', c.dataset.type === f));
+  document.querySelectorAll('.filters-row .filter-chip:not(.genre-filter)').forEach(c => {
+    if (c.dataset.type !== undefined) c.classList.toggle('active', c.dataset.type === f);
+  });
   renderGrid();
 }
+
+function setStatusFilter(s) {
+  currentStatusFilter = s;
+  document.querySelectorAll('.filter-chip[data-status]').forEach(c => c.classList.toggle('active', c.dataset.status === s));
+  renderGrid();
+}
+
 function setGenreFilter(g) {
   currentGenreFilter = g;
   document.querySelectorAll('.filter-chip.genre-filter').forEach(c => c.classList.toggle('active', c.dataset.genre === g));
   renderGrid();
 }
+
+function setFranchiseFilter(f) {
+  currentFranchise = f;
+  const bar = document.getElementById('franchise-filter-bar');
+  if (f) {
+    bar.style.display = 'block';
+    document.getElementById('ff-name').textContent = f;
+  } else {
+    bar.style.display = 'none';
+  }
+  renderGrid();
+}
+
+function clearFranchiseFilter() { setFranchiseFilter(null); }
+
 function setSort(s) { currentSort = s; renderGrid(); }
 
 // ─── Render Grid ──────────────────────────────────────────
 function renderGrid() {
   let items = [...collection];
-  if (currentTypeFilter  !== 'all') items = items.filter(e => e.type === currentTypeFilter);
-  if (currentGenreFilter !== 'all') items = items.filter(e => (e.genres||[]).includes(currentGenreFilter));
-  if      (currentSort === 'title')  items.sort((a,b) => a.title.localeCompare(b.title));
+  if (currentTypeFilter   !== 'all') items = items.filter(e => e.type === currentTypeFilter);
+  if (currentStatusFilter !== 'all') items = items.filter(e => e.status === currentStatusFilter);
+  if (currentGenreFilter  !== 'all') items = items.filter(e => (e.genres||[]).includes(currentGenreFilter));
+  if (currentFranchise)              items = items.filter(e => e.franchise === currentFranchise);
+
+  if      (currentSort === 'title')  items.sort((a,b) => sortKey(a.title).localeCompare(sortKey(b.title)));
   else if (currentSort === 'rating') items.sort((a,b) => b.rating - a.rating);
   else                               items.sort((a,b) => b.addedAt - a.addedAt);
 
   const grid = document.getElementById('media-grid');
   grid.innerHTML = '';
   if (!items.length) {
-    grid.innerHTML = `<div class="empty-state"><div class="icon">☽</div><h3>Nothing here yet</h3><p>Search above to start your collection.</p></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="deco">✦ ☽ ✦ ☾ ✦</div><div class="icon">☽</div><h3>Nothing here yet</h3><p>Search above to start your collection.</p></div>`;
     return;
   }
+
   items.forEach(entry => {
-    const genreTags = (entry.genres||[]).slice(0,4).map(g=>`<span class="genre-tag">${g}</span>`).join('');
+    const genreTags  = (entry.genres||[]).slice(0,4).map(g=>`<span class="genre-tag">${g}</span>`).join('');
+    const airing     = airingText(entry.nextAiring);
+    const isOngoing  = entry.airingStatus === 'RELEASING';
+
     const card = document.createElement('div');
     card.className = 'media-card';
     card.innerHTML = `
       <div class="type-bar ${entry.type}"></div>
-      ${entry.cover ? coverImg(entry.cover, 'card-cover', entry.title) : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}</div>`}
+      ${entry.cover ? coverImg(entry.cover, 'card-cover', entry.title) : `<div class="card-cover-placeholder">${typeEmoji(entry.type)}<small>${typeLabel(entry.type)}</small></div>`}
       <div class="card-body">
         <div class="card-top-row">
           <span class="card-type ${entry.type}">${typeLabel(entry.type)}</span>
           <span class="card-year">${entry.year||''}</span>
         </div>
         <div class="card-title">${entry.title}</div>
-        ${entry.seasons?.length ? `<div class="card-seasons">◉ ${entry.seasons.length} season${entry.seasons.length>1?'s':''}</div>` : ''}
+        ${entry.seasons?.length ? `<div class="card-seasons">☽ ${entry.seasons.length} season${entry.seasons.length>1?'s':''}</div>` : ''}
         <div class="card-stars">${starsHTML(entry.rating)}</div>
         ${genreTags ? `<div class="card-genres">${genreTags}</div>` : ''}
-        <div class="card-status">${entry.status.toUpperCase()}</div>
+        <div class="card-status">${statusLabel(entry.status, entry.type)}</div>
         ${entry.status === 'watching' && entry.progress ? `<div class="card-progress">↳ ${entry.progress}</div>` : ''}
-        ${entry.franchise ? `<div class="card-franchise">◈ ${entry.franchise}</div>` : ''}
+        ${airing ? `<div class="card-airing">✦ ${airing}</div>` : isOngoing && entry.type !== 'anime' ? `<div class="card-airing">✦ Ongoing</div>` : ''}
+        ${entry.franchise ? `<div class="card-franchise"><span class="franchise-tag" onclick="setFranchiseFilter('${entry.franchise.replace(/'/g,"\\'")}', event)">◈ ${entry.franchise}</span></div>` : ''}
       </div>
       <div class="card-overlay">
         <button class="overlay-btn view" onclick="openModal(${entry.id},event)">View Details</button>
@@ -1215,39 +1293,41 @@ function openModal(id, e) {
   if (e) e.stopPropagation();
   const entry = collection.find(c => c.id === id);
   if (!entry) return;
+
   document.getElementById('modal-title').textContent  = entry.title;
   document.getElementById('modal-type').textContent   = typeLabel(entry.type).toUpperCase();
   document.getElementById('modal-type').className     = `modal-type ${entry.type}`;
   document.getElementById('modal-stars').innerHTML    = starsHTML(entry.rating);
-  document.getElementById('modal-status').textContent = entry.status.toUpperCase();
+  document.getElementById('modal-status').textContent = statusLabel(entry.status, entry.type).toUpperCase();
+  document.getElementById('modal-edit-btn').dataset.entryId = id;
 
   const progEl = document.getElementById('modal-progress');
-  if (entry.status === 'watching' && entry.progress) {
-    progEl.textContent = '↳ ' + entry.progress; progEl.style.display = 'block';
-  } else { progEl.style.display = 'none'; }
+  if (entry.status === 'watching' && entry.progress) { progEl.textContent = '↳ '+entry.progress; progEl.style.display='block'; }
+  else { progEl.style.display='none'; }
+
+  const airingEl = document.getElementById('modal-airing');
+  const airingStr = airingText(entry.nextAiring);
+  const isOngoing = entry.airingStatus === 'RELEASING';
+  if (airingStr) { airingEl.textContent = '✦ Next: '+airingStr; airingEl.style.display='block'; }
+  else if (isOngoing) { airingEl.textContent = '✦ Ongoing'; airingEl.style.display='block'; }
+  else { airingEl.style.display='none'; }
 
   const franEl = document.getElementById('modal-franchise');
-  if (entry.franchise) {
-    franEl.textContent = '◈ ' + entry.franchise; franEl.style.display = 'block';
-  } else { franEl.style.display = 'none'; }
+  if (entry.franchise) { franEl.textContent = '◈ '+entry.franchise; franEl.style.display='block'; }
+  else { franEl.style.display='none'; }
 
-  document.getElementById('modal-genres').innerHTML   = (entry.genres||[]).map(g=>`<span class="genre-tag">${g}</span>`).join('');
-  document.getElementById('modal-desc').textContent   = entry.description || 'No description available.';
-  document.getElementById('modal-edit-btn').dataset.entryId = id;
+  document.getElementById('modal-genres').innerHTML = (entry.genres||[]).map(g=>`<span class="genre-tag">${g}</span>`).join('');
+  document.getElementById('modal-desc').textContent = entry.description || 'No description available.';
 
   const img = document.getElementById('modal-cover-img');
   const ph  = document.getElementById('modal-cover-placeholder');
-  if (entry.cover) {
-    img.src = entry.cover;
-    img.style.display='block'; ph.style.display='none';
-  }
-  else { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
+  if (entry.cover) { img.src=entry.cover; img.style.display='block'; ph.style.display='none'; }
+  else             { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
 
   const rev = document.getElementById('modal-review-section');
   if (entry.review) { rev.style.display='block'; document.getElementById('modal-review-text').textContent=entry.review; }
-  else              { rev.style.display='none'; }
+  else { rev.style.display='none'; }
 
-  // Seasons
   const seasonsSection = document.getElementById('modal-seasons-section');
   const seasonList     = document.getElementById('modal-season-list');
   if (entry.seasons?.length) {
@@ -1261,12 +1341,10 @@ function openModal(id, e) {
           <div class="season-row-title">${s.title}</div>
           ${s.year ? `<div class="season-row-year">${s.year}</div>` : ''}
         </div>
-        <button class="season-remove" onclick="removeSeason(${entry.id}, ${s.id})">Remove</button>`;
+        <button class="season-remove" onclick="removeSeason(${entry.id},${s.id})">Remove</button>`;
       seasonList.appendChild(row);
     });
-  } else {
-    seasonsSection.style.display = 'none';
-  }
+  } else { seasonsSection.style.display='none'; }
 
   document.getElementById('modal-backdrop').style.display = 'flex';
 }
@@ -1286,6 +1364,7 @@ function openEdit(id, e) {
   document.getElementById('edit-review').value         = entry.review    || '';
   document.getElementById('edit-progress').value       = entry.progress  || '';
   document.getElementById('edit-franchise').value      = entry.franchise || '';
+  updateInProgressLabel(entry.type);
   updateEditStarUI(); updateEditStatusUI();
   updateEditProgressVisibility(entry.type);
   document.getElementById('edit-backdrop').style.display = 'flex';
@@ -1305,7 +1384,7 @@ function closeEdit(e) {
 
 function setEditRating(v)    { editRating = v; updateEditStarUI(); }
 function updateEditStarUI()  { document.querySelectorAll('#edit-stars .edit-star').forEach(s => s.classList.toggle('filled', +s.dataset.v <= editRating)); }
-function setEditStatus(s)    {
+function setEditStatus(s) {
   editStatus = s; updateEditStatusUI();
   const entry = collection.find(c => c.id === editingId);
   if (entry) updateEditProgressVisibility(entry.type);
@@ -1320,7 +1399,7 @@ function saveEdit() {
   collection[idx].review    = document.getElementById('edit-review').value.trim();
   collection[idx].progress  = document.getElementById('edit-progress').value.trim();
   collection[idx].franchise = document.getElementById('edit-franchise').value.trim();
-  save(); updateStats(); renderGrid();
+  save(); updateStats(); updateGenreFilterBar(); renderGrid();
   document.getElementById('edit-backdrop').style.display = 'none';
   editingId = null;
 }
@@ -1345,127 +1424,116 @@ function updateStats() {
 // ─── Gist Sync ────────────────────────────────────────────
 function setSyncDot(state) {
   const dot = document.getElementById('sync-dot');
-  dot.className = 'sync-dot' + (state !== 'none' ? ' '+state : '');
-  dot.title = {none:'No Gist configured', synced:'Up to date', unsynced:'Local changes not pushed', error:'Sync error'}[state]||'';
+  dot.className = 'sync-dot'+(state!=='none'?' '+state:'');
+  dot.title = {none:'No Gist configured',synced:'Up to date',unsynced:'Local changes not pushed',error:'Sync error'}[state]||'';
 }
 function setSyncBtns(e) { document.getElementById('btn-pull').disabled=!e; document.getElementById('btn-push').disabled=!e; }
 
 async function pushToGist() {
-  const { gistId, token } = getCreds();
-  if (!gistId||!token) { openSettings(); return; }
-  const btn = document.getElementById('btn-push');
-  btn.textContent='↑ Pushing…'; btn.classList.add('pushing'); btn.disabled=true;
+  const {gistId,token}=getCreds(); if(!gistId||!token){openSettings();return;}
+  const btn=document.getElementById('btn-push');
+  btn.textContent='↑ Pushing…';btn.classList.add('pushing');btn.disabled=true;
   try {
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      method: 'PATCH',
-      headers: { 'Authorization':`token ${token}`, 'Content-Type':'application/json', 'Accept':'application/vnd.github+json' },
-      body: JSON.stringify({ files:{ [GIST_FILENAME]:{ content: JSON.stringify(collection,null,2) } } })
-    });
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    btn.textContent='↑ Pushed ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
-    setSyncDot('synced');
-    setTimeout(()=>{ btn.textContent='↑ Push'; btn.classList.remove('success'); btn.disabled=false; },2500);
-  } catch(err) {
-    btn.textContent='↑ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
-    setSyncDot('error');
-    setTimeout(()=>{ btn.textContent='↑ Push'; btn.classList.remove('error'); btn.disabled=false; },3000);
-  }
+    const res=await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json','Accept':'application/vnd.github+json'},body:JSON.stringify({files:{[GIST_FILENAME]:{content:JSON.stringify(collection,null,2)}}})});
+    if(!res.ok)throw new Error(`GitHub API ${res.status}`);
+    btn.textContent='↑ Pushed ✓';btn.classList.remove('pushing');btn.classList.add('success');setSyncDot('synced');
+    setTimeout(()=>{btn.textContent='↑ Push';btn.classList.remove('success');btn.disabled=false;},2500);
+  } catch(err){btn.textContent='↑ Failed';btn.classList.remove('pushing');btn.classList.add('error');setSyncDot('error');setTimeout(()=>{btn.textContent='↑ Push';btn.classList.remove('error');btn.disabled=false;},3000);}
 }
 
 async function pullFromGist() {
-  const { gistId, token } = getCreds();
-  if (!gistId||!token) { openSettings(); return; }
-  const btn = document.getElementById('btn-pull');
-  btn.textContent='↓ Pulling…'; btn.classList.add('pushing'); btn.disabled=true;
+  const {gistId,token}=getCreds(); if(!gistId||!token){openSettings();return;}
+  const btn=document.getElementById('btn-pull');
+  btn.textContent='↓ Pulling…';btn.classList.add('pushing');btn.disabled=true;
   try {
-    const res  = await fetch(`https://api.github.com/gists/${gistId}`, { headers:{ 'Authorization':`token ${token}`, 'Accept':'application/vnd.github+json' } });
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    const data = await res.json();
-    const raw  = data.files?.[GIST_FILENAME]?.content;
-    if (!raw) throw new Error('File not found in Gist');
-    const remote = JSON.parse(raw);
-    if (!Array.isArray(remote)) throw new Error('Invalid format');
-    collection = remote;
-    localStorage.setItem('codex-v2', JSON.stringify(collection));
-    updateStats(); updateGenreFilterBar(); renderGrid();
-    btn.textContent='↓ Pulled ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
-    setSyncDot('synced');
-    setTimeout(()=>{ btn.textContent='↓ Pull'; btn.classList.remove('success'); btn.disabled=false; },2500);
-  } catch(err) {
-    btn.textContent='↓ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
-    setSyncDot('error');
-    setTimeout(()=>{ btn.textContent='↓ Pull'; btn.classList.remove('error'); btn.disabled=false; },3000);
-  }
+    const res=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github+json'}});
+    if(!res.ok)throw new Error(`GitHub API ${res.status}`);
+    const data=await res.json(); const raw=data.files?.[GIST_FILENAME]?.content;
+    if(!raw)throw new Error('File not found in Gist');
+    const remote=JSON.parse(raw); if(!Array.isArray(remote))throw new Error('Invalid format');
+    collection=remote; localStorage.setItem('codex-v2',JSON.stringify(collection));
+    updateStats();updateGenreFilterBar();renderGrid();
+    btn.textContent='↓ Pulled ✓';btn.classList.remove('pushing');btn.classList.add('success');setSyncDot('synced');
+    setTimeout(()=>{btn.textContent='↓ Pull';btn.classList.remove('success');btn.disabled=false;},2500);
+  } catch(err){btn.textContent='↓ Failed';btn.classList.remove('pushing');btn.classList.add('error');setSyncDot('error');setTimeout(()=>{btn.textContent='↓ Pull';btn.classList.remove('error');btn.disabled=false;},3000);}
 }
 
 // ─── Settings ─────────────────────────────────────────────
 function openSettings() {
-  const { tmdbKey, gistId, token } = getCreds();
+  const {tmdbKey,rawgKey,gistId,token}=getCreds();
   document.getElementById('input-tmdb-key').value = tmdbKey;
+  document.getElementById('input-rawg-key').value = rawgKey;
   document.getElementById('input-gist-id').value  = gistId;
   document.getElementById('input-token').value    = token;
-  document.getElementById('settings-status').textContent = '';
-  document.getElementById('settings-status').className   = 'settings-status';
-  document.getElementById('settings-backdrop').style.display = 'flex';
+  document.getElementById('settings-status').textContent='';
+  document.getElementById('settings-status').className='settings-status';
+  document.getElementById('settings-backdrop').style.display='flex';
 }
 
 function closeSettings(e) {
-  if (e && e.target !== document.getElementById('settings-backdrop')) return;
-  document.getElementById('settings-backdrop').style.display = 'none';
+  if(e&&e.target!==document.getElementById('settings-backdrop'))return;
+  document.getElementById('settings-backdrop').style.display='none';
 }
 
 async function saveSettings() {
-  const tmdbKey = document.getElementById('input-tmdb-key').value.trim();
-  const gistId  = document.getElementById('input-gist-id').value.trim();
-  const token   = document.getElementById('input-token').value.trim();
-  const status  = document.getElementById('settings-status');
-  status.textContent = 'Testing…'; status.className = 'settings-status';
+  const tmdbKey=document.getElementById('input-tmdb-key').value.trim();
+  const rawgKey=document.getElementById('input-rawg-key').value.trim();
+  const gistId =document.getElementById('input-gist-id').value.trim();
+  const token  =document.getElementById('input-token').value.trim();
+  const status =document.getElementById('settings-status');
+  status.textContent='Testing…';status.className='settings-status';
 
-  // Test TMDB key if provided
-  if (tmdbKey) {
+  if(tmdbKey){
     try {
-      const res = await fetch(`https://api.themoviedb.org/3/configuration?api_key=${tmdbKey}`);
-      if (!res.ok) { status.textContent = '✕ TMDB key invalid.'; status.className='settings-status error'; return; }
-      localStorage.setItem('codex-tmdb-key', tmdbKey);
-    } catch { status.textContent = '✕ Could not reach TMDB.'; status.className='settings-status error'; return; }
+      const res=await fetch(`https://api.themoviedb.org/3/configuration?api_key=${tmdbKey}`);
+      if(!res.ok){status.textContent='✕ TMDB key invalid.';status.className='settings-status error';return;}
+      localStorage.setItem('codex-tmdb-key',tmdbKey);
+    }catch{status.textContent='✕ Could not reach TMDB.';status.className='settings-status error';return;}
   }
 
-  // Test Gist if provided
-  if (gistId && token) {
+  if(rawgKey){
     try {
-      const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers:{ 'Authorization':`token ${token}`, 'Accept':'application/vnd.github+json' } });
-      if (res.status===404) { status.textContent='✕ Gist not found.'; status.className='settings-status error'; return; }
-      if (res.status===401) { status.textContent='✕ Token rejected.'; status.className='settings-status error'; return; }
-      if (!res.ok)          { status.textContent=`✕ GitHub error ${res.status}.`; status.className='settings-status error'; return; }
-      const data = await res.json();
-      if (!data.files?.[GIST_FILENAME]) { status.textContent=`✕ No "${GIST_FILENAME}" file in Gist.`; status.className='settings-status error'; return; }
-      localStorage.setItem('codex-gist-id', gistId);
-      localStorage.setItem('codex-token',   token);
-      setSyncBtns(true); setSyncDot('unsynced');
-    } catch { status.textContent='✕ Could not reach GitHub.'; status.className='settings-status error'; return; }
+      const res=await fetch(`https://api.rawg.io/api/games?key=${rawgKey}&page_size=1`);
+      if(!res.ok){status.textContent='✕ RAWG key invalid.';status.className='settings-status error';return;}
+      localStorage.setItem('codex-rawg-key',rawgKey);
+    }catch{status.textContent='✕ Could not reach RAWG.';status.className='settings-status error';return;}
   }
 
-  status.textContent = '✓ Saved!'; status.className = 'settings-status';
+  if(gistId&&token){
+    try {
+      const res=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github+json'}});
+      if(res.status===404){status.textContent='✕ Gist not found.';status.className='settings-status error';return;}
+      if(res.status===401){status.textContent='✕ Token rejected.';status.className='settings-status error';return;}
+      if(!res.ok){status.textContent=`✕ GitHub error ${res.status}.`;status.className='settings-status error';return;}
+      const data=await res.json();
+      if(!data.files?.[GIST_FILENAME]){status.textContent=`✕ No "${GIST_FILENAME}" in Gist.`;status.className='settings-status error';return;}
+      localStorage.setItem('codex-gist-id',gistId);
+      localStorage.setItem('codex-token',token);
+      setSyncBtns(true);setSyncDot('unsynced');
+    }catch{status.textContent='✕ Could not reach GitHub.';status.className='settings-status error';return;}
+  }
+
+  status.textContent='✓ Saved!';status.className='settings-status';
 }
 
 function clearSettings() {
-  ['codex-tmdb-key','codex-gist-id','codex-token'].forEach(k => localStorage.removeItem(k));
-  document.getElementById('input-tmdb-key').value = '';
-  document.getElementById('input-gist-id').value  = '';
-  document.getElementById('input-token').value    = '';
-  setSyncDot('none'); setSyncBtns(false);
-  const s = document.getElementById('settings-status');
-  s.textContent='Cleared.'; s.className='settings-status';
+  ['codex-tmdb-key','codex-rawg-key','codex-gist-id','codex-token'].forEach(k=>localStorage.removeItem(k));
+  document.getElementById('input-tmdb-key').value='';
+  document.getElementById('input-rawg-key').value='';
+  document.getElementById('input-gist-id').value='';
+  document.getElementById('input-token').value='';
+  setSyncDot('none');setSyncBtns(false);
+  const s=document.getElementById('settings-status');
+  s.textContent='Cleared.';s.className='settings-status';
 }
 
 // ─── Keyboard ─────────────────────────────────────────────
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     hideAC();
-    document.getElementById('modal-backdrop').style.display          = 'none';
-    document.getElementById('edit-backdrop').style.display           = 'none';
-    document.getElementById('settings-backdrop').style.display       = 'none';
-    document.getElementById('season-picker-backdrop').style.display  = 'none';
+    ['modal-backdrop','edit-backdrop','settings-backdrop','season-picker-backdrop'].forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
   }
 });
 
@@ -1474,7 +1542,6 @@ setupAutocomplete();
 updateStats();
 updateGenreFilterBar();
 renderGrid();
-
 const _c = getCreds();
 if (_c.gistId && _c.token) { setSyncBtns(true); setSyncDot('unsynced'); }
 else                        { setSyncBtns(false); setSyncDot('none'); }
