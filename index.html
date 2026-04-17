@@ -476,6 +476,118 @@ button {
 .modal-review label { display: block; margin-bottom: 8px; color: var(--lav); opacity: 0.8; }
 .modal-review p { color: var(--text-mid); font-style: italic; font-size: 15px; line-height: 1.75; font-weight: 300; }
 
+/* ─── Sync controls ─── */
+.sync-controls {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.btn-sync {
+  background: rgba(168,221,200,0.1);
+  border: 1px solid rgba(168,221,200,0.32); color: var(--mint);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 14px; cursor: pointer; border-radius: 1px;
+  transition: all 0.2s; height: 32px; white-space: nowrap;
+}
+.btn-sync:hover { background: rgba(168,221,200,0.2); box-shadow: 0 0 14px rgba(168,221,200,0.15); }
+.btn-sync:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-sync.pushing { border-color: rgba(240,224,168,0.4); color: var(--butter); background: rgba(240,224,168,0.08); }
+.btn-sync.success { border-color: rgba(168,221,200,0.6); color: var(--mint); }
+.btn-sync.error   { border-color: rgba(232,152,152,0.5); color: var(--danger); background: rgba(232,152,152,0.08); }
+
+.btn-settings {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); font-size: 14px; letter-spacing: 0;
+  padding: 0; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border-radius: 1px; transition: all 0.2s;
+  text-transform: none;
+}
+.btn-settings:hover { border-color: var(--lav); color: var(--lav); }
+
+.sync-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); flex-shrink: 0;
+  transition: background 0.3s;
+}
+.sync-dot.synced   { background: var(--mint); box-shadow: 0 0 6px rgba(168,221,200,0.5); }
+.sync-dot.unsynced { background: var(--butter); box-shadow: 0 0 6px rgba(240,224,168,0.4); }
+.sync-dot.error    { background: var(--danger); }
+
+/* ─── Settings modal ─── */
+.settings-backdrop {
+  position: fixed; inset: 0; background: rgba(10,8,14,0.82);
+  z-index: 600; display: flex; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(6px);
+}
+
+.settings-modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 3px; max-width: 480px; width: 100%;
+  position: relative;
+}
+
+.settings-modal::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--mint), var(--periwink), var(--lav));
+  opacity: 0.65;
+}
+
+.settings-header {
+  padding: 24px 26px 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.settings-header h3 {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim);
+}
+
+.settings-body { padding: 20px 26px 26px; display: flex; flex-direction: column; gap: 18px; }
+
+.settings-field { display: flex; flex-direction: column; gap: 7px; }
+
+.settings-field label { color: var(--text-dim); }
+
+.settings-field input {
+  font-family: 'DM Mono', monospace; font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.settings-hint {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--text-dim); line-height: 1.6; margin-top: -8px;
+}
+
+.settings-hint a { color: var(--lav); text-decoration: none; }
+.settings-hint a:hover { text-decoration: underline; }
+
+.settings-actions { display: flex; gap: 10px; padding-top: 4px; }
+
+.btn-save-settings {
+  background: linear-gradient(135deg, rgba(168,221,200,0.18), rgba(168,184,240,0.14));
+  border: 1px solid rgba(168,221,200,0.45); color: var(--mint);
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 9px 20px; cursor: pointer; border-radius: 1px;
+  transition: all 0.2s; flex: 1;
+}
+.btn-save-settings:hover { background: linear-gradient(135deg, rgba(168,221,200,0.28), rgba(168,184,240,0.22)); }
+
+.btn-clear-settings {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 9px 16px; cursor: pointer; border-radius: 1px; transition: all 0.2s;
+}
+.btn-clear-settings:hover { border-color: var(--danger); color: var(--danger); }
+
+.settings-status {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--mint); min-height: 16px; letter-spacing: 0.1em;
+}
+.settings-status.error { color: var(--danger); }
+
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -498,13 +610,21 @@ button {
     <div class="logo-title">☽ Codex ☾</div>
     <div class="logo-sub">Media Archive</div>
   </div>
-  <div class="header-stats">
-    <div class="stat-item s-total">  <strong id="stat-total">0</strong>Total</div>
-    <div class="stat-item s-anime">  <strong id="stat-anime">0</strong>Anime</div>
-    <div class="stat-item s-manga">  <strong id="stat-manga">0</strong>Manga</div>
-    <div class="stat-item s-manhwa"> <strong id="stat-manhwa">0</strong>Manhwa</div>
-    <div class="stat-item s-manhua"> <strong id="stat-manhua">0</strong>Manhua</div>
-    <div class="stat-item s-game">   <strong id="stat-game">0</strong>Games</div>
+  <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+    <div class="header-stats">
+      <div class="stat-item s-total">  <strong id="stat-total">0</strong>Total</div>
+      <div class="stat-item s-anime">  <strong id="stat-anime">0</strong>Anime</div>
+      <div class="stat-item s-manga">  <strong id="stat-manga">0</strong>Manga</div>
+      <div class="stat-item s-manhwa"> <strong id="stat-manhwa">0</strong>Manhwa</div>
+      <div class="stat-item s-manhua"> <strong id="stat-manhua">0</strong>Manhua</div>
+      <div class="stat-item s-game">   <strong id="stat-game">0</strong>Games</div>
+    </div>
+    <div class="sync-controls">
+      <div class="sync-dot" id="sync-dot" title="Sync status"></div>
+      <button class="btn-sync" id="btn-pull" onclick="pullFromGist()" title="Pull latest from Gist">↓ Pull</button>
+      <button class="btn-sync" id="btn-push" onclick="pushToGist()"  title="Push local to Gist">↑ Push</button>
+      <button class="btn-settings" onclick="openSettings()" title="Sync settings">⚙</button>
+    </div>
   </div>
 </header>
 
@@ -624,6 +744,36 @@ button {
     </div>
   </div>
 </div>
+<!-- Settings Modal -->
+<div class="settings-backdrop" id="settings-backdrop" style="display:none" onclick="closeSettings(event)">
+  <div class="settings-modal">
+    <div class="settings-header">
+      <h3>⚙ Gist Sync Settings</h3>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-field">
+        <label>Gist ID</label>
+        <input type="text" id="input-gist-id" placeholder="e.g. abc123def456…" spellcheck="false" autocomplete="off" />
+        <p class="settings-hint">The long alphanumeric ID from your Gist URL:<br>gist.github.com/yourusername/<strong>THIS_PART</strong></p>
+      </div>
+      <div class="settings-field">
+        <label>Personal Access Token</label>
+        <input type="password" id="input-token" placeholder="ghp_…" spellcheck="false" autocomplete="off" />
+        <p class="settings-hint">
+          Needs only the <code style="color:var(--lav)">gist</code> scope.
+          <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Generate one here →</a><br>
+          Stored in your browser's localStorage only — never sent anywhere except GitHub.
+        </p>
+      </div>
+      <div id="settings-status" class="settings-status"></div>
+      <div class="settings-actions">
+        <button class="btn-save-settings" onclick="saveSettings()">✦ Save &amp; Test Connection</button>
+        <button class="btn-clear-settings" onclick="clearSettings()">Clear</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ─── State ────────────────────────────────────────────────
@@ -636,7 +786,168 @@ let currentGenreFilter = 'all';
 let currentSort        = 'newest';
 
 // ─── Persistence ──────────────────────────────────────────
-function save() { localStorage.setItem('codex-v2', JSON.stringify(collection)); }
+function save() {
+  localStorage.setItem('codex-v2', JSON.stringify(collection));
+  setSyncDot('unsynced'); // local is ahead of remote after any write
+}
+
+// ─── Gist Sync ────────────────────────────────────────────
+const GIST_FILENAME = 'codex-collection.json';
+
+function getCredentials() {
+  return {
+    gistId: localStorage.getItem('codex-gist-id') || '',
+    token:  localStorage.getItem('codex-token')   || ''
+  };
+}
+
+function setSyncDot(state) {
+  // states: 'none' | 'synced' | 'unsynced' | 'error'
+  const dot = document.getElementById('sync-dot');
+  dot.className = 'sync-dot' + (state !== 'none' ? ' ' + state : '');
+  const titles = { none:'No Gist configured', synced:'Up to date', unsynced:'Local changes not pushed', error:'Sync error' };
+  dot.title = titles[state] || '';
+}
+
+function setSyncBtns(enabled) {
+  document.getElementById('btn-pull').disabled = !enabled;
+  document.getElementById('btn-push').disabled = !enabled;
+}
+
+async function pushToGist() {
+  const { gistId, token } = getCredentials();
+  if (!gistId || !token) { openSettings(); return; }
+
+  const btn = document.getElementById('btn-push');
+  btn.textContent = '↑ Pushing…'; btn.classList.add('pushing'); btn.disabled = true;
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github+json'
+      },
+      body: JSON.stringify({
+        files: { [GIST_FILENAME]: { content: JSON.stringify(collection, null, 2) } }
+      })
+    });
+
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    btn.textContent = '↑ Pushed ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
+    setSyncDot('synced');
+    setTimeout(() => { btn.textContent = '↑ Push'; btn.classList.remove('success'); btn.disabled = false; }, 2500);
+  } catch (err) {
+    btn.textContent = '↑ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
+    setSyncDot('error');
+    setTimeout(() => { btn.textContent = '↑ Push'; btn.classList.remove('error'); btn.disabled = false; }, 3000);
+    console.error('Push error:', err);
+  }
+}
+
+async function pullFromGist() {
+  const { gistId, token } = getCredentials();
+  if (!gistId || !token) { openSettings(); return; }
+
+  const btn = document.getElementById('btn-pull');
+  btn.textContent = '↓ Pulling…'; btn.classList.add('pushing'); btn.disabled = true;
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github+json'
+      }
+    });
+
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const data = await res.json();
+    const raw  = data.files?.[GIST_FILENAME]?.content;
+    if (!raw) throw new Error('File not found in Gist');
+
+    const remote = JSON.parse(raw);
+    if (!Array.isArray(remote)) throw new Error('Invalid data format');
+
+    collection = remote;
+    localStorage.setItem('codex-v2', JSON.stringify(collection));
+    updateStats(); updateGenreFilterBar(); renderGrid();
+
+    btn.textContent = '↓ Pulled ✓'; btn.classList.remove('pushing'); btn.classList.add('success');
+    setSyncDot('synced');
+    setTimeout(() => { btn.textContent = '↓ Pull'; btn.classList.remove('success'); btn.disabled = false; }, 2500);
+  } catch (err) {
+    btn.textContent = '↓ Failed'; btn.classList.remove('pushing'); btn.classList.add('error');
+    setSyncDot('error');
+    setTimeout(() => { btn.textContent = '↓ Pull'; btn.classList.remove('error'); btn.disabled = false; }, 3000);
+    console.error('Pull error:', err);
+  }
+}
+
+// ─── Settings panel ───────────────────────────────────────
+function openSettings() {
+  const { gistId, token } = getCredentials();
+  document.getElementById('input-gist-id').value = gistId;
+  document.getElementById('input-token').value   = token;
+  document.getElementById('settings-status').textContent = '';
+  document.getElementById('settings-status').className   = 'settings-status';
+  document.getElementById('settings-backdrop').style.display = 'flex';
+}
+
+function closeSettings(e) {
+  if (e && e.target !== document.getElementById('settings-backdrop')) return;
+  document.getElementById('settings-backdrop').style.display = 'none';
+}
+
+async function saveSettings() {
+  const gistId = document.getElementById('input-gist-id').value.trim();
+  const token  = document.getElementById('input-token').value.trim();
+  const status = document.getElementById('settings-status');
+
+  if (!gistId || !token) {
+    status.textContent = '✕ Both fields are required.';
+    status.className = 'settings-status error'; return;
+  }
+
+  status.textContent = 'Testing connection…';
+  status.className = 'settings-status';
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' }
+    });
+
+    if (res.status === 404) throw new Error('Gist not found — double-check the ID.');
+    if (res.status === 401) throw new Error('Token rejected — check it was copied correctly.');
+    if (!res.ok)            throw new Error(`GitHub returned ${res.status}.`);
+
+    const data = await res.json();
+    if (!data.files?.[GIST_FILENAME]) {
+      status.textContent = `✕ No file named "${GIST_FILENAME}" found in this Gist. Make sure the filename matches exactly.`;
+      status.className = 'settings-status error'; return;
+    }
+
+    localStorage.setItem('codex-gist-id', gistId);
+    localStorage.setItem('codex-token',   token);
+    setSyncBtns(true);
+    setSyncDot('unsynced');
+    status.textContent = '✓ Connected! Use ↑ Push / ↓ Pull to sync.';
+    status.className = 'settings-status';
+  } catch (err) {
+    status.textContent = '✕ ' + err.message;
+    status.className = 'settings-status error';
+  }
+}
+
+function clearSettings() {
+  localStorage.removeItem('codex-gist-id');
+  localStorage.removeItem('codex-token');
+  document.getElementById('input-gist-id').value = '';
+  document.getElementById('input-token').value   = '';
+  setSyncDot('none'); setSyncBtns(false);
+  const s = document.getElementById('settings-status');
+  s.textContent = 'Credentials cleared.'; s.className = 'settings-status';
+}
 
 // ─── Utilities ────────────────────────────────────────────
 function typeEmoji(t) {
@@ -1017,13 +1328,26 @@ document.getElementById('search-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('modal-backdrop').style.display = 'none';
+  if (e.key === 'Escape') {
+    document.getElementById('modal-backdrop').style.display    = 'none';
+    document.getElementById('settings-backdrop').style.display = 'none';
+  }
 });
 
 // ─── Init ─────────────────────────────────────────────────
 updateStats();
 updateGenreFilterBar();
 renderGrid();
+
+// Check if credentials are already saved
+const _creds = getCredentials();
+if (_creds.gistId && _creds.token) {
+  setSyncBtns(true);
+  setSyncDot('unsynced'); // assume local may differ until first pull
+} else {
+  setSyncBtns(false);
+  setSyncDot('none');
+}
 </script>
 </body>
 </html>
