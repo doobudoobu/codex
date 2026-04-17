@@ -668,11 +668,10 @@ function typeEmoji(t) { return { anime:'📺', manga:'📖', tv:'📡', movie:'�
 function typeLabel(t) { return { anime:'Anime', manga:'Manga', tv:'TV Show', movie:'Movie', game:'Game' }[t] || t; }
 function starsHTML(r) { let h=''; for(let i=1;i<=5;i++) h+=`<span class="${i<=r?'f':'e'}">★</span>`; return h; }
 
-// MangaDex blocks hotlinking via Referer header — no-referrer bypasses this
+// Simple cover image helper
 function coverImg(src, cssClass, alt='') {
   if (!src) return '';
-  const isMD = src.includes('mangadex.org');
-  return `<img src="${src}" class="${cssClass}" alt="${alt}" loading="lazy"${isMD ? ' referrerpolicy="no-referrer" crossorigin="anonymous"' : ''}>`;
+  return `<img src="${src}" class="${cssClass}" alt="${alt}" loading="lazy">`;
 }
 
 function getAllGenres() {
@@ -874,25 +873,37 @@ async function searchAniList(q, type) {
   }));
 }
 
-// ─── MangaDex (manga + manhwa + manhua) ───────────────────
+// ─── AniList manga (covers JP manga, manhwa, manhua) ──────
+// Switched from MangaDex — AniList has no image hotlink issues
 async function searchMangaDex(q) {
-  const apiUrl = `https://api.mangadex.org/manga?title=${encodeURIComponent(q)}&limit=8&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica`;
-  const url    = `https://corsproxy.io/?url=${encodeURIComponent(apiUrl)}`;
-  const res    = await fetch(url);
-  const data   = await res.json();
-  if (!data.data) return [];
-  return data.data.map(m => {
-    const attrs    = m.attributes;
-    const title    = attrs.title.en || attrs.title.ro || Object.values(attrs.title)[0] || 'Unknown Title';
-    const desc     = (attrs.description?.en || Object.values(attrs.description||{})[0] || '').substring(0,700);
-    const coverRel = m.relationships.find(r => r.type === 'cover_art');
-    const cover = coverRel?.attributes?.fileName
-      ? `https://uploads.mangadex.org/covers/${m.id}/${coverRel.attributes.fileName}.256.jpg` : '';
-    const genres   = (attrs.tags||[]).filter(t => t.attributes.group==='genre'||t.attributes.group==='theme').map(t=>t.attributes.name.en).filter(Boolean).slice(0,7);
-    // Determine subtype label for display but store as 'manga'
-    const lang     = attrs.originalLanguage || '';
-    const subtype  = lang === 'ko' ? 'Manhwa' : lang.startsWith('zh') ? 'Manhua' : 'Manga';
-    return { id: m.id, title, cover, description: desc, year: attrs.year||'', type: 'manga', genres, extra: subtype };
+  const gql = `query ($s: String) {
+    Page(perPage: 8) {
+      media(search: $s, type: MANGA) {
+        id title { romaji english } coverImage { large }
+        description(asHtml: false) startDate { year }
+        genres chapters countryOfOrigin
+      }
+    }
+  }`;
+  const res  = await fetch('https://graphql.anilist.co', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ query: gql, variables: { s: q } })
+  });
+  const data = await res.json();
+  return data.data.Page.media.map(m => {
+    const origin  = m.countryOfOrigin || 'JP';
+    const subtype = origin === 'KR' ? 'Manhwa' : origin === 'CN' ? 'Manhua' : 'Manga';
+    return {
+      id:          String(m.id),
+      title:       m.title.english || m.title.romaji,
+      cover:       m.coverImage.large,
+      description: (m.description||'').replace(/<[^>]*>/g,'').substring(0,700),
+      year:        m.startDate?.year || '',
+      type:        'manga',
+      genres:      (m.genres||[]).slice(0,7),
+      extra:       subtype
+    };
   });
 }
 
@@ -1228,8 +1239,6 @@ function openModal(id, e) {
   const ph  = document.getElementById('modal-cover-placeholder');
   if (entry.cover) {
     img.src = entry.cover;
-    img.referrerPolicy = entry.cover.includes('mangadex.org') ? 'no-referrer' : '';
-    img.crossOrigin    = entry.cover.includes('mangadex.org') ? 'anonymous' : null;
     img.style.display='block'; ph.style.display='none';
   }
   else { img.style.display='none'; ph.style.display='flex'; ph.textContent=typeEmoji(entry.type); }
