@@ -879,8 +879,9 @@ async function searchMangaDex(q) {
     const title    = attrs.title.en || attrs.title.ro || Object.values(attrs.title)[0] || 'Unknown Title';
     const desc     = (attrs.description?.en || Object.values(attrs.description||{})[0] || '').substring(0,700);
     const coverRel = m.relationships.find(r => r.type === 'cover_art');
-    const cover    = coverRel?.attributes?.fileName
+    const coverUrl = coverRel?.attributes?.fileName
       ? `https://uploads.mangadex.org/covers/${m.id}/${coverRel.attributes.fileName}.256.jpg` : '';
+    const cover = coverUrl ? `https://corsproxy.io/?url=${encodeURIComponent(coverUrl)}` : '';
     const genres   = (attrs.tags||[]).filter(t => t.attributes.group==='genre'||t.attributes.group==='theme').map(t=>t.attributes.name.en).filter(Boolean).slice(0,7);
     // Determine subtype label for display but store as 'manga'
     const lang     = attrs.originalLanguage || '';
